@@ -1,0 +1,12 @@
+__pycache__
+.vscode
+.venv
+*.zip
+*.log
+/avatar/*
+!avatar/临时招募·迷迭香.jpg
+/build
+*.db.*
+test.py
+log.txt
+*.exe
