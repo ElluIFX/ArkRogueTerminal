@@ -3,8 +3,9 @@ __pycache__
 .venv
 *.zip
 *.log
-/avatar/*
-!avatar/临时招募·迷迭香.jpg
+/ark_data/*
+!ark_data/avatar
+!ark_data/avatar/临时招募·迷迭香.jpg
 /build
 *.db.*
 test.py

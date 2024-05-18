@@ -25,21 +25,38 @@ qdarktheme import after QT
 import qdarktheme
 
 UUID_NAMESPACE = uuid.UUID("1b671a64-40d5-491e-99b0-da01ff1f3341")
-VERSION = "0.2.0"
+VERSION = "0.3.0"
 AVATAR_SIZE = 128  # 软件内头像大小
 OBS_AVATAR_SIZE = 512  # OBS头像大小
-DARK_THEME = True
-DATABASE_NAME = "players.db"
-DATABASE_BACKUP_NAME = "players_backup.db"
-LOGFILE_NAME = "log.txt"
-MAX_SLOT = 16
-DEFAULT_NOTE = "无备注信息"
+DARK_THEME = True  # 是否使用暗色主题
+MAX_SLOT = 16  # 最大记录槽位
+DEFAULT_NOTE = "无备注信息"  # 默认备注信息
+DATA_DIR_NAME = "ark_data"  # 数据文件夹
+AVATAR_DIR_NAME = "avatar"  # 头像文件夹
+OBS_TEMP_DIR_NAME = "obs_temp"  # OBS素材临时文件夹
+LOGFILE_NAME = "log.txt"  # 日志文件名
+DATABASE_NAME = "players.db"  # 数据库前缀
+DATABASE_BACKUP_NAME = "players_backup.db"  # 数据库备份前缀
 
 PATH = os.path.dirname(os.path.abspath(__file__))  # 打包后的临时路径
 ARGV_PATH = os.path.dirname(os.path.abspath(sys.argv[0]))  # 实际上的运行路径
 
+DATA_PATH = os.path.join(ARGV_PATH, DATA_DIR_NAME)
+AVATAR_PATH = os.path.join(DATA_PATH, AVATAR_DIR_NAME)
+OBS_TEMP_PATH = os.path.join(DATA_PATH, OBS_TEMP_DIR_NAME)
+DATABASE_PATH = os.path.join(DATA_PATH, DATABASE_NAME)
+DATABASE_BACKUP_PATH = os.path.join(DATA_PATH, DATABASE_BACKUP_NAME)
+LOGFILE_PATH = os.path.join(DATA_PATH, LOGFILE_NAME)
+
+if not os.path.exists(DATA_PATH):
+    os.makedirs(DATA_PATH)
+if not os.path.exists(AVATAR_PATH):
+    os.makedirs(AVATAR_PATH)
+if not os.path.exists(OBS_TEMP_PATH):
+    os.makedirs(OBS_TEMP_PATH)
+
 logger.remove()
-logger.add(os.path.join(ARGV_PATH, LOGFILE_NAME), level="DEBUG")
+logger.add(LOGFILE_PATH, level="DEBUG")
 if os.path.samefile(PATH, ARGV_PATH):  # 直接运行
     logger.add(sys.stderr, level="DEBUG")
 
@@ -108,9 +125,8 @@ class MainWindow(QMainWindow, MainUITemplate):
         event.accept()
 
     def load_database(self):
-        pt = os.path.join(ARGV_PATH, DATABASE_NAME)
         self.players = {}
-        with shelve.open(pt) as db:
+        with shelve.open(DATABASE_PATH) as db:
             if "__version__" not in db:
                 db["__version__"] = "0.0.0"
             if db["__version__"] != VERSION:
@@ -127,22 +143,20 @@ class MainWindow(QMainWindow, MainUITemplate):
         for name in self.players:
             self.comboBoxSelPlayer.addItem(name)
         self.comboBoxSelPlayer.setCurrentIndex(0)
-        logger.info(f"Database loaded from {pt}")
+        logger.info(f"Database loaded from {DATABASE_PATH}")
         # logger.debug(f"Players={self.players}")
 
     def save_database(self):
         t0 = time.perf_counter()
         try:
-            with shelve.open(os.path.join(ARGV_PATH, DATABASE_NAME), "n") as db:
+            with shelve.open(DATABASE_PATH, "n") as db:
                 for name in self.players:
                     db[name] = self.players[name]
                 db["__version__"] = VERSION
         except Exception as e:
             logger.error(f"Database save failed: {e}, try save to backup")
             try:
-                with shelve.open(
-                    os.path.join(ARGV_PATH, DATABASE_BACKUP_NAME), "n"
-                ) as db:
+                with shelve.open(DATABASE_BACKUP_PATH, "n") as db:
                     for name in self.players:
                         db[name] = self.players[name]
                     db["__version__"] = VERSION
@@ -197,15 +211,16 @@ class MainWindow(QMainWindow, MainUITemplate):
             return
         logger.info(f"Loading player {name}")
         self.player_now = self.players[name]
-        self.load_avatar(name)
+        self.load_avatar()
         self.update_player_info()
         self.comboBoxSelRecord.setCurrentIndex(-1)
         self.comboBoxSelRecord.setCurrentIndex(0)
         # will call on_comboBoxSelRecord_currentIndexChanged
 
-    def load_avatar(self, name: str):
+    def load_avatar(self):
+        name = self.player_now.name
         for ext in ["jpg", "jpeg", "png"]:
-            path = os.path.join(ARGV_PATH, "avatar", f"{name}.{ext}")
+            path = os.path.join(AVATAR_PATH, f"{name}.{ext}")
             if QFile.exists(path):
                 break
         else:
@@ -227,7 +242,9 @@ class MainWindow(QMainWindow, MainUITemplate):
             f"Avatar for {name} loaded from {path} "
             f"({pixmap.width()}x{pixmap.height()})"
         )
-        obs_path = os.path.join(ARGV_PATH, "avatar", f"{name}_obs_resized.png")
+        obs_path = os.path.join(
+            OBS_TEMP_PATH, f"resized_avatar_{self.player_now.uuid}.png"
+        )
         if not QFile.exists(obs_path):
             pixmap.scaled(
                 OBS_AVATAR_SIZE,
@@ -537,7 +554,7 @@ class MainWindow(QMainWindow, MainUITemplate):
         val = self.spinBoxKillSp.value()
         perfect = self.checkBoxKillSpPerfect.isChecked()
         text = self.comboBoxKillSp.currentText()
-        if text == "普通关击杀":
+        if text == "普通关卡":
             score = 20 * val
             text1 = "击杀狗/鸭/熊"
             text2 = f"{val}只"
@@ -579,7 +596,7 @@ class MainWindow(QMainWindow, MainUITemplate):
             "哨兵": 300,
             "时光之沙": 100,
         }
-        self.add_score_change("通关结局关卡", text, score_dict[text])
+        self.add_score_change("结局关卡", text, score_dict[text])
 
     @Slot()
     def on_pushButtonSubmitEnding_clicked(self):
