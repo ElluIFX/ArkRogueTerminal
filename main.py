@@ -243,7 +243,8 @@ class MainWindow(QMainWindow, MainUITemplate):
             f"({pixmap.width()}x{pixmap.height()})"
         )
         obs_path = os.path.join(
-            OBS_TEMP_PATH, f"resized_avatar_{self.player_now.uuid}.png"
+            OBS_TEMP_PATH,
+            f"avatar_{OBS_AVATAR_SIZE}_{self.player_now.uuid}.png",
         )
         if not QFile.exists(obs_path):
             pixmap.scaled(
