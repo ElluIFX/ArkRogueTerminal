@@ -160,6 +160,7 @@ class MainWindow(QMainWindow, MainUITemplate):
         self.save_database()
         if self.connected:
             self.obs.stop()
+        logger.info("Application closed")
         event.accept()
 
     def load_database(self):
@@ -191,7 +192,7 @@ class MainWindow(QMainWindow, MainUITemplate):
         """
         保存数据到数据库, 如果保存失败则备份到另一个数据库
         """
-        t0 = time.perf_counter()
+        # t0 = time.perf_counter()
         try:
             with shelve.open(DATABASE_PATH, "n") as db:
                 for name in self.players:
@@ -208,8 +209,8 @@ class MainWindow(QMainWindow, MainUITemplate):
             except Exception as e:
                 logger.exception("Database backup save failed")
             return
-        t1 = time.perf_counter()
-        logger.info(f"Database saved, cost {t1-t0:.5f}s")
+        # t1 = time.perf_counter()
+        # logger.debug(f"Database saved, cost {t1-t0:.5f}s")
         # logger.debug(f"Players={self.players}")
 
     def update_player_info(self):
