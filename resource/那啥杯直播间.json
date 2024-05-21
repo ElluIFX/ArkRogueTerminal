@@ -6,7 +6,7 @@
             "name": "main"
         }
     ],
-    "name": "那啥杯直播间",
+    "name": "那啥杯直播间 2",
     "groups": [
         {
             "prev_ver": 503316480,
@@ -15,10 +15,10 @@
             "id": "group",
             "versioned_id": "group",
             "settings": {
-                "id_counter": 0,
                 "custom_size": true,
                 "cx": 716,
                 "cy": 307,
+                "id_counter": 0,
                 "items": [
                     {
                         "name": "lower_bk",
@@ -389,7 +389,7 @@
             "id": "image_source",
             "versioned_id": "image_source",
             "settings": {
-                "file": "D:/WorkingSpace/WhatCUP/whatcup_terminal/resource/operator/迷迭香.png"
+                "file": "d:\\WorkingSpace\\WhatCUP\\whatcup_terminal\\resource\\operator\\焰影苇草.png"
             },
             "mixers": 0,
             "sync": 0,
@@ -415,7 +415,7 @@
             "id": "image_source",
             "versioned_id": "image_source",
             "settings": {
-                "file": "D:/WorkingSpace/WhatCUP/whatcup_terminal/ark_data/obs_temp/avatar_180_3e113106-d1d7-5bb9-b625-ca724658283f.png"
+                "file": "d:\\WorkingSpace\\WhatCUP\\whatcup_terminal\\ark_data\\obstemp\\avatar_180_FD08D3EB-1BEB-52C7-9419-FB4B6C4D7044.png"
             },
             "mixers": 0,
             "sync": 0,
@@ -441,7 +441,7 @@
             "id": "image_source",
             "versioned_id": "image_source",
             "settings": {
-                "file": "D:/WorkingSpace/WhatCUP/whatcup_terminal/resource/team/永恒狩猎分队.png"
+                "file": "d:\\WorkingSpace\\WhatCUP\\whatcup_terminal\\resource\\team\\指挥分队.png"
             },
             "mixers": 0,
             "sync": 0,
@@ -458,7 +458,37 @@
             "deinterlace_mode": 0,
             "deinterlace_field_order": 0,
             "monitoring_type": 0,
-            "private_settings": {}
+            "private_settings": {},
+            "filters": [
+                {
+                    "prev_ver": 503316480,
+                    "name": "色彩校正",
+                    "uuid": "8922b8d0-7f34-41a3-bded-c58d8b99da30",
+                    "id": "color_filter",
+                    "versioned_id": "color_filter_v2",
+                    "settings": {
+                        "gamma": -0.040000000000000001,
+                        "brightness": 0.0574,
+                        "saturation": 0.62
+                    },
+                    "mixers": 0,
+                    "sync": 0,
+                    "flags": 0,
+                    "volume": 1.0,
+                    "balance": 0.5,
+                    "enabled": true,
+                    "muted": false,
+                    "push-to-mute": false,
+                    "push-to-mute-delay": 0,
+                    "push-to-talk": false,
+                    "push-to-talk-delay": 0,
+                    "hotkeys": {},
+                    "deinterlace_mode": 0,
+                    "deinterlace_field_order": 0,
+                    "monitoring_type": 0,
+                    "private_settings": {}
+                }
+            ]
         },
         {
             "prev_ver": 503316480,
@@ -467,10 +497,10 @@
             "id": "image_source",
             "versioned_id": "image_source",
             "settings": {
-                "file": "d:\\WorkingSpace\\WhatCUP\\whatcup_terminal\\resource\\toast.png",
-                "linear_alpha": false,
+                "file": "d:\\WorkingSpace\\WhatCUP\\whatcup_terminal\\resource\\plus.png",
+                "undo_suuid": "87e88813-9ecd-4274-8aa6-848cb9119bd7",
                 "unload": false,
-                "undo_suuid": "87e88813-9ecd-4274-8aa6-848cb9119bd7"
+                "linear_alpha": false
             },
             "mixers": 0,
             "sync": 0,
@@ -498,16 +528,16 @@
             "settings": {
                 "chatlog": false,
                 "test": "3.1415926",
+                "text": "临时招募",
                 "font": {
                     "face": "Source Han Serif SC",
-                    "style": "SemiBold",
+                    "flags": 1,
                     "size": 140,
-                    "flags": 1
+                    "style": "SemiBold"
                 },
-                "transform": 1,
-                "antialiasing": true,
                 "color": 4294964681,
-                "text": "最终结算"
+                "transform": 1,
+                "antialiasing": true
             },
             "mixers": 0,
             "sync": 0,
@@ -536,7 +566,7 @@
                         "image_path": "D:/WorkingSpace/WhatCUP/whatcup_terminal/resource/brush.png",
                         "stretch": true,
                         "type": "mask_alpha_filter.effect",
-                        "opacity": 1.0
+                        "opacity": 1
                     },
                     "mixers": 0,
                     "sync": 0,
@@ -568,14 +598,14 @@
                 "test": "3.1415926",
                 "font": {
                     "face": "Source Han Serif SC",
-                    "style": "SemiBold",
+                    "flags": 1,
                     "size": 100,
-                    "flags": 1
+                    "style": "SemiBold"
                 },
+                "color": 4294964681,
                 "transform": 0,
                 "antialiasing": true,
-                "color": 4294964681,
-                "text": "藏品:20 密文板:17 SP"
+                "text": "四星干员"
             },
             "mixers": 0,
             "sync": 0,
@@ -633,17 +663,17 @@
             "settings": {
                 "chatlog": false,
                 "test": "3.1415926",
+                "undo_suuid": "b0fc1524-d9c2-446e-b58c-efe028bfd3d0",
+                "text": "10",
                 "font": {
                     "face": "思源宋体 Medium",
-                    "style": "Medium",
+                    "flags": 0,
                     "size": 160,
-                    "flags": 0
+                    "style": "Medium"
                 },
-                "transform": 0,
-                "antialiasing": true,
-                "undo_suuid": "b0fc1524-d9c2-446e-b58c-efe028bfd3d0",
                 "color": 4294964681,
-                "text": " "
+                "transform": 0,
+                "antialiasing": true
             },
             "mixers": 0,
             "sync": 0,
@@ -670,8 +700,8 @@
                     "versioned_id": "mask_filter_v2",
                     "settings": {
                         "image_path": "D:/WorkingSpace/WhatCUP/whatcup_terminal/resource/brush.png",
-                        "type": "mask_alpha_filter.effect",
-                        "stretch": true
+                        "stretch": true,
+                        "type": "mask_alpha_filter.effect"
                     },
                     "mixers": 0,
                     "sync": 0,
@@ -704,14 +734,14 @@
                 "undo_suuid": "b0fc1524-d9c2-446e-b58c-efe028bfd3d0",
                 "font": {
                     "face": "思源宋体 Medium",
-                    "style": "Medium",
+                    "flags": 0,
                     "size": 140,
-                    "flags": 0
+                    "style": "Medium"
                 },
                 "color": 4294964681,
                 "transform": 0,
                 "antialiasing": true,
-                "text": "335"
+                "text": " "
             },
             "mixers": 0,
             "sync": 0,
@@ -767,8 +797,8 @@
             "id": "scene",
             "versioned_id": "scene",
             "settings": {
-                "id_counter": 33,
                 "custom_size": false,
+                "id_counter": 33,
                 "items": [
                     {
                         "name": "background 2",
@@ -887,7 +917,7 @@
                     {
                         "name": "icon_operator",
                         "source_uuid": "0f828345-fb1d-4e9f-86e7-99e154040b18",
-                        "visible": true,
+                        "visible": false,
                         "locked": true,
                         "rot": 0.0,
                         "pos": {
@@ -1185,8 +1215,8 @@
                             "versioned_id": "swipe_transition",
                             "name": "group1 显示转场动画",
                             "transition": {
-                                "swipe_in": true,
-                                "direction": "left"
+                                "direction": "left",
+                                "swipe_in": true
                             },
                             "duration": 1000
                         },
@@ -1244,7 +1274,7 @@
                     {
                         "name": "icon_team",
                         "source_uuid": "89d93166-fee7-4e1c-a23e-b8792e635f04",
-                        "visible": true,
+                        "visible": false,
                         "locked": true,
                         "rot": 0.0,
                         "pos": {
@@ -1523,9 +1553,9 @@
             "id": "ffmpeg_source",
             "versioned_id": "ffmpeg_source",
             "settings": {
+                "hw_decode": true,
                 "local_file": "D:/Videos/Other/明日方舟2022感谢庆典印象曲 - Running In the Dark by MONKEY MAJIK_out.mp4",
-                "looping": true,
-                "hw_decode": true
+                "looping": true
             },
             "mixers": 255,
             "sync": 0,
@@ -1560,25 +1590,25 @@
             "id": "text_gdiplus",
             "versioned_id": "text_gdiplus_v2",
             "settings": {
+                "chatlog": false,
+                "extents": false,
+                "outline": true,
+                "text": "1",
+                "undo_suuid": "97920d5f-5a8c-48db-9ae0-58af87c6065e",
                 "font": {
                     "face": "思源宋体 SemiBold",
-                    "style": "SemiBold",
+                    "flags": 1,
                     "size": 128,
-                    "flags": 1
+                    "style": "SemiBold"
                 },
-                "outline": true,
-                "outline_color": 4294943513,
-                "outline_size": 4,
-                "outline_opacity": 63,
-                "extents": false,
                 "align": "center",
-                "extents_cx": 200,
-                "extents_cy": 140,
-                "text": "1",
-                "extents_wrap": false,
-                "chatlog": false,
                 "valign": "center",
-                "undo_suuid": "97920d5f-5a8c-48db-9ae0-58af87c6065e"
+                "outline_size": 4,
+                "outline_color": 4294943513,
+                "outline_opacity": 63,
+                "extents_wrap": false,
+                "extents_cx": 200,
+                "extents_cy": 140
             },
             "mixers": 0,
             "sync": 0,
@@ -1604,20 +1634,20 @@
             "id": "text_gdiplus",
             "versioned_id": "text_gdiplus_v2",
             "settings": {
+                "extents": false,
+                "outline": false,
+                "undo_suuid": "b596e9b3-6f9b-490d-9355-b00f0da5c749",
+                "text": "临时招募·迷迭香",
                 "font": {
                     "face": "思源宋体 Heavy",
-                    "style": "Heavy",
+                    "flags": 1,
                     "size": 30,
-                    "flags": 1
+                    "style": "Heavy"
                 },
-                "outline": false,
-                "extents": false,
                 "align": "center",
                 "valign": "center",
-                "extents_cy": 60,
                 "extents_cx": 200,
-                "text": "迷迭迷迭香",
-                "undo_suuid": "b596e9b3-6f9b-490d-9355-b00f0da5c749"
+                "extents_cy": 60
             },
             "mixers": 0,
             "sync": 0,
@@ -1647,7 +1677,7 @@
                         "stretch": true,
                         "type": "mask_alpha_filter.effect",
                         "color": 4294967295,
-                        "opacity": 1.0
+                        "opacity": 1
                     },
                     "mixers": 0,
                     "sync": 0,
@@ -1675,14 +1705,14 @@
             "id": "text_gdiplus",
             "versioned_id": "text_gdiplus_v2",
             "settings": {
-                "outline": true,
-                "extents": false,
                 "chatlog": false,
+                "extents": false,
+                "outline": true,
                 "font": {
                     "face": "思源宋体 Medium",
-                    "style": "Medium",
+                    "flags": 0,
                     "size": 128,
-                    "flags": 0
+                    "style": "Medium"
                 },
                 "align": "center",
                 "valign": "center",
@@ -1693,7 +1723,7 @@
                 "extents_cx": 200,
                 "extents_cy": 140,
                 "transform": 1,
-                "text": "740"
+                "text": "2520"
             },
             "mixers": 0,
             "sync": 0,
@@ -1719,14 +1749,14 @@
             "id": "text_gdiplus",
             "versioned_id": "text_gdiplus_v2",
             "settings": {
+                "text": "解说1    解说2    解说3",
+                "undo_suuid": "834a9655-2f5c-47a2-8e05-9f0c5d8d8c4a",
                 "font": {
                     "face": "思源宋体 Heavy",
-                    "style": "Heavy",
+                    "flags": 1,
                     "size": 80,
-                    "flags": 1
-                },
-                "text": "解说1    解说2    解说3",
-                "undo_suuid": "834a9655-2f5c-47a2-8e05-9f0c5d8d8c4a"
+                    "style": "Heavy"
+                }
             },
             "mixers": 0,
             "sync": 0,
@@ -1752,11 +1782,11 @@
                     "id": "mask_filter",
                     "versioned_id": "mask_filter_v2",
                     "settings": {
-                        "type": "mask_alpha_filter.effect",
                         "image_path": "D:/WorkingSpace/WhatCUP/whatcup_terminal/resource/brush.png",
                         "stretch": true,
-                        "opacity": 1.0,
-                        "color": 4294967295
+                        "type": "mask_alpha_filter.effect",
+                        "color": 4294967295,
+                        "opacity": 1
                     },
                     "mixers": 0,
                     "sync": 0,

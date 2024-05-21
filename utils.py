@@ -79,6 +79,8 @@ class ReqClientEx(obs.ReqClient):
         num: int,
         duration: float = 3,
         animation: float = 1,
+        plus_bk_path: str = "plus.png",
+        minus_bk_path: str = "minus.png",
     ):
         GROUP_NAME = "lower_group"
         LINE1_NAME = "lower_text_a"
@@ -86,9 +88,7 @@ class ReqClientEx(obs.ReqClient):
         TWO_DIGIT_NAME = "lower_text_c"
         THREE_DIGIT_NAME = "lower_text_d"
         BK_NAME = "lower_bk"
-        PLUS_BK = "resource/toast.png"
         PLUS_COLOR = 0xFFFFF5C9
-        MINUS_BK = "resource/toast2.png"
         MINUS_COLOR = 0xFF5C59FF
 
         if abs(num) < 100:
@@ -98,10 +98,10 @@ class ReqClientEx(obs.ReqClient):
             name = THREE_DIGIT_NAME
             name_o = TWO_DIGIT_NAME
         if num >= 0:
-            path = os.path.join(os.path.dirname(__file__), PLUS_BK)
+            path = plus_bk_path
             color = PLUS_COLOR
         else:
-            path = os.path.join(os.path.dirname(__file__), MINUS_BK)
+            path = minus_bk_path
             color = MINUS_COLOR
         self.set_input_settings(LINE1_NAME, {"text": line1, "color": color}, True)
         self.set_input_settings(LINE2_NAME, {"text": line2, "color": color}, True)
@@ -122,6 +122,22 @@ class ReqClientEx(obs.ReqClient):
 
     def set_score(self, score: int):
         self.set_input_settings("text_score", {"text": str(round(score))}, True)
+
+    def set_player(self, name: str, avatar_path: str):
+        self.set_input_settings("text_player", {"text": name}, True)
+        self.set_input_settings("icon_player", {"file": avatar_path}, True)
+
+    def set_start(self, team_path: str, operator_path: str):
+        if team_path:
+            self.set_input_settings("icon_team", {"file": team_path}, True)
+            self.set_source_enabled("main", "icon_team", True)
+        else:
+            self.set_source_enabled("main", "icon_team", False)
+        if operator_path:
+            self.set_input_settings("icon_operator", {"file": operator_path}, True)
+            self.set_source_enabled("main", "icon_operator", True)
+        else:
+            self.set_source_enabled("main", "icon_operator", False)
 
 
 class Worker(QObject):
@@ -175,6 +191,7 @@ class ReqClientExQThread(QThread):
         self.worker_thread.started.connect(self.worker.run)
         self.worker_thread.start()
         self.inited = True
+        self.paused = False
         logger.success("OBS Client prepared")
 
     def __del__(self):
@@ -193,8 +210,12 @@ class ReqClientExQThread(QThread):
     def fake(self) -> ReqClientEx:
         return self
 
+    def set_pause(self, pause: bool):
+        self.paused = pause
+
     def run_action(self, action: str, *args, **kwargs):
-        self.worker.action(action, args, kwargs)
+        if not self.paused:
+            self.worker.action(action, args, kwargs)
 
     def __getattr__(self, item):
         if item in dir(self.client):
