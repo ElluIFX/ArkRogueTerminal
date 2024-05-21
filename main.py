@@ -9,15 +9,20 @@ from copy import copy
 from dataclasses import dataclass
 
 from loguru import logger
-from PySide6 import *
-from PySide6.QtCore import *
-from PySide6.QtGui import *
-from PySide6.QtMultimedia import *
-from PySide6.QtMultimediaWidgets import *
-from PySide6.QtWidgets import *
+from PySide6.QtCore import QFile, QPoint, Qt, QTimer, Slot
+from PySide6.QtGui import QCloseEvent, QIcon, QPixmap
+from PySide6.QtWidgets import (
+    QApplication,
+    QCheckBox,
+    QInputDialog,
+    QMainWindow,
+    QMenu,
+    QMessageBox,
+)
 
 from log_redirect import redirect_logging
 from ui import MainUITemplate
+from utils import ReqClientExQThread
 
 """
 qdarktheme import after QT
@@ -27,7 +32,7 @@ import qdarktheme
 UUID_NAMESPACE = uuid.UUID("1b671a64-40d5-491e-99b0-da01ff1f3341")
 VERSION = "0.3.0"
 AVATAR_SIZE = 128  # 软件内头像大小
-OBS_AVATAR_SIZE = 512  # OBS头像大小
+OBS_AVATAR_SIZE = 180  # OBS头像大小
 DARK_THEME = True  # 是否使用暗色主题
 MAX_SLOT = 16  # 最大记录槽位
 DEFAULT_NOTE = "无备注信息"  # 默认备注信息
@@ -37,6 +42,7 @@ OBS_TEMP_DIR_NAME = "obs_temp"  # OBS素材临时文件夹
 LOGFILE_NAME = "log.txt"  # 日志文件名
 DATABASE_NAME = "players.db"  # 数据库前缀
 DATABASE_BACKUP_NAME = "players_backup.db"  # 数据库备份前缀
+OBS_TOAST_DURATION = 2  # OBS弹幕显示时间
 
 PATH = os.path.dirname(os.path.abspath(__file__))  # 打包后的临时路径
 ARGV_PATH = os.path.dirname(os.path.abspath(sys.argv[0]))  # 实际上的运行路径
@@ -101,6 +107,8 @@ class MainWindow(QMainWindow, MainUITemplate):
         self.setWindowIcon(QIcon(os.path.join(PATH, "icon.png")))
 
         self.players: dict[str, Player] = {}
+        self.connected = False
+        self.obs: ReqClientExQThread = None
 
         for i in range(MAX_SLOT):
             self.comboBoxSelRecord.addItem(f"{i+1}")
@@ -122,6 +130,8 @@ class MainWindow(QMainWindow, MainUITemplate):
 
     def closeEvent(self, event: QCloseEvent) -> None:
         self.save_database()
+        if self.connected:
+            self.obs.stop()
         event.accept()
 
     def load_database(self):
@@ -430,6 +440,8 @@ class MainWindow(QMainWindow, MainUITemplate):
         self.record.score = score
         self.update_player_info()
         logger.info(f"Score recalculated: {score:.4f}")
+        if self.connected:
+            self.obs.fake.set_score(self.record.score)
         ###### 以下为额外逻辑 ######
         six, five, four = 0, 0, 0
         for text in self.record.data:
@@ -449,6 +461,8 @@ class MainWindow(QMainWindow, MainUITemplate):
             text += f" {info2}"
         if is_multi:
             text += f" x{change:.4f}".rstrip("0").rstrip(".")
+            info2 = f"最终乘算 x{change+1:.4f}".rstrip("0").rstrip(".")
+            change = 0
         else:
             text += f" {change:+}"
         self.listRecord.addItem(text)
@@ -457,6 +471,10 @@ class MainWindow(QMainWindow, MainUITemplate):
         self.record.time = int(datetime.datetime.now().timestamp())
         logger.info(f"Score change added: {text}")
         self.recalc_score()
+        if self.connected and self.checkBoxEnLowers.isChecked():
+            self.obs.fake.display_lower(
+                info1.split(" ")[0], info2, change, duration=OBS_TOAST_DURATION
+            )
 
     @Slot()
     def on_spinBoxBaseScore_editingFinished(self):
@@ -632,7 +650,7 @@ class MainWindow(QMainWindow, MainUITemplate):
         score = 10 * ter + 5 * table + (50 if wyzl else 0)
         self.add_score_change(
             "最终结算",
-            f"藏品:{ter} 密文板:{table}" + (" 无垠赠礼" if wyzl else ""),
+            f"藏品:{ter} 密文板:{table}" + (" SP" if wyzl else ""),
             score,
         )
 
@@ -668,6 +686,39 @@ class MainWindow(QMainWindow, MainUITemplate):
         # 反选全部checkbox
         for widget in self.frameBan.findChildren(QCheckBox):
             widget.setChecked(not widget.isChecked())
+
+    @Slot()
+    def on_pushButtonConnect_clicked(self):
+        if self.connected:
+            self.obs.stop()
+            self.pushButtonConnect.setText("连接OBS")
+            self.connected = False
+            self.labelConState.setText("/// PRTS 未连接 ///")
+            self.labelConState.setStyleSheet("")
+        else:
+            try:
+                self.obs = ReqClientExQThread(
+                    "127.0.0.1", self.spinBoxConPort.value(), "", timeout=1
+                )
+            except Exception as e:
+                logger.exception(f"OBS Client connection failed: {e}")
+                QMessageBox.warning(
+                    self,
+                    "连接失败",
+                    "请检查OBS是否已启动并设置正确的端口号\n(请不要开启身份验证!)",
+                )
+                return
+            self.pushButtonConnect.setText("断开OBS")
+            self.connected = True
+            self.labelConState.setText("/// PRTS 已连接 ///")
+            self.labelConState.setStyleSheet("color: #93bd7a")
+
+    @Slot()
+    def on_pushButtonClrLowers_clicked(self):
+        if not self.connected:
+            logger.warning("OBS not connected")
+            return
+        self.obs.clear()
 
 
 def clear_splash():
