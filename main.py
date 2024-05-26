@@ -3,7 +3,6 @@ import os
 import shelve
 import sys
 import tempfile
-import time
 import uuid
 from copy import copy
 from dataclasses import dataclass
@@ -30,7 +29,7 @@ qdarktheme import after QT
 import qdarktheme
 
 UUID_NAMESPACE = uuid.UUID("1b671a64-40d5-491e-99b0-da01ff1f3341")
-VERSION = "0.3.0"
+VERSION = "1.0.0"
 AVATAR_SIZE = 140  # 软件内头像大小
 OBS_AVATAR_SIZE = 180  # OBS头像大小
 DARK_THEME = True  # 是否使用暗色主题
@@ -253,13 +252,16 @@ class MainWindow(QMainWindow, MainUITemplate):
             f"{score} ( Slot {max_index+1} )" if max_score >= 0 else "N/A"
         )
 
-    def sync_obs_player_info(self):
+    def sync_obs_player_info(self, skip_sync_name=False):
         """
         同步OBS直播间的玩家信息
+
+        skip_sync_name: 是否跳过同步干员名字(耗时, 因为要计算文本对齐)
         """
         if not self.connected:
             return
-        self.obs.fake.set_player(self.player_now.name, self.avatar_obs_path)
+        if not skip_sync_name:
+            self.obs.fake.set_player(self.player_now.name, self.avatar_obs_path)
         self.obs.fake.set_start(
             os.path.join(START_TEAM_PATH, f"{self.record.start_team}.png")
             if self.record.start_team != "未知"
@@ -268,7 +270,7 @@ class MainWindow(QMainWindow, MainUITemplate):
             if self.record.start_operator != "未知"
             else "",
         )
-        self.obs.fake.set_score(self.record.score)
+        self.obs.fake.set_score(f"{self.record.score:.4f}".rstrip("0").rstrip("."))
 
     def load_player(self, name: str):
         """
@@ -486,14 +488,14 @@ class MainWindow(QMainWindow, MainUITemplate):
     def on_comboBoxStartOperator_currentIndexChanged(self, index: int):
         name = self.comboBoxStartOperator.currentText()
         self.record.start_operator = name
-        self.sync_obs_player_info()
+        self.sync_obs_player_info(True)
         logger.info(f"Start operator updated: {name}")
 
     @Slot(int)
     def on_comboBoxStartTeam_currentIndexChanged(self, index: int):
         name = self.comboBoxStartTeam.currentText()
         self.record.start_team = name
-        self.sync_obs_player_info()
+        self.sync_obs_player_info(True)
         logger.info(f"Start team updated: {name}")
 
     # listRecord 删除
@@ -535,7 +537,7 @@ class MainWindow(QMainWindow, MainUITemplate):
         self.update_player_info()
         logger.info(f"Score recalculated: {score:.4f}")
         if self.connected:
-            self.obs.fake.set_score(self.record.score)
+            self.obs.fake.set_score(f"{score:.4f}".rstrip("0").rstrip("."))
         ###### 以下为额外逻辑 ######
         six, five, four = 0, 0, 0
         for text in self.record.data:
@@ -582,6 +584,15 @@ class MainWindow(QMainWindow, MainUITemplate):
         self.record.valid = True
         logger.info(f"Base score changed to {self.record.base_score}")
         self.recalc_score()
+        if self.connected and self.checkBoxEnLowers.isChecked():
+            self.obs.fake.display_lower(
+                "基础分数",
+                f"+{self.record.base_score}",
+                0,
+                duration=OBS_TOAST_DURATION,
+                plus_bk_path=os.path.join(RESOURCE_PATH, OBS_TOAST_PLUS_IMG_NAME),
+                minus_bk_path=os.path.join(RESOURCE_PATH, OBS_TOAST_MINUS_IMG_NAME),
+            )
 
     @Slot()
     def on_pushButtonConnect_clicked(self):
@@ -610,6 +621,7 @@ class MainWindow(QMainWindow, MainUITemplate):
             self.labelConState.setText("/// PRTS 已连接 ///")
             self.labelConState.setStyleSheet("color: #93bd7a")
             self.obs.set_pause(self.checkBoxPause.isChecked())
+            self.sync_obs_player_info()
 
     @Slot()
     def on_pushButtonClrLowers_clicked(self):

@@ -63,9 +63,9 @@ class ReqClientEx(obs.ReqClient):
             self.find_source(scene_name, web_item_name)["sceneItemId"],
             False,
         )
-        # time.sleep(0.1)
+        # time.sleep(0.15)
         self.set_input_settings(web_item_name, {"url": addr}, True)
-        # time.sleep(0.2)
+        # time.sleep(0.15)
         self.set_scene_item_enabled(
             scene_name,
             self.find_source(scene_name, web_item_name)["sceneItemId"],
@@ -120,12 +120,85 @@ class ReqClientEx(obs.ReqClient):
         self.set_source_enabled("main", GROUP_NAME, False)
         time.sleep(animation)
 
-    def set_score(self, score: int):
-        self.set_input_settings("text_score", {"text": str(round(score))}, True)
+    def set_score(self, score: str):
+        MID_X = 625  # 文字的对齐中心X
+        Y = 963  # 文字的Y
+        score = str(score)
+        self.set_input_settings("text_score", {"text": score}, True)
+        # time.sleep(0.15)
+        width = 35 * len(score)
+        if "." in score:
+            width -= 14
+        x = MID_X - width / 2
+        self.set_scene_item_transform(
+            "main",
+            self.find_source("main", "text_score")["sceneItemId"],
+            {"positionX": x, "positionY": Y},
+        )
 
     def set_player(self, name: str, avatar_path: str):
-        self.set_input_settings("text_player", {"text": name}, True)
+        MID_X = 130  # 文字的对齐中心X
+        X_MIN = 28  # 文字的左换行边界
+        Y1 = 390  # 第一行文字的Y
+        Y2 = 377  # 第二行文字的Y
+        Y3 = 415  # 第三行文字的Y
+        Y2_ONLY = 395  # 只有第二行文字的Y
+
         self.set_input_settings("icon_player", {"file": avatar_path}, True)
+        self.set_source_enabled("main", "text_player1", False)
+        self.set_source_enabled("main", "text_player2", False)
+        self.set_source_enabled("main", "text_player3", False)
+        self.set_input_settings("text_player1", {"text": name}, True)
+        time.sleep(0.15)
+        width = self.find_source("main", "text_player1", cache=False)[
+            "sceneItemTransform"
+        ]["width"]
+        x = MID_X - width / 2
+        if x >= X_MIN:
+            self.set_scene_item_transform(
+                "main",
+                self.find_source("main", "text_player1")["sceneItemId"],
+                {"positionX": x, "positionY": Y1},
+            )
+            self.set_source_enabled("main", "text_player1", True)
+            return
+        self.set_input_settings("text_player2", {"text": name}, True)
+        time.sleep(0.15)
+        width = self.find_source("main", "text_player2", cache=False)[
+            "sceneItemTransform"
+        ]["width"]
+        x = MID_X - width / 2
+        if x >= X_MIN:
+            self.set_scene_item_transform(
+                "main",
+                self.find_source("main", "text_player2")["sceneItemId"],
+                {"positionX": x, "positionY": Y2_ONLY},
+            )
+            self.set_source_enabled("main", "text_player2", True)
+            return
+        text1 = name[: len(name) // 2 + 1]
+        text2 = name[len(name) // 2 + 1 :]
+        self.set_input_settings("text_player2", {"text": text1}, True)
+        self.set_input_settings("text_player3", {"text": text2}, True)
+        time.sleep(0.15)
+        width1 = self.find_source("main", "text_player2", cache=False)[
+            "sceneItemTransform"
+        ]["width"]
+        width2 = self.find_source("main", "text_player3", cache=False)[
+            "sceneItemTransform"
+        ]["width"]
+        self.set_scene_item_transform(
+            "main",
+            self.find_source("main", "text_player2")["sceneItemId"],
+            {"positionX": MID_X - width1 / 2, "positionY": Y2},
+        )
+        self.set_scene_item_transform(
+            "main",
+            self.find_source("main", "text_player3")["sceneItemId"],
+            {"positionX": MID_X - width2 / 2, "positionY": Y3},
+        )
+        self.set_source_enabled("main", "text_player2", True)
+        self.set_source_enabled("main", "text_player3", True)
 
     def set_start(self, team_path: str, operator_path: str):
         if team_path:

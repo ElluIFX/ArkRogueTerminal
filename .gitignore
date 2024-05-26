@@ -12,3 +12,4 @@ test.py
 log.txt
 *.exe
 *.bak
+*.pdf
