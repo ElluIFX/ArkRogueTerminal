@@ -22,3 +22,7 @@
 - [x] OBS总分实时同步
 - [x] OBS得分浮窗通知效果
 - [x] OBS界面管理（开局、解说、页面切换）
+
+## 使用说明
+
+见 [instruction.md](./instruction.md)
