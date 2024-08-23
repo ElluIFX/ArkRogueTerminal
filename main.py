@@ -658,7 +658,8 @@ class MainWindow(QMainWindow, MainUITemplate):
     def on_comboBoxEmerg_currentIndexChanged(self, index: int):
         text = self.comboBoxEmerg.currentText()
         self.checkBoxEmergBswLessFour.setChecked(False)
-        if "溃乱魔典" in text or "大棋一盘" in text:
+        self.pushButtonSubmitEmerg.setEnabled("—" not in text)
+        if "溃乱魔典" in text or "大棋一盘" in text or "BOSS" in text or "—" in text:
             self.checkBoxEmergBswLessFour.setEnabled(False)
         else:
             self.checkBoxEmergBswLessFour.setEnabled(True)
@@ -688,7 +689,12 @@ class MainWindow(QMainWindow, MainUITemplate):
 
     @Slot()
     def on_pushButtonSubmitEmerg_clicked(self):
-        text = self.comboBoxEmerg.currentText().split("<")[0]
+        text = (
+            self.comboBoxEmerg.currentText()
+            .split("<")[0]
+            .replace("【", "")
+            .replace("】", "")
+        )
         if text.startswith("—"):
             return
         score_dict = {
@@ -707,6 +713,9 @@ class MainWindow(QMainWindow, MainUITemplate):
             "谋求共识": 70,
             "神圣的渴求": 40,
             "三层BOSS关": 30,
+            "四层普通紧急": 0,
+            "五层普通紧急": 0,
+            "六层普通紧急": 0,
         }
         score = score_dict[text]
         text2 = ""
@@ -727,6 +736,8 @@ class MainWindow(QMainWindow, MainUITemplate):
             if "<" in self.comboBoxEmerg.currentText():
                 score += 30
                 text2 += "卫国前夜"
+        if score == 0:
+            return
         self.add_score_change(text, text2, score)
 
     @Slot()
@@ -818,8 +829,8 @@ class MainWindow(QMainWindow, MainUITemplate):
     def on_pushButtonSubmitBan_clicked(self):
         mul = 0
         if self.radioButtonWsde2.isChecked():
-            mul -= 0.2
-        elif self.radioButtonWsde3.isChecked():
+            self.add_score_change("抓取维什戴尔", "独立乘算", -0.2, is_multi=True)
+        if self.radioButtonWsde3.isChecked():
             mul += 0.0711
 
         def get_ban_count(checkBox: QCheckBox):
