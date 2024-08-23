@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (
     QMessageBox,
 )
 
-from log_redirect import redirect_logging
+import richuru
 from ui import MainUITemplate
 from utils import ReqClientExQThread
 
@@ -28,11 +28,10 @@ qdarktheme import after QT
 """
 import qdarktheme
 
-UUID_NAMESPACE = uuid.UUID("1b671a64-40d5-491e-99b0-da01ff1f3341")
+UUID_NAMESPACE = uuid.UUID("1b671a64-40d5-491e-99b0-da01ff1f3342")
 VERSION = "1.0.0"
 AVATAR_SIZE = 140  # 软件内头像大小
 OBS_AVATAR_SIZE = 180  # OBS头像大小
-DARK_THEME = True  # 是否使用暗色主题
 MAX_SLOT = 16  # 最大记录槽位
 DEFAULT_NOTE = "无备注信息"  # 默认备注信息
 DATA_DIR_NAME = "ark_data"  # 数据文件夹
@@ -75,11 +74,9 @@ if not os.path.exists(START_TEAM_PATH):
     os.makedirs(START_TEAM_PATH)
 
 logger.remove()
-logger.add(LOGFILE_PATH, level="DEBUG")
+logger.add(LOGFILE_PATH, level="DEBUG", backtrace=True)
 if os.path.samefile(PATH, ARGV_PATH):  # 直接运行
-    logger.add(sys.stderr, level="DEBUG")
-
-redirect_logging("INFO")
+    richuru.install()
 
 generate_uuid = lambda name: str(
     uuid.uuid5(UUID_NAMESPACE, name + str(datetime.datetime.now()))
@@ -107,7 +104,7 @@ class Player:
 
 TEMP_PLAYER = Player(
     "临时招募·迷迭香",
-    "超大杯, 信我!",
+    "超大杯",
     generate_uuid("临时招募·迷迭香"),
     [Record(list()) for _ in range(MAX_SLOT)],
 )
@@ -118,7 +115,9 @@ class MainWindow(QMainWindow, MainUITemplate):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
 
-        self.setWindowTitle(f"罗德岛裁判终端 Beta - 萨米肉鸽 - {VERSION} by Ellu")
+        self.setWindowTitle(
+            f"罗德岛裁判终端 Beta - 荆楚歌/萨卡兹的无终奇语 - {VERSION} by Ellu"
+        )
         self.setWindowIcon(QIcon(os.path.join(PATH, "icon.png")))
 
         self.players: dict[str, Player] = {}
@@ -520,18 +519,18 @@ class MainWindow(QMainWindow, MainUITemplate):
 
     def recalc_score(self):
         score = self.record.base_score
-        score_multi = 0
+        score_multi = []
         for i in range(self.listRecord.count()):
             item = self.listRecord.item(i)
             text = item.text()
             if "x" in text:
-                score_multi += float(text.split("x")[-1])
+                score_multi.append(float(text.split("x")[-1]))
             elif "+" in text:
                 score += int(text.split("+")[-1])
             elif "-" in text:
                 score -= int(text.split("-")[-1])
-        if score_multi != 0:
-            score *= 1 + score_multi
+        for mul in score_multi:
+            score *= mul
         self.labelScore.setText(f"{score:.4f}".rstrip("0").rstrip("."))
         self.record.score = score
         self.update_player_info()
@@ -556,7 +555,7 @@ class MainWindow(QMainWindow, MainUITemplate):
         if info2:
             text += f" {info2}"
         if is_multi:
-            text += f" x{change:.4f}".rstrip("0").rstrip(".")
+            text += f" x{change+1:.4f}".rstrip("0").rstrip(".")
             info2 = f"最终乘算 x{change+1:.4f}".rstrip("0").rstrip(".")
             change = 0
         else:
@@ -643,39 +642,26 @@ class MainWindow(QMainWindow, MainUITemplate):
     @Slot(int)
     def on_comboBoxKillSp_currentIndexChanged(self, index: int):
         text = self.comboBoxKillSp.currentText()
-        self.checkBoxKillSpPerfect.setEnabled(text in ["正义使者", "英雄无名"])
-        if text == "豪华车队":
-            self.labelKillSp.setText("击杀熊")
-            self.spinBoxKillSp.setValue(1)
-            self.spinBoxKillSp.setEnabled(False)
-        else:
-            self.spinBoxKillSp.setEnabled(True)
-            self.spinBoxKillSp.setValue(0)
-            self.labelKillSp.setText(
-                "击杀敌人" if text == "英雄无名" else "击杀狗/鸭/熊"
-            )
-
-    def __check_slzt(self):
-        self.checkBoxEndingNoSlzt.setEnabled(
-            self.comboBoxEnding2.currentText() == "自深处的一瞥"
-            and self.comboBoxEnding3.currentText() == "终始"
+        self.checkBoxKillSpPerfect.setEnabled(text in ["鸭速公路<紧急>"])
+        self.checkBoxKillSpPerfect.setChecked(False)
+        if "信号灯" in text or "劫虚济实" in text or "叙事邀约" in text:
+            self.checkBoxKillSpPerfect.setChecked(True)
+        self.spinBoxKillSp.setEnabled(
+            "狭路相逢" not in text
+            and "叙事邀约" not in text
+            and "战场侧面" not in text
+            and "信号灯" not in text
+            and "劫虚济实" not in text
         )
-
-    @Slot(int)
-    def on_comboBoxEnding2_currentIndexChanged(self, index: int):
-        self.__check_slzt()
-
-    @Slot(int)
-    def on_comboBoxEnding3_currentIndexChanged(self, index: int):
-        self.__check_slzt()
 
     @Slot(int)
     def on_comboBoxEmerg_currentIndexChanged(self, index: int):
         text = self.comboBoxEmerg.currentText()
-        con = text in ["冰海疑影", "乐理之灾", "公司纠葛", "人造物狂欢节", "亡者行军"]
-        self.checkBoxEmergHasLw.setEnabled(con)
-        if not con:
-            self.checkBoxEmergHasLw.setChecked(False)
+        self.checkBoxEmergBswLessFour.setChecked(False)
+        if "溃乱魔典" in text or "大棋一盘" in text:
+            self.checkBoxEmergBswLessFour.setEnabled(False)
+        else:
+            self.checkBoxEmergBswLessFour.setEnabled(True)
 
     @Slot()
     def on_pushButtonSubmitCustom_clicked(self):
@@ -702,57 +688,73 @@ class MainWindow(QMainWindow, MainUITemplate):
 
     @Slot()
     def on_pushButtonSubmitEmerg_clicked(self):
-        text = self.comboBoxEmerg.currentText()
-        add = self.checkBoxEmergHasLw.isChecked()
+        text = self.comboBoxEmerg.currentText().split("<")[0]
+        if text.startswith("—"):
+            return
         score_dict = {
-            "冰海疑影": 30 if add else 20,
-            "公司纠葛": 30 if add else 20,
-            "坍缩体的午后": 20,
-            "人造物狂欢节": 110 if add else 90,
-            "本能污染": 50,
-            "亡者行军": 70 if add else 50,
-            "乐理之灾": 55 if add else 35,
-            "生灵的终点": 90,
-            "BOSS-大地醒转": 50,
-            "BOSS-呼吸": 50,
-            "BOSS-夺树者": 50,
+            "溃乱魔典": 30,
+            "大棋一盘": 20,
+            "猩红甬道": 40,
+            "假象对冲": 30,
+            "朽败考察": 20,
+            "年代断层": 0,
+            "计划耕种": 70,
+            "寄人城池下": 50,
+            "通道封锁": 30,
+            "无罪净土": 30,
+            "巫咒同盟": 30,
+            "残损学院": 20,
+            "谋求共识": 70,
+            "神圣的渴求": 40,
+            "三层BOSS关": 30,
         }
-        self.add_score_change(
-            ("紧急关卡" if not text.startswith("BOSS-") else "隐藏BOSS")
-            + (" (路网无漏)" if add else ""),
-            text.replace("BOSS-", ""),
-            score_dict[text],
-        )
+        score = score_dict[text]
+        text2 = ""
+        if "BOSS" not in text:
+            if "<" in self.comboBoxEmerg.currentText():
+                score += 20
+                text2 += "特殊年代"
+            if (
+                self.checkBoxEmergBswLessFour.isChecked()
+                and "溃乱魔典" not in text
+                and "大棋一盘" not in text
+            ):
+                score += 15
+                if text2 != "":
+                    text2 += "/"
+                text2 += "低部署"
+        else:
+            if "<" in self.comboBoxEmerg.currentText():
+                score += 30
+                text2 += "卫国前夜"
+        self.add_score_change(text, text2, score)
 
     @Slot()
     def on_pushButtonSubmitKillSp_clicked(self):
         val = self.spinBoxKillSp.value()
         perfect = self.checkBoxKillSpPerfect.isChecked()
         text = self.comboBoxKillSp.currentText()
+        text1 = text
+        text2 = "无漏" if perfect else ""
         if text == "普通关卡":
-            score = 20 * val
-            text1 = "击杀狗/鸭/熊"
+            score = 10 * val
+            text1 = "特殊击杀"
             text2 = f"{val}只"
-        elif text == "豪华车队":
-            score = 40 * val
-            text1 = "豪华车队"
-            text2 = "击杀熊"
-        elif text == "正义使者":
-            text1 = "正义使者"
+        elif "信号灯" in text or "劫虚济实" in text:
+            score = 50 if "紧急" in text else 25
+        elif "战场侧面" in text:
+            score = 40 if "紧急" in text else 20
+        elif text == "鸭速公路<紧急>":
+            score = 20 * val
+            text2 = f"特殊击杀{val}只"
             if perfect:
-                score = 200
-                text2 = "无漏通关"
-            else:
-                score = 70 + 30 * val
-                text2 = f"狗/鸭/熊{val}只"
-        elif text == "英雄无名":
-            text1 = "英雄无名"
-            if perfect:
-                score = 150
-                text2 = "无漏通关"
-            else:
-                score = 30 + 15 * val
-                text2 = f"击杀{val}敌人"
+                score += 40
+                text2 += "/无漏"
+        elif "狭路相逢" in text:
+            score = 10
+            text2 = "未使用过的组合"
+        elif text == "叙事邀约":
+            score = 40
         else:
             return
         if score == 0:
@@ -760,88 +762,95 @@ class MainWindow(QMainWindow, MainUITemplate):
         self.add_score_change(text1, text2, score)
 
     @Slot()
-    def on_pushButtonSubmitEndStage_clicked(self):
-        text = self.comboBoxEndStage.currentText()
-        score_dict = {
-            "萨米之熵": 30,
-            "深寒造像": 150,
-            "园丁": 100,
-            "虚无之偶": 120,
-            "迈入永恒": 150,
-            "哨兵": 300,
-            "时光之沙": 100,
-        }
-        self.add_score_change("结局关卡", text, score_dict[text])
+    def on_pushButtonEarlyEmerg_clicked(self):
+        val = self.spinBoxEarlyEmerg.value()
+        if val == 0:
+            return
+        score = 20 * val
+        self.add_score_change("跨层紧急作战", f"{val}树洞藏品", score)
+
+    @Slot()
+    def on_pushButtonSubmitMoneyOverflow_clicked(self):
+        val = self.spinBoxMoneyOverflow.value()
+        if val == 0:
+            return
+        score = -50 * val
+        self.add_score_change("取钱超支", f"{val}点", score)
 
     @Slot()
     def on_pushButtonSubmitEnding_clicked(self):
         text1 = self.comboBoxEnding1.currentText()
         text2 = self.comboBoxEnding2.currentText()
         text3 = self.comboBoxEnding3.currentText()
-        score = 0
-        if (
-            text3 == "终始"
-            and text2 == "自深处的一瞥"
-            and self.checkBoxEndingNoSlzt.isChecked()
-        ):
-            score += 150
-        if (text3 == "终始" or text2 == "自深处的一瞥") and text1 == "直至冬夜降临":
-            score += 100
-        if (
-            text3 == "终始" or text2 == "自深处的一瞥"
-        ) and text1 == "越过群山<深寒造像>":
-            score += 100
+        score = (
+            {0: 0, 1: 20, 2: 70}[self.comboBoxEnding1.currentIndex()]
+            + {0: 0, 1: 120, 2: 140, 3: 190}[self.comboBoxEnding2.currentIndex()]
+            + {0: 0, 1: 170, 2: 200, 3: 250}[self.comboBoxEnding3.currentIndex()]
+        )
         text = text1
         if text2 != "未达成":
             text = text2
+            if self.checkBoxEndingEnd2Sp.isChecked():
+                score += 20
+                text += " (SP)"
         if text3 != "未达成":
             text = text3
+            if self.checkBoxEndingEnd3Sp.isChecked():
+                score += 50
+                text += " (SP)"
+        if score == 0:
+            return
         self.add_score_change("达成结局", text, score)
 
     @Slot()
     def on_pushButtonSubmitSum_clicked(self):
         ter = self.spinBoxSumTreasure.value()
-        table = self.spinBoxSumTable.value()
-        wyzl = self.checkBoxSumHasWyzl.isChecked()
-        score = 10 * ter + 5 * table + (50 if wyzl else 0)
+        emerg = self.spinBoxSumEmerg.value()
+        bbtsy = self.checkBoxSumHasBbtsy.isChecked()
+        score = -6 * ter + -15 * emerg + (20 if bbtsy else 0)
         self.add_score_change(
             "最终结算",
-            f"藏品:{ter} 密文板:{table}" + (" SP" if wyzl else ""),
+            f"藏品:{ter} 紧急:{emerg}" + (" (誓言)" if bbtsy else ""),
             score,
         )
 
     @Slot()
     def on_pushButtonSubmitBan_clicked(self):
         mul = 0
-        if self.checkBoxBanWsde.isChecked():
-            mul += 0.08
-        if self.checkBoxBanJmdkss.isChecked() and self.checkBoxBanQlryd.isChecked():
-            mul += 0.06
-        elif self.checkBoxBanJmdkss.isChecked():
-            mul += 0.02
-        elif self.checkBoxBanQlryd.isChecked():
-            mul += 0.02
+        if self.radioButtonWsde2.isChecked():
+            mul -= 0.2
+        elif self.radioButtonWsde3.isChecked():
+            mul += 0.0711
+
+        def get_ban_count(checkBox: QCheckBox):
+            if checkBox.checkState() == Qt.CheckState.PartiallyChecked:
+                return 1
+            elif checkBox.checkState() == Qt.CheckState.Checked:
+                return 2
+            return 0
+
         mul += 0.03 * (
-            int(self.checkBoxBanJian.isChecked())
-            + int(self.checkBoxBanMen.isChecked())
-            + int(self.checkBoxBanAl.isChecked())
-            + int(self.checkBoxBanYns.isChecked())
+            get_ban_count(self.checkBoxBanCjayfl)
+            + get_ban_count(self.checkBoxBanKalsit)
+            + get_ban_count(self.checkBoxBanYns)
+            + get_ban_count(self.checkBoxBanSuxin)
+            + get_ban_count(self.checkBoxBanWeba)
+            + get_ban_count(self.checkBoxBanNifu)
         )
-        mul += 0.02 * (
-            int(self.checkBoxBanYywc.isChecked())
-            + int(self.checkBoxBanCjayfl.isChecked())
-            + int(self.checkBoxBanLogos.isChecked())
-            + int(self.checkBoxBanLy.isChecked())
+        mul += 0.05 * (
+            get_ban_count(self.checkBoxBanLogos)
+            + get_ban_count(self.checkBoxBanAskl)
+            + get_ban_count(self.checkBoxBanQlsyd)
+            + get_ban_count(self.checkBoxBanKuiying)
         )
         if mul == 0:
             return
         self.add_score_change("禁用干员", "最终乘算", mul, is_multi=True)
 
     @Slot()
-    def on_pushButtonReverseBan_clicked(self):
-        # 反选全部checkbox
+    def on_pushButtonClearBan_clicked(self):
         for widget in self.frameBan.findChildren(QCheckBox):
-            widget.setChecked(not widget.isChecked())
+            widget.setCheckState(Qt.CheckState.Unchecked)
 
 
 def clear_splash():
@@ -856,16 +865,22 @@ def clear_splash():
 
 def main() -> int:
     argv = sys.argv
-    if DARK_THEME:
-        argv += [
-            "-platform",
-            "windows:darkmode=2",
-            "--style",
-            "Windows",
-        ]  # or "Fusion" ?
+    argv += [
+        "-platform",
+        "windows:darkmode=2",
+        "--style",
+        "Windows",
+    ]
     app = QApplication(argv)
     win = MainWindow()
-    qdarktheme.setup_theme(theme="dark" if DARK_THEME else "light")
+    qdarktheme.setup_theme(
+        theme="dark",
+        custom_colors={
+            "primary": "#FF5252",
+            "background": "#1F1C1C",
+            "foreground": "#F5F5F5",
+        },
+    )
     win.show()
     clear_splash()
     return app.exec()

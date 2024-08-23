@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>863</width>
-    <height>776</height>
+    <width>886</width>
+    <height>800</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>886</width>
+    <height>800</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>886</width>
+    <height>800</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>罗德岛裁判终端 Beta</string>
@@ -687,6 +699,9 @@
             <layout class="QHBoxLayout" name="horizontalLayout_22">
              <item>
               <widget class="QFrame" name="frame_4">
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
                <property name="frameShape">
                 <enum>QFrame::StyledPanel</enum>
                </property>
@@ -716,7 +731,7 @@
                    </font>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">color: rgb(170, 255, 255)</string>
+                   <string notr="true">color: #CC6E6E</string>
                   </property>
                   <property name="text">
                    <string>临时招募</string>
@@ -735,9 +750,6 @@
                     <bold>true</bold>
                    </font>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">color:rgb(170, 170, 255)</string>
-                  </property>
                   <property name="text">
                    <string>六星: 0 五星: 0 四星: 0</string>
                   </property>
@@ -747,7 +759,20 @@
                  </widget>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="1,1,1,0">
+                 <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="1,4,4,4,0">
+                  <item>
+                   <spacer name="horizontalSpacer_6">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
                   <item>
                    <widget class="QRadioButton" name="radioButtonTempSix">
                     <property name="text">
@@ -812,10 +837,10 @@
                    </font>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">color: rgb(170, 255, 255)</string>
+                   <string notr="true">color: #CC6E6E</string>
                   </property>
                   <property name="text">
-                   <string>紧急关卡/隐藏BOSS (不使用&lt;时光之末&gt;)</string>
+                   <string>紧急关卡/BOSS (不跳关,同关卡更高分先删除记录)</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -829,78 +854,191 @@
                   </property>
                   <item>
                    <property name="text">
-                    <string>冰海疑影</string>
+                    <string>溃乱魔典</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>公司纠葛</string>
+                    <string>大棋一盘</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>坍缩体的午后</string>
+                    <string>大棋一盘&lt;苦难&gt;</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>人造物狂欢节</string>
+                    <string>——↓ 四层 ↓——</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>本能污染</string>
+                    <string>猩红甬道</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>亡者行军</string>
+                    <string>猩红甬道&lt;天灾/苦难/金融&gt;</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>乐理之灾</string>
+                    <string>假象对冲</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>生灵的终点</string>
+                    <string>假象对冲&lt;奇观/魔王&gt;</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>BOSS-大地醒转</string>
+                    <string>朽败考察</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>BOSS-呼吸</string>
+                    <string>朽败考察&lt;金融/魔王&gt;</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>BOSS-夺树者</string>
+                    <string>年代断层&lt;魔王/天灾/金融&gt;</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>——↓ 五层 ↓——</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>计划耕种</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>计划耕种&lt;苦难/奇观&gt;</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>寄人城池下</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>寄人城池下&lt;金融/奇观&gt;</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>通道封锁</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>通道封锁&lt;奇观&gt;</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>无罪净土</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>无罪净土&lt;奇观&gt;</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>巫咒同盟</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>巫咒同盟&lt;奇观&gt;</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>残损学院</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>——↓ 六层 ↓——</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>谋求共识</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>谋求共识&lt;金融/奇观&gt;</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>神圣的渴求</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>神圣的渴求&lt;奇观/天灾&gt;</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>——↓ BOSS ↓——</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>三层BOSS关</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>三层BOSS关&lt;卫国前夜&gt;</string>
                    </property>
                   </item>
                  </widget>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_16" stretch="1,0">
+                 <layout class="QHBoxLayout" name="horizontalLayout_16" stretch="0,0,0">
                   <item>
-                   <widget class="QCheckBox" name="checkBoxEmergHasLw">
+                   <widget class="QCheckBox" name="checkBoxEmergBswLessFour">
                     <property name="enabled">
-                     <bool>true</bool>
+                     <bool>false</bool>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true">color: rgb(255, 170, 255)</string>
+                     <string notr="true">color: #EF9A9A</string>
                     </property>
                     <property name="text">
-                     <string>持有&lt;路网&gt;且无漏</string>
+                     <string>部署位不多于4</string>
                     </property>
                     <property name="checkable">
                      <bool>true</bool>
                     </property>
                    </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_4">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
                   </item>
                   <item>
                    <widget class="QPushButton" name="pushButtonSubmitEmerg">
@@ -947,10 +1085,10 @@
                  </font>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">color: rgb(170, 255, 255)</string>
+                 <string notr="true">color: #CC6E6E</string>
                 </property>
                 <property name="text">
-                 <string>通关隐藏关卡/达成特殊击杀</string>
+                 <string>通关隐藏关卡/达成特殊击杀(鸭/狗/熊/鼠)</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -968,17 +1106,47 @@
                   </item>
                   <item>
                    <property name="text">
-                    <string>豪华车队</string>
+                    <string>信号灯</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>正义使者</string>
+                    <string>信号灯&lt;紧急&gt;</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>英雄无名</string>
+                    <string>劫虚济实</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>劫虚济实&lt;紧急&gt;</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>战场侧面</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>战场侧面&lt;紧急&gt;</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>鸭速公路&lt;紧急&gt;</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>狭路相逢&lt;三级/使用未使用过的干员&gt;</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>叙事邀约</string>
                    </property>
                   </item>
                  </widget>
@@ -993,7 +1161,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>击杀狗/鸭/熊</string>
+                   <string>特殊击杀</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -1036,98 +1204,175 @@
             </widget>
            </item>
            <item>
-            <widget class="QFrame" name="frame_10">
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
+            <layout class="QHBoxLayout" name="horizontalLayout_25">
+             <property name="bottomMargin">
+              <number>0</number>
              </property>
-             <property name="frameShadow">
-              <enum>QFrame::Plain</enum>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_14" stretch="0,1">
-              <property name="leftMargin">
-               <number>4</number>
-              </property>
-              <property name="topMargin">
-               <number>4</number>
-              </property>
-              <property name="rightMargin">
-               <number>4</number>
-              </property>
-              <property name="bottomMargin">
-               <number>4</number>
-              </property>
-              <item>
-               <widget class="QLabel" name="label_22">
-                <property name="font">
-                 <font>
-                  <pointsize>9</pointsize>
-                  <italic>false</italic>
-                  <bold>true</bold>
-                 </font>
+             <item>
+              <widget class="QFrame" name="frame_10">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Plain</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_14" stretch="0,1">
+                <property name="leftMargin">
+                 <number>4</number>
                 </property>
-                <property name="styleSheet">
-                 <string notr="true">color: rgb(170, 255, 255)</string>
+                <property name="topMargin">
+                 <number>4</number>
                 </property>
-                <property name="text">
-                 <string>通关结局关卡</string>
+                <property name="rightMargin">
+                 <number>4</number>
                 </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                <property name="bottomMargin">
+                 <number>4</number>
                 </property>
-               </widget>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_17" stretch="1,0">
                 <item>
-                 <widget class="QComboBox" name="comboBoxEndStage">
-                  <item>
-                   <property name="text">
-                    <string>萨米之熵</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>深寒造像</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>园丁</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>虚无之偶</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>迈入永恒</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>哨兵</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>时光之沙</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButtonSubmitEndStage">
+                 <widget class="QLabel" name="label_22">
+                  <property name="font">
+                   <font>
+                    <pointsize>9</pointsize>
+                    <italic>false</italic>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: #CC6E6E</string>
+                  </property>
                   <property name="text">
-                   <string>添加</string>
+                   <string>树洞跨层遭遇紧急作战</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
                   </property>
                  </widget>
                 </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_17" stretch="0,1,0">
+                  <item>
+                   <widget class="QLabel" name="labelKillSp_2">
+                    <property name="font">
+                     <font>
+                      <pointsize>9</pointsize>
+                      <italic>false</italic>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>树洞藏品数</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSpinBox" name="spinBoxEarlyEmerg">
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="maximum">
+                     <number>999</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButtonEarlyEmerg">
+                    <property name="text">
+                     <string>添加</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
                </layout>
-              </item>
-             </layout>
-            </widget>
+              </widget>
+             </item>
+             <item>
+              <widget class="QFrame" name="frame_11">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Plain</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_22" stretch="0,1">
+                <property name="leftMargin">
+                 <number>4</number>
+                </property>
+                <property name="topMargin">
+                 <number>4</number>
+                </property>
+                <property name="rightMargin">
+                 <number>4</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>4</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_31">
+                  <property name="font">
+                   <font>
+                    <pointsize>9</pointsize>
+                    <italic>false</italic>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: #CC6E6E</string>
+                  </property>
+                  <property name="text">
+                   <string>取钱超支</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_26" stretch="0,1,0">
+                  <item>
+                   <widget class="QLabel" name="labelKillSp_3">
+                    <property name="font">
+                     <font>
+                      <pointsize>9</pointsize>
+                      <italic>false</italic>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>超出60的点数</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSpinBox" name="spinBoxMoneyOverflow">
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="maximum">
+                     <number>999</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButtonSubmitMoneyOverflow">
+                    <property name="text">
+                     <string>提交 (仅一次)</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item>
             <widget class="QFrame" name="frame_8">
@@ -1160,7 +1405,7 @@
                  </font>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">color: rgb(170, 255, 255)</string>
+                 <string notr="true">color: #CC6E6E</string>
                 </property>
                 <property name="text">
                  <string>达成结局</string>
@@ -1182,17 +1427,17 @@
                   </property>
                   <item>
                    <property name="text">
-                    <string>直至冬夜降临</string>
+                    <string>紧急授课</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>越过群山&lt;普通&gt;</string>
+                    <string>紧急授课&lt;混乱&gt;</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>越过群山&lt;深寒造像&gt;</string>
+                    <string>紧急授课&lt;混乱/无漏&gt;</string>
                    </property>
                   </item>
                  </widget>
@@ -1232,7 +1477,17 @@
                   </item>
                   <item>
                    <property name="text">
-                    <string>自深处的一瞥</string>
+                    <string>朝谒</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>朝谒&lt;混乱&gt;</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>朝谒&lt;混乱/无漏&gt;</string>
                    </property>
                   </item>
                  </widget>
@@ -1272,7 +1527,17 @@
                   </item>
                   <item>
                    <property name="text">
-                    <string>终始</string>
+                    <string>圣城</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>圣城&lt;混乱&gt;</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>圣城&lt;混乱/无漏&gt;</string>
                    </property>
                   </item>
                  </widget>
@@ -1280,17 +1545,33 @@
                </layout>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="1,0">
+               <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="2,2,0">
                 <item>
-                 <widget class="QCheckBox" name="checkBoxEndingNoSlzt">
+                 <widget class="QCheckBox" name="checkBoxEndingEnd2Sp">
                   <property name="enabled">
-                   <bool>false</bool>
+                   <bool>true</bool>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">color: rgb(255, 170, 255)</string>
+                   <string notr="true">color: #EF9A9A</string>
                   </property>
                   <property name="text">
-                   <string>未进入&lt;树篱之途&gt;</string>
+                   <string>金融/奇观/拥挤通关二结局</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBoxEndingEnd3Sp">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: #EF9A9A</string>
+                  </property>
+                  <property name="text">
+                   <string>奇观/拥挤/魔王通关三结局</string>
                   </property>
                   <property name="checkable">
                    <bool>true</bool>
@@ -1343,10 +1624,10 @@
                  </font>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">color: rgb(170, 255, 255)</string>
+                 <string notr="true">color: #CC6E6E</string>
                 </property>
                 <property name="text">
-                 <string>Ban位结算 (勾选为未抓取)</string>
+                 <string>Ban位结算 (选择为未抓取,需过五层BOSS,&quot;-&quot;为一次得分,&quot;√&quot;为两次得分)</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -1356,30 +1637,52 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_18">
                 <item>
-                 <widget class="QCheckBox" name="checkBoxBanWsde">
+                 <widget class="QCheckBox" name="checkBoxBanLogos">
                   <property name="text">
-                   <string>维什戴尔</string>
+                   <string>Logos</string>
+                  </property>
+                  <property name="tristate">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBoxBanJmdkss">
+                 <widget class="QCheckBox" name="checkBoxBanAskl">
                   <property name="text">
-                   <string>缄默德克萨斯</string>
+                   <string>阿斯卡伦</string>
+                  </property>
+                  <property name="tristate">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBoxBanQlryd">
+                 <widget class="QCheckBox" name="checkBoxBanQlsyd">
                   <property name="text">
-                   <string>麒麟R夜刀</string>
+                   <string>麒麟S夜刀</string>
+                  </property>
+                  <property name="tristate">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBoxBanJian">
+                 <widget class="QCheckBox" name="checkBoxBanKuiying">
                   <property name="text">
-                   <string>锏</string>
+                   <string>傀影</string>
+                  </property>
+                  <property name="tristate">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBoxBanWeba">
+                  <property name="text">
+                   <string>乌尔比安</string>
+                  </property>
+                  <property name="tristate">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
@@ -1388,16 +1691,22 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_19">
                 <item>
-                 <widget class="QCheckBox" name="checkBoxBanMen">
+                 <widget class="QCheckBox" name="checkBoxBanCjayfl">
                   <property name="text">
-                   <string>玛恩纳</string>
+                   <string>纯烬艾雅法拉</string>
+                  </property>
+                  <property name="tristate">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBoxBanAl">
+                 <widget class="QCheckBox" name="checkBoxBanKalsit">
                   <property name="text">
-                   <string>艾拉</string>
+                   <string>凯尔希</string>
+                  </property>
+                  <property name="tristate">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
@@ -1406,49 +1715,94 @@
                   <property name="text">
                    <string>伊内斯</string>
                   </property>
+                  <property name="tristate">
+                   <bool>true</bool>
+                  </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBoxBanLogos">
+                 <widget class="QCheckBox" name="checkBoxBanSuxin">
                   <property name="text">
-                   <string>Logos</string>
+                   <string>塑心</string>
+                  </property>
+                  <property name="tristate">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBoxBanNifu">
+                  <property name="text">
+                   <string>妮芙</string>
+                  </property>
+                  <property name="tristate">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
                </layout>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_20" stretch="1,1,1,1">
+               <layout class="QHBoxLayout" name="horizontalLayout_20" stretch="1">
                 <item>
-                 <widget class="QCheckBox" name="checkBoxBanYywc">
-                  <property name="text">
-                   <string>焰影苇草</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="checkBoxBanCjayfl">
-                  <property name="text">
-                   <string>纯烬艾雅法拉</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="checkBoxBanLy">
-                  <property name="text">
-                   <string>莱伊</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_24" stretch="0,1,0">
+                 <layout class="QHBoxLayout" name="horizontalLayout_24" stretch="0,0,0,0,0,0,0,0">
                   <property name="leftMargin">
                    <number>0</number>
                   </property>
                   <item>
-                   <widget class="QPushButton" name="pushButtonReverseBan">
+                   <widget class="QLabel" name="label_30">
+                    <property name="styleSheet">
+                     <string notr="true">color: #EF9A9A</string>
+                    </property>
                     <property name="text">
-                     <string>反选</string>
+                     <string>维什戴尔：</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QRadioButton" name="radioButtonWsde1">
+                    <property name="text">
+                     <string>未招募 </string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QRadioButton" name="radioButtonWsde2">
+                    <property name="text">
+                     <string>招募 </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QRadioButton" name="radioButtonWsde3">
+                    <property name="text">
+                     <string>放弃博士银印 </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_5">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButtonClearBan">
+                    <property name="text">
+                     <string>清空</string>
                     </property>
                    </widget>
                   </item>
@@ -1514,7 +1868,7 @@
                  </font>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">color: rgb(170, 255, 255)</string>
+                 <string notr="true">color: #CC6E6E</string>
                 </property>
                 <property name="text">
                  <string>最终结算</string>
@@ -1536,7 +1890,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>藏品</string>
+                   <string>持有藏品</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -1560,7 +1914,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>密文板</string>
+                   <string>通关紧急</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -1568,22 +1922,22 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBoxSumTable">
+                 <widget class="QSpinBox" name="spinBoxSumEmerg">
                   <property name="maximum">
                    <number>999</number>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBoxSumHasWyzl">
+                 <widget class="QCheckBox" name="checkBoxSumHasBbtsy">
                   <property name="enabled">
                    <bool>true</bool>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">color: rgb(255, 170, 255)</string>
+                   <string notr="true">color: #EF9A9A</string>
                   </property>
                   <property name="text">
-                   <string>持有&lt;无垠赠礼&gt;</string>
+                   <string>持有&lt;巴别塔誓言&gt;</string>
                   </property>
                   <property name="checkable">
                    <bool>true</bool>
@@ -1637,7 +1991,7 @@
                  </font>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">color:rgb(255, 170, 127)</string>
+                 <string notr="true">color: #CC6E6E</string>
                 </property>
                 <property name="text">
                  <string>基础分数</string>
@@ -1651,6 +2005,9 @@
                <widget class="QSpinBox" name="spinBoxBaseScore">
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
+                </property>
+                <property name="suffix">
+                 <string/>
                 </property>
                 <property name="prefix">
                  <string/>
@@ -1694,7 +2051,7 @@
                  </font>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">color:rgb(255, 170, 127)</string>
+                 <string notr="true">color: #CC6E6E</string>
                 </property>
                 <property name="text">
                  <string>自定义增减</string>
@@ -1766,7 +2123,7 @@
                  </font>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">color:rgb(255, 170, 127)</string>
+                 <string notr="true">color: #CC6E6E</string>
                 </property>
                 <property name="text">
                  <string>详细记录 (右键记录可删除)</string>
@@ -1786,7 +2143,8 @@
                 </property>
                 <property name="font">
                  <font>
-                  <pointsize>10</pointsize>
+                  <pointsize>8</pointsize>
+                  <bold>true</bold>
                  </font>
                 </property>
                 <property name="toolTip">
@@ -1811,10 +2169,13 @@
                  <enum>Qt::MoveAction</enum>
                 </property>
                 <property name="alternatingRowColors">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                 <property name="selectionMode">
                  <enum>QAbstractItemView::SingleSelection</enum>
+                </property>
+                <property name="movement">
+                 <enum>QListView::Static</enum>
                 </property>
                 <property name="spacing">
                  <number>2</number>

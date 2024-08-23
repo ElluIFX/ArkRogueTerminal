@@ -17,15 +17,17 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QCheckBox, QComboBox,
     QFrame, QHBoxLayout, QLabel, QLineEdit,
-    QListWidget, QListWidgetItem, QMainWindow, QPushButton,
-    QRadioButton, QSizePolicy, QSpacerItem, QSpinBox,
-    QVBoxLayout, QWidget)
+    QListView, QListWidget, QListWidgetItem, QMainWindow,
+    QPushButton, QRadioButton, QSizePolicy, QSpacerItem,
+    QSpinBox, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(863, 776)
+        MainWindow.resize(886, 800)
+        MainWindow.setMinimumSize(QSize(886, 800))
+        MainWindow.setMaximumSize(QSize(886, 800))
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_7 = QVBoxLayout(self.centralwidget)
@@ -385,6 +387,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_22.setObjectName(u"horizontalLayout_22")
         self.frame_4 = QFrame(self.frame_2)
         self.frame_4.setObjectName(u"frame_4")
+        self.frame_4.setStyleSheet(u"")
         self.frame_4.setFrameShape(QFrame.StyledPanel)
         self.frame_4.setFrameShadow(QFrame.Plain)
         self.verticalLayout_8 = QVBoxLayout(self.frame_4)
@@ -397,7 +400,7 @@ class Ui_MainWindow(object):
         font8.setBold(True)
         font8.setItalic(False)
         self.label_25.setFont(font8)
-        self.label_25.setStyleSheet(u"color: rgb(170, 255, 255)")
+        self.label_25.setStyleSheet(u"color: #CC6E6E")
         self.label_25.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_8.addWidget(self.label_25)
@@ -405,13 +408,16 @@ class Ui_MainWindow(object):
         self.labelHeaderTemp = QLabel(self.frame_4)
         self.labelHeaderTemp.setObjectName(u"labelHeaderTemp")
         self.labelHeaderTemp.setFont(font8)
-        self.labelHeaderTemp.setStyleSheet(u"color:rgb(170, 170, 255)")
         self.labelHeaderTemp.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_8.addWidget(self.labelHeaderTemp)
 
         self.horizontalLayout_11 = QHBoxLayout()
         self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
+        self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_11.addItem(self.horizontalSpacer_6)
+
         self.radioButtonTempSix = QRadioButton(self.frame_4)
         self.radioButtonTempSix.setObjectName(u"radioButtonTempSix")
 
@@ -433,8 +439,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_11.addWidget(self.pushButtonSubmitTemp)
 
         self.horizontalLayout_11.setStretch(0, 1)
-        self.horizontalLayout_11.setStretch(1, 1)
-        self.horizontalLayout_11.setStretch(2, 1)
+        self.horizontalLayout_11.setStretch(1, 4)
+        self.horizontalLayout_11.setStretch(2, 4)
+        self.horizontalLayout_11.setStretch(3, 4)
 
         self.verticalLayout_8.addLayout(self.horizontalLayout_11)
 
@@ -452,12 +459,32 @@ class Ui_MainWindow(object):
         self.label_21 = QLabel(self.frame_9)
         self.label_21.setObjectName(u"label_21")
         self.label_21.setFont(font8)
-        self.label_21.setStyleSheet(u"color: rgb(170, 255, 255)")
+        self.label_21.setStyleSheet(u"color: #CC6E6E")
         self.label_21.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_13.addWidget(self.label_21)
 
         self.comboBoxEmerg = QComboBox(self.frame_9)
+        self.comboBoxEmerg.addItem("")
+        self.comboBoxEmerg.addItem("")
+        self.comboBoxEmerg.addItem("")
+        self.comboBoxEmerg.addItem("")
+        self.comboBoxEmerg.addItem("")
+        self.comboBoxEmerg.addItem("")
+        self.comboBoxEmerg.addItem("")
+        self.comboBoxEmerg.addItem("")
+        self.comboBoxEmerg.addItem("")
+        self.comboBoxEmerg.addItem("")
+        self.comboBoxEmerg.addItem("")
+        self.comboBoxEmerg.addItem("")
+        self.comboBoxEmerg.addItem("")
+        self.comboBoxEmerg.addItem("")
+        self.comboBoxEmerg.addItem("")
+        self.comboBoxEmerg.addItem("")
+        self.comboBoxEmerg.addItem("")
+        self.comboBoxEmerg.addItem("")
+        self.comboBoxEmerg.addItem("")
+        self.comboBoxEmerg.addItem("")
         self.comboBoxEmerg.addItem("")
         self.comboBoxEmerg.addItem("")
         self.comboBoxEmerg.addItem("")
@@ -476,20 +503,23 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_16 = QHBoxLayout()
         self.horizontalLayout_16.setObjectName(u"horizontalLayout_16")
-        self.checkBoxEmergHasLw = QCheckBox(self.frame_9)
-        self.checkBoxEmergHasLw.setObjectName(u"checkBoxEmergHasLw")
-        self.checkBoxEmergHasLw.setEnabled(True)
-        self.checkBoxEmergHasLw.setStyleSheet(u"color: rgb(255, 170, 255)")
-        self.checkBoxEmergHasLw.setCheckable(True)
+        self.checkBoxEmergBswLessFour = QCheckBox(self.frame_9)
+        self.checkBoxEmergBswLessFour.setObjectName(u"checkBoxEmergBswLessFour")
+        self.checkBoxEmergBswLessFour.setEnabled(False)
+        self.checkBoxEmergBswLessFour.setStyleSheet(u"color: #EF9A9A")
+        self.checkBoxEmergBswLessFour.setCheckable(True)
 
-        self.horizontalLayout_16.addWidget(self.checkBoxEmergHasLw)
+        self.horizontalLayout_16.addWidget(self.checkBoxEmergBswLessFour)
+
+        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_16.addItem(self.horizontalSpacer_4)
 
         self.pushButtonSubmitEmerg = QPushButton(self.frame_9)
         self.pushButtonSubmitEmerg.setObjectName(u"pushButtonSubmitEmerg")
 
         self.horizontalLayout_16.addWidget(self.pushButtonSubmitEmerg)
 
-        self.horizontalLayout_16.setStretch(0, 1)
 
         self.verticalLayout_13.addLayout(self.horizontalLayout_16)
 
@@ -511,7 +541,7 @@ class Ui_MainWindow(object):
         self.label_11 = QLabel(self.frame_6)
         self.label_11.setObjectName(u"label_11")
         self.label_11.setFont(font8)
-        self.label_11.setStyleSheet(u"color: rgb(170, 255, 255)")
+        self.label_11.setStyleSheet(u"color: #CC6E6E")
         self.label_11.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_10.addWidget(self.label_11)
@@ -519,6 +549,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout_12 = QHBoxLayout()
         self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
         self.comboBoxKillSp = QComboBox(self.frame_6)
+        self.comboBoxKillSp.addItem("")
+        self.comboBoxKillSp.addItem("")
+        self.comboBoxKillSp.addItem("")
+        self.comboBoxKillSp.addItem("")
+        self.comboBoxKillSp.addItem("")
+        self.comboBoxKillSp.addItem("")
         self.comboBoxKillSp.addItem("")
         self.comboBoxKillSp.addItem("")
         self.comboBoxKillSp.addItem("")
@@ -561,6 +597,9 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_18.addWidget(self.frame_6)
 
+        self.horizontalLayout_25 = QHBoxLayout()
+        self.horizontalLayout_25.setObjectName(u"horizontalLayout_25")
+        self.horizontalLayout_25.setContentsMargins(-1, -1, -1, 0)
         self.frame_10 = QFrame(self.frame_2)
         self.frame_10.setObjectName(u"frame_10")
         self.frame_10.setFrameShape(QFrame.StyledPanel)
@@ -571,37 +610,84 @@ class Ui_MainWindow(object):
         self.label_22 = QLabel(self.frame_10)
         self.label_22.setObjectName(u"label_22")
         self.label_22.setFont(font8)
-        self.label_22.setStyleSheet(u"color: rgb(170, 255, 255)")
+        self.label_22.setStyleSheet(u"color: #CC6E6E")
         self.label_22.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_14.addWidget(self.label_22)
 
         self.horizontalLayout_17 = QHBoxLayout()
         self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
-        self.comboBoxEndStage = QComboBox(self.frame_10)
-        self.comboBoxEndStage.addItem("")
-        self.comboBoxEndStage.addItem("")
-        self.comboBoxEndStage.addItem("")
-        self.comboBoxEndStage.addItem("")
-        self.comboBoxEndStage.addItem("")
-        self.comboBoxEndStage.addItem("")
-        self.comboBoxEndStage.addItem("")
-        self.comboBoxEndStage.setObjectName(u"comboBoxEndStage")
+        self.labelKillSp_2 = QLabel(self.frame_10)
+        self.labelKillSp_2.setObjectName(u"labelKillSp_2")
+        self.labelKillSp_2.setFont(font2)
+        self.labelKillSp_2.setAlignment(Qt.AlignCenter)
 
-        self.horizontalLayout_17.addWidget(self.comboBoxEndStage)
+        self.horizontalLayout_17.addWidget(self.labelKillSp_2)
 
-        self.pushButtonSubmitEndStage = QPushButton(self.frame_10)
-        self.pushButtonSubmitEndStage.setObjectName(u"pushButtonSubmitEndStage")
+        self.spinBoxEarlyEmerg = QSpinBox(self.frame_10)
+        self.spinBoxEarlyEmerg.setObjectName(u"spinBoxEarlyEmerg")
+        self.spinBoxEarlyEmerg.setMaximum(999)
 
-        self.horizontalLayout_17.addWidget(self.pushButtonSubmitEndStage)
+        self.horizontalLayout_17.addWidget(self.spinBoxEarlyEmerg)
 
-        self.horizontalLayout_17.setStretch(0, 1)
+        self.pushButtonEarlyEmerg = QPushButton(self.frame_10)
+        self.pushButtonEarlyEmerg.setObjectName(u"pushButtonEarlyEmerg")
+
+        self.horizontalLayout_17.addWidget(self.pushButtonEarlyEmerg)
+
+        self.horizontalLayout_17.setStretch(1, 1)
 
         self.verticalLayout_14.addLayout(self.horizontalLayout_17)
 
         self.verticalLayout_14.setStretch(1, 1)
 
-        self.verticalLayout_18.addWidget(self.frame_10)
+        self.horizontalLayout_25.addWidget(self.frame_10)
+
+        self.frame_11 = QFrame(self.frame_2)
+        self.frame_11.setObjectName(u"frame_11")
+        self.frame_11.setFrameShape(QFrame.StyledPanel)
+        self.frame_11.setFrameShadow(QFrame.Plain)
+        self.verticalLayout_22 = QVBoxLayout(self.frame_11)
+        self.verticalLayout_22.setObjectName(u"verticalLayout_22")
+        self.verticalLayout_22.setContentsMargins(4, 4, 4, 4)
+        self.label_31 = QLabel(self.frame_11)
+        self.label_31.setObjectName(u"label_31")
+        self.label_31.setFont(font8)
+        self.label_31.setStyleSheet(u"color: #CC6E6E")
+        self.label_31.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_22.addWidget(self.label_31)
+
+        self.horizontalLayout_26 = QHBoxLayout()
+        self.horizontalLayout_26.setObjectName(u"horizontalLayout_26")
+        self.labelKillSp_3 = QLabel(self.frame_11)
+        self.labelKillSp_3.setObjectName(u"labelKillSp_3")
+        self.labelKillSp_3.setFont(font2)
+        self.labelKillSp_3.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_26.addWidget(self.labelKillSp_3)
+
+        self.spinBoxMoneyOverflow = QSpinBox(self.frame_11)
+        self.spinBoxMoneyOverflow.setObjectName(u"spinBoxMoneyOverflow")
+        self.spinBoxMoneyOverflow.setMaximum(999)
+
+        self.horizontalLayout_26.addWidget(self.spinBoxMoneyOverflow)
+
+        self.pushButtonSubmitMoneyOverflow = QPushButton(self.frame_11)
+        self.pushButtonSubmitMoneyOverflow.setObjectName(u"pushButtonSubmitMoneyOverflow")
+
+        self.horizontalLayout_26.addWidget(self.pushButtonSubmitMoneyOverflow)
+
+        self.horizontalLayout_26.setStretch(1, 1)
+
+        self.verticalLayout_22.addLayout(self.horizontalLayout_26)
+
+        self.verticalLayout_22.setStretch(1, 1)
+
+        self.horizontalLayout_25.addWidget(self.frame_11)
+
+
+        self.verticalLayout_18.addLayout(self.horizontalLayout_25)
 
         self.frame_8 = QFrame(self.frame_2)
         self.frame_8.setObjectName(u"frame_8")
@@ -613,7 +699,7 @@ class Ui_MainWindow(object):
         self.label_18 = QLabel(self.frame_8)
         self.label_18.setObjectName(u"label_18")
         self.label_18.setFont(font8)
-        self.label_18.setStyleSheet(u"color: rgb(170, 255, 255)")
+        self.label_18.setStyleSheet(u"color: #CC6E6E")
         self.label_18.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_12.addWidget(self.label_18)
@@ -644,6 +730,8 @@ class Ui_MainWindow(object):
         self.comboBoxEnding2 = QComboBox(self.frame_8)
         self.comboBoxEnding2.addItem("")
         self.comboBoxEnding2.addItem("")
+        self.comboBoxEnding2.addItem("")
+        self.comboBoxEnding2.addItem("")
         self.comboBoxEnding2.setObjectName(u"comboBoxEnding2")
         sizePolicy2.setHeightForWidth(self.comboBoxEnding2.sizePolicy().hasHeightForWidth())
         self.comboBoxEnding2.setSizePolicy(sizePolicy2)
@@ -661,6 +749,8 @@ class Ui_MainWindow(object):
         self.comboBoxEnding3 = QComboBox(self.frame_8)
         self.comboBoxEnding3.addItem("")
         self.comboBoxEnding3.addItem("")
+        self.comboBoxEnding3.addItem("")
+        self.comboBoxEnding3.addItem("")
         self.comboBoxEnding3.setObjectName(u"comboBoxEnding3")
         sizePolicy2.setHeightForWidth(self.comboBoxEnding3.sizePolicy().hasHeightForWidth())
         self.comboBoxEnding3.setSizePolicy(sizePolicy2)
@@ -675,20 +765,29 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_14 = QHBoxLayout()
         self.horizontalLayout_14.setObjectName(u"horizontalLayout_14")
-        self.checkBoxEndingNoSlzt = QCheckBox(self.frame_8)
-        self.checkBoxEndingNoSlzt.setObjectName(u"checkBoxEndingNoSlzt")
-        self.checkBoxEndingNoSlzt.setEnabled(False)
-        self.checkBoxEndingNoSlzt.setStyleSheet(u"color: rgb(255, 170, 255)")
-        self.checkBoxEndingNoSlzt.setCheckable(True)
+        self.checkBoxEndingEnd2Sp = QCheckBox(self.frame_8)
+        self.checkBoxEndingEnd2Sp.setObjectName(u"checkBoxEndingEnd2Sp")
+        self.checkBoxEndingEnd2Sp.setEnabled(True)
+        self.checkBoxEndingEnd2Sp.setStyleSheet(u"color: #EF9A9A")
+        self.checkBoxEndingEnd2Sp.setCheckable(True)
 
-        self.horizontalLayout_14.addWidget(self.checkBoxEndingNoSlzt)
+        self.horizontalLayout_14.addWidget(self.checkBoxEndingEnd2Sp)
+
+        self.checkBoxEndingEnd3Sp = QCheckBox(self.frame_8)
+        self.checkBoxEndingEnd3Sp.setObjectName(u"checkBoxEndingEnd3Sp")
+        self.checkBoxEndingEnd3Sp.setEnabled(True)
+        self.checkBoxEndingEnd3Sp.setStyleSheet(u"color: #EF9A9A")
+        self.checkBoxEndingEnd3Sp.setCheckable(True)
+
+        self.horizontalLayout_14.addWidget(self.checkBoxEndingEnd3Sp)
 
         self.pushButtonSubmitEnding = QPushButton(self.frame_8)
         self.pushButtonSubmitEnding.setObjectName(u"pushButtonSubmitEnding")
 
         self.horizontalLayout_14.addWidget(self.pushButtonSubmitEnding)
 
-        self.horizontalLayout_14.setStretch(0, 1)
+        self.horizontalLayout_14.setStretch(0, 2)
+        self.horizontalLayout_14.setStretch(1, 2)
 
         self.verticalLayout_12.addLayout(self.horizontalLayout_14)
 
@@ -708,85 +807,117 @@ class Ui_MainWindow(object):
         self.label_23 = QLabel(self.frameBan)
         self.label_23.setObjectName(u"label_23")
         self.label_23.setFont(font8)
-        self.label_23.setStyleSheet(u"color: rgb(170, 255, 255)")
+        self.label_23.setStyleSheet(u"color: #CC6E6E")
         self.label_23.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_15.addWidget(self.label_23)
 
         self.horizontalLayout_18 = QHBoxLayout()
         self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
-        self.checkBoxBanWsde = QCheckBox(self.frameBan)
-        self.checkBoxBanWsde.setObjectName(u"checkBoxBanWsde")
+        self.checkBoxBanLogos = QCheckBox(self.frameBan)
+        self.checkBoxBanLogos.setObjectName(u"checkBoxBanLogos")
+        self.checkBoxBanLogos.setTristate(True)
 
-        self.horizontalLayout_18.addWidget(self.checkBoxBanWsde)
+        self.horizontalLayout_18.addWidget(self.checkBoxBanLogos)
 
-        self.checkBoxBanJmdkss = QCheckBox(self.frameBan)
-        self.checkBoxBanJmdkss.setObjectName(u"checkBoxBanJmdkss")
+        self.checkBoxBanAskl = QCheckBox(self.frameBan)
+        self.checkBoxBanAskl.setObjectName(u"checkBoxBanAskl")
+        self.checkBoxBanAskl.setTristate(True)
 
-        self.horizontalLayout_18.addWidget(self.checkBoxBanJmdkss)
+        self.horizontalLayout_18.addWidget(self.checkBoxBanAskl)
 
-        self.checkBoxBanQlryd = QCheckBox(self.frameBan)
-        self.checkBoxBanQlryd.setObjectName(u"checkBoxBanQlryd")
+        self.checkBoxBanQlsyd = QCheckBox(self.frameBan)
+        self.checkBoxBanQlsyd.setObjectName(u"checkBoxBanQlsyd")
+        self.checkBoxBanQlsyd.setTristate(True)
 
-        self.horizontalLayout_18.addWidget(self.checkBoxBanQlryd)
+        self.horizontalLayout_18.addWidget(self.checkBoxBanQlsyd)
 
-        self.checkBoxBanJian = QCheckBox(self.frameBan)
-        self.checkBoxBanJian.setObjectName(u"checkBoxBanJian")
+        self.checkBoxBanKuiying = QCheckBox(self.frameBan)
+        self.checkBoxBanKuiying.setObjectName(u"checkBoxBanKuiying")
+        self.checkBoxBanKuiying.setTristate(True)
 
-        self.horizontalLayout_18.addWidget(self.checkBoxBanJian)
+        self.horizontalLayout_18.addWidget(self.checkBoxBanKuiying)
+
+        self.checkBoxBanWeba = QCheckBox(self.frameBan)
+        self.checkBoxBanWeba.setObjectName(u"checkBoxBanWeba")
+        self.checkBoxBanWeba.setTristate(True)
+
+        self.horizontalLayout_18.addWidget(self.checkBoxBanWeba)
 
 
         self.verticalLayout_15.addLayout(self.horizontalLayout_18)
 
         self.horizontalLayout_19 = QHBoxLayout()
         self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
-        self.checkBoxBanMen = QCheckBox(self.frameBan)
-        self.checkBoxBanMen.setObjectName(u"checkBoxBanMen")
+        self.checkBoxBanCjayfl = QCheckBox(self.frameBan)
+        self.checkBoxBanCjayfl.setObjectName(u"checkBoxBanCjayfl")
+        self.checkBoxBanCjayfl.setTristate(True)
 
-        self.horizontalLayout_19.addWidget(self.checkBoxBanMen)
+        self.horizontalLayout_19.addWidget(self.checkBoxBanCjayfl)
 
-        self.checkBoxBanAl = QCheckBox(self.frameBan)
-        self.checkBoxBanAl.setObjectName(u"checkBoxBanAl")
+        self.checkBoxBanKalsit = QCheckBox(self.frameBan)
+        self.checkBoxBanKalsit.setObjectName(u"checkBoxBanKalsit")
+        self.checkBoxBanKalsit.setTristate(True)
 
-        self.horizontalLayout_19.addWidget(self.checkBoxBanAl)
+        self.horizontalLayout_19.addWidget(self.checkBoxBanKalsit)
 
         self.checkBoxBanYns = QCheckBox(self.frameBan)
         self.checkBoxBanYns.setObjectName(u"checkBoxBanYns")
+        self.checkBoxBanYns.setTristate(True)
 
         self.horizontalLayout_19.addWidget(self.checkBoxBanYns)
 
-        self.checkBoxBanLogos = QCheckBox(self.frameBan)
-        self.checkBoxBanLogos.setObjectName(u"checkBoxBanLogos")
+        self.checkBoxBanSuxin = QCheckBox(self.frameBan)
+        self.checkBoxBanSuxin.setObjectName(u"checkBoxBanSuxin")
+        self.checkBoxBanSuxin.setTristate(True)
 
-        self.horizontalLayout_19.addWidget(self.checkBoxBanLogos)
+        self.horizontalLayout_19.addWidget(self.checkBoxBanSuxin)
+
+        self.checkBoxBanNifu = QCheckBox(self.frameBan)
+        self.checkBoxBanNifu.setObjectName(u"checkBoxBanNifu")
+        self.checkBoxBanNifu.setTristate(True)
+
+        self.horizontalLayout_19.addWidget(self.checkBoxBanNifu)
 
 
         self.verticalLayout_15.addLayout(self.horizontalLayout_19)
 
         self.horizontalLayout_20 = QHBoxLayout()
         self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
-        self.checkBoxBanYywc = QCheckBox(self.frameBan)
-        self.checkBoxBanYywc.setObjectName(u"checkBoxBanYywc")
-
-        self.horizontalLayout_20.addWidget(self.checkBoxBanYywc)
-
-        self.checkBoxBanCjayfl = QCheckBox(self.frameBan)
-        self.checkBoxBanCjayfl.setObjectName(u"checkBoxBanCjayfl")
-
-        self.horizontalLayout_20.addWidget(self.checkBoxBanCjayfl)
-
-        self.checkBoxBanLy = QCheckBox(self.frameBan)
-        self.checkBoxBanLy.setObjectName(u"checkBoxBanLy")
-
-        self.horizontalLayout_20.addWidget(self.checkBoxBanLy)
-
         self.horizontalLayout_24 = QHBoxLayout()
         self.horizontalLayout_24.setObjectName(u"horizontalLayout_24")
         self.horizontalLayout_24.setContentsMargins(0, -1, -1, -1)
-        self.pushButtonReverseBan = QPushButton(self.frameBan)
-        self.pushButtonReverseBan.setObjectName(u"pushButtonReverseBan")
+        self.label_30 = QLabel(self.frameBan)
+        self.label_30.setObjectName(u"label_30")
+        self.label_30.setStyleSheet(u"color: #EF9A9A")
+        self.label_30.setAlignment(Qt.AlignCenter)
 
-        self.horizontalLayout_24.addWidget(self.pushButtonReverseBan)
+        self.horizontalLayout_24.addWidget(self.label_30)
+
+        self.radioButtonWsde1 = QRadioButton(self.frameBan)
+        self.radioButtonWsde1.setObjectName(u"radioButtonWsde1")
+        self.radioButtonWsde1.setChecked(True)
+
+        self.horizontalLayout_24.addWidget(self.radioButtonWsde1)
+
+        self.radioButtonWsde2 = QRadioButton(self.frameBan)
+        self.radioButtonWsde2.setObjectName(u"radioButtonWsde2")
+
+        self.horizontalLayout_24.addWidget(self.radioButtonWsde2)
+
+        self.radioButtonWsde3 = QRadioButton(self.frameBan)
+        self.radioButtonWsde3.setObjectName(u"radioButtonWsde3")
+
+        self.horizontalLayout_24.addWidget(self.radioButtonWsde3)
+
+        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_24.addItem(self.horizontalSpacer_5)
+
+        self.pushButtonClearBan = QPushButton(self.frameBan)
+        self.pushButtonClearBan.setObjectName(u"pushButtonClearBan")
+
+        self.horizontalLayout_24.addWidget(self.pushButtonClearBan)
 
         self.label_27 = QLabel(self.frameBan)
         self.label_27.setObjectName(u"label_27")
@@ -804,14 +935,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_24.addWidget(self.pushButtonSubmitBan)
 
-        self.horizontalLayout_24.setStretch(1, 1)
 
         self.horizontalLayout_20.addLayout(self.horizontalLayout_24)
 
         self.horizontalLayout_20.setStretch(0, 1)
-        self.horizontalLayout_20.setStretch(1, 1)
-        self.horizontalLayout_20.setStretch(2, 1)
-        self.horizontalLayout_20.setStretch(3, 1)
 
         self.verticalLayout_15.addLayout(self.horizontalLayout_20)
 
@@ -831,7 +958,7 @@ class Ui_MainWindow(object):
         self.label_15 = QLabel(self.frame_7)
         self.label_15.setObjectName(u"label_15")
         self.label_15.setFont(font8)
-        self.label_15.setStyleSheet(u"color: rgb(170, 255, 255)")
+        self.label_15.setStyleSheet(u"color: #CC6E6E")
         self.label_15.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_11.addWidget(self.label_15)
@@ -858,19 +985,19 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_13.addWidget(self.label_17)
 
-        self.spinBoxSumTable = QSpinBox(self.frame_7)
-        self.spinBoxSumTable.setObjectName(u"spinBoxSumTable")
-        self.spinBoxSumTable.setMaximum(999)
+        self.spinBoxSumEmerg = QSpinBox(self.frame_7)
+        self.spinBoxSumEmerg.setObjectName(u"spinBoxSumEmerg")
+        self.spinBoxSumEmerg.setMaximum(999)
 
-        self.horizontalLayout_13.addWidget(self.spinBoxSumTable)
+        self.horizontalLayout_13.addWidget(self.spinBoxSumEmerg)
 
-        self.checkBoxSumHasWyzl = QCheckBox(self.frame_7)
-        self.checkBoxSumHasWyzl.setObjectName(u"checkBoxSumHasWyzl")
-        self.checkBoxSumHasWyzl.setEnabled(True)
-        self.checkBoxSumHasWyzl.setStyleSheet(u"color: rgb(255, 170, 255)")
-        self.checkBoxSumHasWyzl.setCheckable(True)
+        self.checkBoxSumHasBbtsy = QCheckBox(self.frame_7)
+        self.checkBoxSumHasBbtsy.setObjectName(u"checkBoxSumHasBbtsy")
+        self.checkBoxSumHasBbtsy.setEnabled(True)
+        self.checkBoxSumHasBbtsy.setStyleSheet(u"color: #EF9A9A")
+        self.checkBoxSumHasBbtsy.setCheckable(True)
 
-        self.horizontalLayout_13.addWidget(self.checkBoxSumHasWyzl)
+        self.horizontalLayout_13.addWidget(self.checkBoxSumHasBbtsy)
 
         self.pushButtonSubmitSum = QPushButton(self.frame_7)
         self.pushButtonSubmitSum.setObjectName(u"pushButtonSubmitSum")
@@ -901,7 +1028,7 @@ class Ui_MainWindow(object):
         self.label_26 = QLabel(self.frame_13)
         self.label_26.setObjectName(u"label_26")
         self.label_26.setFont(font8)
-        self.label_26.setStyleSheet(u"color:rgb(255, 170, 127)")
+        self.label_26.setStyleSheet(u"color: #CC6E6E")
         self.label_26.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_20.addWidget(self.label_26)
@@ -926,7 +1053,7 @@ class Ui_MainWindow(object):
         self.label_24 = QLabel(self.frame_12)
         self.label_24.setObjectName(u"label_24")
         self.label_24.setFont(font8)
-        self.label_24.setStyleSheet(u"color:rgb(255, 170, 127)")
+        self.label_24.setStyleSheet(u"color: #CC6E6E")
         self.label_24.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_16.addWidget(self.label_24)
@@ -969,7 +1096,7 @@ class Ui_MainWindow(object):
         self.label_9 = QLabel(self.frame_5)
         self.label_9.setObjectName(u"label_9")
         self.label_9.setFont(font8)
-        self.label_9.setStyleSheet(u"color:rgb(255, 170, 127)")
+        self.label_9.setStyleSheet(u"color: #CC6E6E")
         self.label_9.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_9.addWidget(self.label_9)
@@ -981,15 +1108,19 @@ class Ui_MainWindow(object):
         sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.listRecord.sizePolicy().hasHeightForWidth())
         self.listRecord.setSizePolicy(sizePolicy3)
-        self.listRecord.setFont(font3)
+        font10 = QFont()
+        font10.setPointSize(8)
+        font10.setBold(True)
+        self.listRecord.setFont(font10)
         self.listRecord.setFrameShadow(QFrame.Plain)
         self.listRecord.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.listRecord.setProperty("showDropIndicator", False)
         self.listRecord.setDragEnabled(False)
         self.listRecord.setDragDropMode(QAbstractItemView.NoDragDrop)
         self.listRecord.setDefaultDropAction(Qt.MoveAction)
-        self.listRecord.setAlternatingRowColors(False)
+        self.listRecord.setAlternatingRowColors(True)
         self.listRecord.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.listRecord.setMovement(QListView.Static)
         self.listRecord.setSpacing(2)
         self.listRecord.setSortingEnabled(False)
 
@@ -999,18 +1130,18 @@ class Ui_MainWindow(object):
         self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
         self.label_8 = QLabel(self.frame_5)
         self.label_8.setObjectName(u"label_8")
-        font10 = QFont()
-        font10.setPointSize(14)
-        font10.setBold(True)
-        font10.setItalic(False)
-        self.label_8.setFont(font10)
+        font11 = QFont()
+        font11.setPointSize(14)
+        font11.setBold(True)
+        font11.setItalic(False)
+        self.label_8.setFont(font11)
         self.label_8.setAlignment(Qt.AlignCenter)
 
         self.horizontalLayout_10.addWidget(self.label_8)
 
         self.labelScore = QLabel(self.frame_5)
         self.labelScore.setObjectName(u"labelScore")
-        self.labelScore.setFont(font10)
+        self.labelScore.setFont(font11)
         self.labelScore.setAlignment(Qt.AlignCenter)
 
         self.horizontalLayout_10.addWidget(self.labelScore)
@@ -1176,77 +1307,110 @@ class Ui_MainWindow(object):
         self.radioButtonTempFive.setText(QCoreApplication.translate("MainWindow", u"\u4e94\u661f", None))
         self.radioButtonTempFour.setText(QCoreApplication.translate("MainWindow", u"\u56db\u661f", None))
         self.pushButtonSubmitTemp.setText(QCoreApplication.translate("MainWindow", u"\u6dfb\u52a0", None))
-        self.label_21.setText(QCoreApplication.translate("MainWindow", u"\u7d27\u6025\u5173\u5361/\u9690\u85cfBOSS (\u4e0d\u4f7f\u7528<\u65f6\u5149\u4e4b\u672b>)", None))
-        self.comboBoxEmerg.setItemText(0, QCoreApplication.translate("MainWindow", u"\u51b0\u6d77\u7591\u5f71", None))
-        self.comboBoxEmerg.setItemText(1, QCoreApplication.translate("MainWindow", u"\u516c\u53f8\u7ea0\u845b", None))
-        self.comboBoxEmerg.setItemText(2, QCoreApplication.translate("MainWindow", u"\u574d\u7f29\u4f53\u7684\u5348\u540e", None))
-        self.comboBoxEmerg.setItemText(3, QCoreApplication.translate("MainWindow", u"\u4eba\u9020\u7269\u72c2\u6b22\u8282", None))
-        self.comboBoxEmerg.setItemText(4, QCoreApplication.translate("MainWindow", u"\u672c\u80fd\u6c61\u67d3", None))
-        self.comboBoxEmerg.setItemText(5, QCoreApplication.translate("MainWindow", u"\u4ea1\u8005\u884c\u519b", None))
-        self.comboBoxEmerg.setItemText(6, QCoreApplication.translate("MainWindow", u"\u4e50\u7406\u4e4b\u707e", None))
-        self.comboBoxEmerg.setItemText(7, QCoreApplication.translate("MainWindow", u"\u751f\u7075\u7684\u7ec8\u70b9", None))
-        self.comboBoxEmerg.setItemText(8, QCoreApplication.translate("MainWindow", u"BOSS-\u5927\u5730\u9192\u8f6c", None))
-        self.comboBoxEmerg.setItemText(9, QCoreApplication.translate("MainWindow", u"BOSS-\u547c\u5438", None))
-        self.comboBoxEmerg.setItemText(10, QCoreApplication.translate("MainWindow", u"BOSS-\u593a\u6811\u8005", None))
+        self.label_21.setText(QCoreApplication.translate("MainWindow", u"\u7d27\u6025\u5173\u5361/BOSS (\u4e0d\u8df3\u5173,\u540c\u5173\u5361\u66f4\u9ad8\u5206\u5148\u5220\u9664\u8bb0\u5f55)", None))
+        self.comboBoxEmerg.setItemText(0, QCoreApplication.translate("MainWindow", u"\u6e83\u4e71\u9b54\u5178", None))
+        self.comboBoxEmerg.setItemText(1, QCoreApplication.translate("MainWindow", u"\u5927\u68cb\u4e00\u76d8", None))
+        self.comboBoxEmerg.setItemText(2, QCoreApplication.translate("MainWindow", u"\u5927\u68cb\u4e00\u76d8<\u82e6\u96be>", None))
+        self.comboBoxEmerg.setItemText(3, QCoreApplication.translate("MainWindow", u"\u2014\u2014\u2193 \u56db\u5c42 \u2193\u2014\u2014", None))
+        self.comboBoxEmerg.setItemText(4, QCoreApplication.translate("MainWindow", u"\u7329\u7ea2\u752c\u9053", None))
+        self.comboBoxEmerg.setItemText(5, QCoreApplication.translate("MainWindow", u"\u7329\u7ea2\u752c\u9053<\u5929\u707e/\u82e6\u96be/\u91d1\u878d>", None))
+        self.comboBoxEmerg.setItemText(6, QCoreApplication.translate("MainWindow", u"\u5047\u8c61\u5bf9\u51b2", None))
+        self.comboBoxEmerg.setItemText(7, QCoreApplication.translate("MainWindow", u"\u5047\u8c61\u5bf9\u51b2<\u5947\u89c2/\u9b54\u738b>", None))
+        self.comboBoxEmerg.setItemText(8, QCoreApplication.translate("MainWindow", u"\u673d\u8d25\u8003\u5bdf", None))
+        self.comboBoxEmerg.setItemText(9, QCoreApplication.translate("MainWindow", u"\u673d\u8d25\u8003\u5bdf<\u91d1\u878d/\u9b54\u738b>", None))
+        self.comboBoxEmerg.setItemText(10, QCoreApplication.translate("MainWindow", u"\u5e74\u4ee3\u65ad\u5c42<\u9b54\u738b/\u5929\u707e/\u91d1\u878d>", None))
+        self.comboBoxEmerg.setItemText(11, QCoreApplication.translate("MainWindow", u"\u2014\u2014\u2193 \u4e94\u5c42 \u2193\u2014\u2014", None))
+        self.comboBoxEmerg.setItemText(12, QCoreApplication.translate("MainWindow", u"\u8ba1\u5212\u8015\u79cd", None))
+        self.comboBoxEmerg.setItemText(13, QCoreApplication.translate("MainWindow", u"\u8ba1\u5212\u8015\u79cd<\u82e6\u96be/\u5947\u89c2>", None))
+        self.comboBoxEmerg.setItemText(14, QCoreApplication.translate("MainWindow", u"\u5bc4\u4eba\u57ce\u6c60\u4e0b", None))
+        self.comboBoxEmerg.setItemText(15, QCoreApplication.translate("MainWindow", u"\u5bc4\u4eba\u57ce\u6c60\u4e0b<\u91d1\u878d/\u5947\u89c2>", None))
+        self.comboBoxEmerg.setItemText(16, QCoreApplication.translate("MainWindow", u"\u901a\u9053\u5c01\u9501", None))
+        self.comboBoxEmerg.setItemText(17, QCoreApplication.translate("MainWindow", u"\u901a\u9053\u5c01\u9501<\u5947\u89c2>", None))
+        self.comboBoxEmerg.setItemText(18, QCoreApplication.translate("MainWindow", u"\u65e0\u7f6a\u51c0\u571f", None))
+        self.comboBoxEmerg.setItemText(19, QCoreApplication.translate("MainWindow", u"\u65e0\u7f6a\u51c0\u571f<\u5947\u89c2>", None))
+        self.comboBoxEmerg.setItemText(20, QCoreApplication.translate("MainWindow", u"\u5deb\u5492\u540c\u76df", None))
+        self.comboBoxEmerg.setItemText(21, QCoreApplication.translate("MainWindow", u"\u5deb\u5492\u540c\u76df<\u5947\u89c2>", None))
+        self.comboBoxEmerg.setItemText(22, QCoreApplication.translate("MainWindow", u"\u6b8b\u635f\u5b66\u9662", None))
+        self.comboBoxEmerg.setItemText(23, QCoreApplication.translate("MainWindow", u"\u2014\u2014\u2193 \u516d\u5c42 \u2193\u2014\u2014", None))
+        self.comboBoxEmerg.setItemText(24, QCoreApplication.translate("MainWindow", u"\u8c0b\u6c42\u5171\u8bc6", None))
+        self.comboBoxEmerg.setItemText(25, QCoreApplication.translate("MainWindow", u"\u8c0b\u6c42\u5171\u8bc6<\u91d1\u878d/\u5947\u89c2>", None))
+        self.comboBoxEmerg.setItemText(26, QCoreApplication.translate("MainWindow", u"\u795e\u5723\u7684\u6e34\u6c42", None))
+        self.comboBoxEmerg.setItemText(27, QCoreApplication.translate("MainWindow", u"\u795e\u5723\u7684\u6e34\u6c42<\u5947\u89c2/\u5929\u707e>", None))
+        self.comboBoxEmerg.setItemText(28, QCoreApplication.translate("MainWindow", u"\u2014\u2014\u2193 BOSS \u2193\u2014\u2014", None))
+        self.comboBoxEmerg.setItemText(29, QCoreApplication.translate("MainWindow", u"\u4e09\u5c42BOSS\u5173", None))
+        self.comboBoxEmerg.setItemText(30, QCoreApplication.translate("MainWindow", u"\u4e09\u5c42BOSS\u5173<\u536b\u56fd\u524d\u591c>", None))
 
-        self.checkBoxEmergHasLw.setText(QCoreApplication.translate("MainWindow", u"\u6301\u6709<\u8def\u7f51>\u4e14\u65e0\u6f0f", None))
+        self.checkBoxEmergBswLessFour.setText(QCoreApplication.translate("MainWindow", u"\u90e8\u7f72\u4f4d\u4e0d\u591a\u4e8e4", None))
         self.pushButtonSubmitEmerg.setText(QCoreApplication.translate("MainWindow", u"\u6dfb\u52a0", None))
-        self.label_11.setText(QCoreApplication.translate("MainWindow", u"\u901a\u5173\u9690\u85cf\u5173\u5361/\u8fbe\u6210\u7279\u6b8a\u51fb\u6740", None))
+        self.label_11.setText(QCoreApplication.translate("MainWindow", u"\u901a\u5173\u9690\u85cf\u5173\u5361/\u8fbe\u6210\u7279\u6b8a\u51fb\u6740(\u9e2d/\u72d7/\u718a/\u9f20)", None))
         self.comboBoxKillSp.setItemText(0, QCoreApplication.translate("MainWindow", u"\u666e\u901a\u5173\u5361", None))
-        self.comboBoxKillSp.setItemText(1, QCoreApplication.translate("MainWindow", u"\u8c6a\u534e\u8f66\u961f", None))
-        self.comboBoxKillSp.setItemText(2, QCoreApplication.translate("MainWindow", u"\u6b63\u4e49\u4f7f\u8005", None))
-        self.comboBoxKillSp.setItemText(3, QCoreApplication.translate("MainWindow", u"\u82f1\u96c4\u65e0\u540d", None))
+        self.comboBoxKillSp.setItemText(1, QCoreApplication.translate("MainWindow", u"\u4fe1\u53f7\u706f", None))
+        self.comboBoxKillSp.setItemText(2, QCoreApplication.translate("MainWindow", u"\u4fe1\u53f7\u706f<\u7d27\u6025>", None))
+        self.comboBoxKillSp.setItemText(3, QCoreApplication.translate("MainWindow", u"\u52ab\u865a\u6d4e\u5b9e", None))
+        self.comboBoxKillSp.setItemText(4, QCoreApplication.translate("MainWindow", u"\u52ab\u865a\u6d4e\u5b9e<\u7d27\u6025>", None))
+        self.comboBoxKillSp.setItemText(5, QCoreApplication.translate("MainWindow", u"\u6218\u573a\u4fa7\u9762", None))
+        self.comboBoxKillSp.setItemText(6, QCoreApplication.translate("MainWindow", u"\u6218\u573a\u4fa7\u9762<\u7d27\u6025>", None))
+        self.comboBoxKillSp.setItemText(7, QCoreApplication.translate("MainWindow", u"\u9e2d\u901f\u516c\u8def<\u7d27\u6025>", None))
+        self.comboBoxKillSp.setItemText(8, QCoreApplication.translate("MainWindow", u"\u72ed\u8def\u76f8\u9022<\u4e09\u7ea7/\u4f7f\u7528\u672a\u4f7f\u7528\u8fc7\u7684\u5e72\u5458>", None))
+        self.comboBoxKillSp.setItemText(9, QCoreApplication.translate("MainWindow", u"\u53d9\u4e8b\u9080\u7ea6", None))
 
-        self.labelKillSp.setText(QCoreApplication.translate("MainWindow", u"\u51fb\u6740\u72d7/\u9e2d/\u718a", None))
+        self.labelKillSp.setText(QCoreApplication.translate("MainWindow", u"\u7279\u6b8a\u51fb\u6740", None))
         self.spinBoxKillSp.setPrefix("")
         self.checkBoxKillSpPerfect.setText(QCoreApplication.translate("MainWindow", u"\u65e0\u6f0f", None))
         self.pushButtonSubmitKillSp.setText(QCoreApplication.translate("MainWindow", u"\u6dfb\u52a0", None))
-        self.label_22.setText(QCoreApplication.translate("MainWindow", u"\u901a\u5173\u7ed3\u5c40\u5173\u5361", None))
-        self.comboBoxEndStage.setItemText(0, QCoreApplication.translate("MainWindow", u"\u8428\u7c73\u4e4b\u71b5", None))
-        self.comboBoxEndStage.setItemText(1, QCoreApplication.translate("MainWindow", u"\u6df1\u5bd2\u9020\u50cf", None))
-        self.comboBoxEndStage.setItemText(2, QCoreApplication.translate("MainWindow", u"\u56ed\u4e01", None))
-        self.comboBoxEndStage.setItemText(3, QCoreApplication.translate("MainWindow", u"\u865a\u65e0\u4e4b\u5076", None))
-        self.comboBoxEndStage.setItemText(4, QCoreApplication.translate("MainWindow", u"\u8fc8\u5165\u6c38\u6052", None))
-        self.comboBoxEndStage.setItemText(5, QCoreApplication.translate("MainWindow", u"\u54e8\u5175", None))
-        self.comboBoxEndStage.setItemText(6, QCoreApplication.translate("MainWindow", u"\u65f6\u5149\u4e4b\u6c99", None))
-
-        self.pushButtonSubmitEndStage.setText(QCoreApplication.translate("MainWindow", u"\u6dfb\u52a0", None))
+        self.label_22.setText(QCoreApplication.translate("MainWindow", u"\u6811\u6d1e\u8de8\u5c42\u906d\u9047\u7d27\u6025\u4f5c\u6218", None))
+        self.labelKillSp_2.setText(QCoreApplication.translate("MainWindow", u"\u6811\u6d1e\u85cf\u54c1\u6570", None))
+        self.spinBoxEarlyEmerg.setPrefix("")
+        self.pushButtonEarlyEmerg.setText(QCoreApplication.translate("MainWindow", u"\u6dfb\u52a0", None))
+        self.label_31.setText(QCoreApplication.translate("MainWindow", u"\u53d6\u94b1\u8d85\u652f", None))
+        self.labelKillSp_3.setText(QCoreApplication.translate("MainWindow", u"\u8d85\u51fa60\u7684\u70b9\u6570", None))
+        self.spinBoxMoneyOverflow.setPrefix("")
+        self.pushButtonSubmitMoneyOverflow.setText(QCoreApplication.translate("MainWindow", u"\u63d0\u4ea4 (\u4ec5\u4e00\u6b21)", None))
         self.label_18.setText(QCoreApplication.translate("MainWindow", u"\u8fbe\u6210\u7ed3\u5c40", None))
-        self.comboBoxEnding1.setItemText(0, QCoreApplication.translate("MainWindow", u"\u76f4\u81f3\u51ac\u591c\u964d\u4e34", None))
-        self.comboBoxEnding1.setItemText(1, QCoreApplication.translate("MainWindow", u"\u8d8a\u8fc7\u7fa4\u5c71<\u666e\u901a>", None))
-        self.comboBoxEnding1.setItemText(2, QCoreApplication.translate("MainWindow", u"\u8d8a\u8fc7\u7fa4\u5c71<\u6df1\u5bd2\u9020\u50cf>", None))
+        self.comboBoxEnding1.setItemText(0, QCoreApplication.translate("MainWindow", u"\u7d27\u6025\u6388\u8bfe", None))
+        self.comboBoxEnding1.setItemText(1, QCoreApplication.translate("MainWindow", u"\u7d27\u6025\u6388\u8bfe<\u6df7\u4e71>", None))
+        self.comboBoxEnding1.setItemText(2, QCoreApplication.translate("MainWindow", u"\u7d27\u6025\u6388\u8bfe<\u6df7\u4e71/\u65e0\u6f0f>", None))
 
         self.label_19.setText(QCoreApplication.translate("MainWindow", u"\u2192", None))
         self.comboBoxEnding2.setItemText(0, QCoreApplication.translate("MainWindow", u"\u672a\u8fbe\u6210", None))
-        self.comboBoxEnding2.setItemText(1, QCoreApplication.translate("MainWindow", u"\u81ea\u6df1\u5904\u7684\u4e00\u77a5", None))
+        self.comboBoxEnding2.setItemText(1, QCoreApplication.translate("MainWindow", u"\u671d\u8c12", None))
+        self.comboBoxEnding2.setItemText(2, QCoreApplication.translate("MainWindow", u"\u671d\u8c12<\u6df7\u4e71>", None))
+        self.comboBoxEnding2.setItemText(3, QCoreApplication.translate("MainWindow", u"\u671d\u8c12<\u6df7\u4e71/\u65e0\u6f0f>", None))
 
         self.label_20.setText(QCoreApplication.translate("MainWindow", u"\u2192", None))
         self.comboBoxEnding3.setItemText(0, QCoreApplication.translate("MainWindow", u"\u672a\u8fbe\u6210", None))
-        self.comboBoxEnding3.setItemText(1, QCoreApplication.translate("MainWindow", u"\u7ec8\u59cb", None))
+        self.comboBoxEnding3.setItemText(1, QCoreApplication.translate("MainWindow", u"\u5723\u57ce", None))
+        self.comboBoxEnding3.setItemText(2, QCoreApplication.translate("MainWindow", u"\u5723\u57ce<\u6df7\u4e71>", None))
+        self.comboBoxEnding3.setItemText(3, QCoreApplication.translate("MainWindow", u"\u5723\u57ce<\u6df7\u4e71/\u65e0\u6f0f>", None))
 
-        self.checkBoxEndingNoSlzt.setText(QCoreApplication.translate("MainWindow", u"\u672a\u8fdb\u5165<\u6811\u7bf1\u4e4b\u9014>", None))
+        self.checkBoxEndingEnd2Sp.setText(QCoreApplication.translate("MainWindow", u"\u91d1\u878d/\u5947\u89c2/\u62e5\u6324\u901a\u5173\u4e8c\u7ed3\u5c40", None))
+        self.checkBoxEndingEnd3Sp.setText(QCoreApplication.translate("MainWindow", u"\u5947\u89c2/\u62e5\u6324/\u9b54\u738b\u901a\u5173\u4e09\u7ed3\u5c40", None))
         self.pushButtonSubmitEnding.setText(QCoreApplication.translate("MainWindow", u"\u63d0\u4ea4 (\u4ec5\u4e00\u6b21)", None))
-        self.label_23.setText(QCoreApplication.translate("MainWindow", u"Ban\u4f4d\u7ed3\u7b97 (\u52fe\u9009\u4e3a\u672a\u6293\u53d6)", None))
-        self.checkBoxBanWsde.setText(QCoreApplication.translate("MainWindow", u"\u7ef4\u4ec0\u6234\u5c14", None))
-        self.checkBoxBanJmdkss.setText(QCoreApplication.translate("MainWindow", u"\u7f04\u9ed8\u5fb7\u514b\u8428\u65af", None))
-        self.checkBoxBanQlryd.setText(QCoreApplication.translate("MainWindow", u"\u9e92\u9e9fR\u591c\u5200", None))
-        self.checkBoxBanJian.setText(QCoreApplication.translate("MainWindow", u"\u950f", None))
-        self.checkBoxBanMen.setText(QCoreApplication.translate("MainWindow", u"\u739b\u6069\u7eb3", None))
-        self.checkBoxBanAl.setText(QCoreApplication.translate("MainWindow", u"\u827e\u62c9", None))
-        self.checkBoxBanYns.setText(QCoreApplication.translate("MainWindow", u"\u4f0a\u5185\u65af", None))
+        self.label_23.setText(QCoreApplication.translate("MainWindow", u"Ban\u4f4d\u7ed3\u7b97 (\u9009\u62e9\u4e3a\u672a\u6293\u53d6,\u9700\u8fc7\u4e94\u5c42BOSS,\"-\"\u4e3a\u4e00\u6b21\u5f97\u5206,\"\u221a\"\u4e3a\u4e24\u6b21\u5f97\u5206)", None))
         self.checkBoxBanLogos.setText(QCoreApplication.translate("MainWindow", u"Logos", None))
-        self.checkBoxBanYywc.setText(QCoreApplication.translate("MainWindow", u"\u7130\u5f71\u82c7\u8349", None))
+        self.checkBoxBanAskl.setText(QCoreApplication.translate("MainWindow", u"\u963f\u65af\u5361\u4f26", None))
+        self.checkBoxBanQlsyd.setText(QCoreApplication.translate("MainWindow", u"\u9e92\u9e9fS\u591c\u5200", None))
+        self.checkBoxBanKuiying.setText(QCoreApplication.translate("MainWindow", u"\u5080\u5f71", None))
+        self.checkBoxBanWeba.setText(QCoreApplication.translate("MainWindow", u"\u4e4c\u5c14\u6bd4\u5b89", None))
         self.checkBoxBanCjayfl.setText(QCoreApplication.translate("MainWindow", u"\u7eaf\u70ec\u827e\u96c5\u6cd5\u62c9", None))
-        self.checkBoxBanLy.setText(QCoreApplication.translate("MainWindow", u"\u83b1\u4f0a", None))
-        self.pushButtonReverseBan.setText(QCoreApplication.translate("MainWindow", u"\u53cd\u9009", None))
+        self.checkBoxBanKalsit.setText(QCoreApplication.translate("MainWindow", u"\u51ef\u5c14\u5e0c", None))
+        self.checkBoxBanYns.setText(QCoreApplication.translate("MainWindow", u"\u4f0a\u5185\u65af", None))
+        self.checkBoxBanSuxin.setText(QCoreApplication.translate("MainWindow", u"\u5851\u5fc3", None))
+        self.checkBoxBanNifu.setText(QCoreApplication.translate("MainWindow", u"\u59ae\u8299", None))
+        self.label_30.setText(QCoreApplication.translate("MainWindow", u"\u7ef4\u4ec0\u6234\u5c14\uff1a", None))
+        self.radioButtonWsde1.setText(QCoreApplication.translate("MainWindow", u"\u672a\u62db\u52df ", None))
+        self.radioButtonWsde2.setText(QCoreApplication.translate("MainWindow", u"\u62db\u52df ", None))
+        self.radioButtonWsde3.setText(QCoreApplication.translate("MainWindow", u"\u653e\u5f03\u535a\u58eb\u94f6\u5370 ", None))
+        self.pushButtonClearBan.setText(QCoreApplication.translate("MainWindow", u"\u6e05\u7a7a", None))
         self.label_27.setText(QCoreApplication.translate("MainWindow", u"/", None))
         self.pushButtonSubmitBan.setText(QCoreApplication.translate("MainWindow", u"\u63d0\u4ea4 (\u4ec5\u4e00\u6b21)", None))
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"\u6700\u7ec8\u7ed3\u7b97", None))
-        self.label_16.setText(QCoreApplication.translate("MainWindow", u"\u85cf\u54c1", None))
-        self.label_17.setText(QCoreApplication.translate("MainWindow", u"\u5bc6\u6587\u677f", None))
-        self.checkBoxSumHasWyzl.setText(QCoreApplication.translate("MainWindow", u"\u6301\u6709<\u65e0\u57a0\u8d60\u793c>", None))
+        self.label_16.setText(QCoreApplication.translate("MainWindow", u"\u6301\u6709\u85cf\u54c1", None))
+        self.label_17.setText(QCoreApplication.translate("MainWindow", u"\u901a\u5173\u7d27\u6025", None))
+        self.checkBoxSumHasBbtsy.setText(QCoreApplication.translate("MainWindow", u"\u6301\u6709<\u5df4\u522b\u5854\u8a93\u8a00>", None))
         self.pushButtonSubmitSum.setText(QCoreApplication.translate("MainWindow", u"\u63d0\u4ea4 (\u4ec5\u4e00\u6b21)", None))
         self.label_26.setText(QCoreApplication.translate("MainWindow", u"\u57fa\u7840\u5206\u6570", None))
+        self.spinBoxBaseScore.setSuffix("")
         self.spinBoxBaseScore.setPrefix("")
         self.label_24.setText(QCoreApplication.translate("MainWindow", u"\u81ea\u5b9a\u4e49\u589e\u51cf", None))
         self.lineEditCustomScore.setPlaceholderText(QCoreApplication.translate("MainWindow", u"\u7406\u7531", None))
