@@ -13,6 +13,7 @@ from PySide6.QtGui import QCloseEvent, QIcon, QPixmap
 from PySide6.QtWidgets import (
     QApplication,
     QCheckBox,
+    QComboBox,
     QInputDialog,
     QMainWindow,
     QMenu,
@@ -29,9 +30,10 @@ qdarktheme import after QT
 import qdarktheme
 
 UUID_NAMESPACE = uuid.UUID("1b671a64-40d5-491e-99b0-da01ff1f3342")
-VERSION = "1.0.0"
+VERSION = "1.1.2"
+MINIMUM_DB_VERSION = "1.1.0"
 AVATAR_SIZE = 140  # 软件内头像大小
-OBS_AVATAR_SIZE = 180  # OBS头像大小
+OBS_AVATAR_SIZE = 224  # OBS头像大小
 MAX_SLOT = 16  # 最大记录槽位
 DEFAULT_NOTE = "无备注信息"  # 默认备注信息
 DATA_DIR_NAME = "ark_data"  # 数据文件夹
@@ -86,9 +88,11 @@ generate_uuid = lambda name: str(
 @dataclass
 class Record:
     data: list[str]  # 记录数据
-    base_score: int = 0  # 基础分
-    score: int = 0  # 总分
-    start_operator: str = "未知"  # 开局干员
+    base_score: float = 0  # 基础分数
+    score: float = 0  # 总分
+    start_operator1: str = "未知"  # 开局干员1
+    start_operator2: str = "未知"  # 开局干员2
+    start_operator3: str = "未知"  # 开局干员3
     start_team: str = "未知"  # 开局队伍
     time: int = 0  # 时间戳
     valid: bool = False  # 是否是有效记录
@@ -131,7 +135,9 @@ class MainWindow(QMainWindow, MainUITemplate):
         # 添加开局干员
         for file in os.listdir(START_OPERATOR_PATH):
             if file.endswith(".png"):
-                self.comboBoxStartOperator.addItem(os.path.splitext(file)[0])
+                self.comboBoxStartOperator1.addItem(os.path.splitext(file)[0])
+                self.comboBoxStartOperator2.addItem(os.path.splitext(file)[0])
+                self.comboBoxStartOperator3.addItem(os.path.splitext(file)[0])
         # 添加开局队伍
         for file in os.listdir(START_TEAM_PATH):
             if file.endswith(".png"):
@@ -166,13 +172,31 @@ class MainWindow(QMainWindow, MainUITemplate):
         从数据库载入数据, 如果数据库不存在则创建一个新的数据库
         """
         self.players = {}
+        clear = False
         with shelve.open(DATABASE_PATH) as db:
-            if "__version__" not in db:
-                db["__version__"] = "0.0.0"
-            if db["__version__"] != VERSION:
+            if "__version__" in db and db["__version__"] != VERSION:
                 logger.warning(
                     f"Database version mismatch, expect {VERSION}, got {db['__version__']}"
                 )
+                a, b, c = db["__version__"].split(".")
+                a1, b1, c1 = int(a), int(b), int(c)
+                a, b, c = MINIMUM_DB_VERSION.split(".")
+                a2, b2, c2 = int(a), int(b), int(c)
+                if a1 < a2 or b1 < b2 or c1 < c2:
+                    logger.error(
+                        "Database version lower than minimum version, clear database"
+                    )
+                    ret = QMessageBox.question(
+                        self,
+                        "数据库版本过低",
+                        "数据库版本低于兼容版本, 是否清除数据库?\n(如不清除,软件将退出)",
+                        QMessageBox.Yes | QMessageBox.No,
+                        QMessageBox.Yes,
+                    )
+                    if ret != QMessageBox.Yes:
+                        sys.exit(0)
+                    clear = True
+        with shelve.open(DATABASE_PATH, "n" if clear else "r") as db:
             for name in db:
                 if name == "__version__":
                     continue
@@ -261,15 +285,27 @@ class MainWindow(QMainWindow, MainUITemplate):
             return
         if not skip_sync_name:
             self.obs.fake.set_player(self.player_now.name, self.avatar_obs_path)
+
+        def get_op_path(name: str):
+            if name == "未知":
+                return ""
+            return os.path.join(START_OPERATOR_PATH, f"{name}.png")
+
         self.obs.fake.set_start(
             os.path.join(START_TEAM_PATH, f"{self.record.start_team}.png")
             if self.record.start_team != "未知"
             else "",
-            os.path.join(START_OPERATOR_PATH, f"{self.record.start_operator}.png")
-            if self.record.start_operator != "未知"
-            else "",
+            get_op_path(self.record.start_operator1),
+            get_op_path(self.record.start_operator2),
+            get_op_path(self.record.start_operator3),
         )
-        self.obs.fake.set_score(f"{self.record.score:.4f}".rstrip("0").rstrip("."))
+
+    def sync_obs_score(self):
+        if not self.connected:
+            return
+        details = self.record.data
+        total = self.record.score
+        self.obs.fake.display_score(details, total)
 
     def load_player(self, name: str):
         """
@@ -285,6 +321,7 @@ class MainWindow(QMainWindow, MainUITemplate):
         self.comboBoxSelRecord.setCurrentIndex(-1)
         self.comboBoxSelRecord.setCurrentIndex(0)
         self.sync_obs_player_info()
+        self.sync_obs_score()
         # will call on_comboBoxSelRecord_currentIndexChanged
 
     def load_avatar(self):
@@ -298,7 +335,9 @@ class MainWindow(QMainWindow, MainUITemplate):
                 break
         else:
             self.labelAvatar.setPixmap(QPixmap())
-            self.labelAvatar.setText("无头像")
+            self.labelAvatar.setText(
+                "未找到头像\n请将同名图片放入\nark_data/avatar\n文件夹中"
+            )
             logger.warning(f"Missing avatar for {name}")
             self.avatar_obs_path = ""
             return
@@ -344,21 +383,26 @@ class MainWindow(QMainWindow, MainUITemplate):
         logger.info(f"Loading record {index+1} for {self.player_now.name}")
         self.record = self.player_now.records[index]
         self.listRecord.clear()
+        if len(self.record.data) == 0 or not self.record.data[0].startswith("基础分数"):
+            self.record.data.insert(0, "基础分数 0")
         for item in self.record.data:
             self.listRecord.addItem(item)
-        if self.record.start_operator in [
-            self.comboBoxStartOperator.itemText(i)
-            for i in range(self.comboBoxStartOperator.count())
-        ]:
-            self.comboBoxStartOperator.setCurrentText(self.record.start_operator)
-        else:
-            self.comboBoxStartOperator.setCurrentIndex(0)
+
+        def load_op(combo: QComboBox, op: str):
+            if op in [combo.itemText(i) for i in range(combo.count())]:
+                combo.setCurrentText(op)
+            else:
+                combo.setCurrentIndex(0)
+
+        load_op(self.comboBoxStartOperator1, self.record.start_operator1)
+        load_op(self.comboBoxStartOperator2, self.record.start_operator2)
+        load_op(self.comboBoxStartOperator3, self.record.start_operator3)
+
         if self.record.start_team in [
             self.comboBoxStartTeam.itemText(i)
             for i in range(self.comboBoxStartTeam.count())
         ]:
             self.comboBoxStartTeam.setCurrentText(self.record.start_team)
-            self.comboBoxStartOperator.setCurrentText(self.record.start_operator)
         self.spinBoxBaseScore.setValue(self.record.base_score)
         self.recalc_score()
 
@@ -375,6 +419,7 @@ class MainWindow(QMainWindow, MainUITemplate):
             return
         self.record.valid = False
         self.record.data.clear()
+        self.record.data.append("基础分数 0")
         self.record.base_score = 0
         self.record.score = 0
         self.record.time = 0
@@ -382,6 +427,7 @@ class MainWindow(QMainWindow, MainUITemplate):
         self.record.start_team = "未知"
         self.spinBoxBaseScore.setValue(0)
         self.listRecord.clear()
+        self.listRecord.addItem(f"基础分数 {self.record.base_score}")
         self.recalc_score()
         self.update_player_info()
         logger.info(f"Record {self.comboBoxSelRecord.currentText()} cleared")
@@ -484,11 +530,25 @@ class MainWindow(QMainWindow, MainUITemplate):
         logger.info(f"Player {self.player_now.name} note updated: {note}")
 
     @Slot(int)
-    def on_comboBoxStartOperator_currentIndexChanged(self, index: int):
-        name = self.comboBoxStartOperator.currentText()
-        self.record.start_operator = name
+    def on_comboBoxStartOperator1_currentIndexChanged(self, index: int):
+        name = self.comboBoxStartOperator1.currentText()
+        self.record.start_operator1 = name
         self.sync_obs_player_info(True)
-        logger.info(f"Start operator updated: {name}")
+        logger.info(f"Start operator 1 updated: {name}")
+
+    @Slot(int)
+    def on_comboBoxStartOperator2_currentIndexChanged(self, index: int):
+        name = self.comboBoxStartOperator2.currentText()
+        self.record.start_operator2 = name
+        self.sync_obs_player_info(True)
+        logger.info(f"Start operator 2 updated: {name}")
+
+    @Slot(int)
+    def on_comboBoxStartOperator3_currentIndexChanged(self, index: int):
+        name = self.comboBoxStartOperator3.currentText()
+        self.record.start_operator3 = name
+        self.sync_obs_player_info(True)
+        logger.info(f"Start operator 3 updated: {name}")
 
     @Slot(int)
     def on_comboBoxStartTeam_currentIndexChanged(self, index: int):
@@ -505,6 +565,8 @@ class MainWindow(QMainWindow, MainUITemplate):
             return
         if row == -1:
             row = cnt - 1
+        if self.listRecord.item(row).text().startswith("基础分数"):
+            return
         self.listRecord.takeItem(row)
         self.record.data.pop(row)
         self.record.time = int(datetime.datetime.now().timestamp())
@@ -513,8 +575,15 @@ class MainWindow(QMainWindow, MainUITemplate):
 
     @Slot(QPoint)  # listRecord 右键菜单
     def on_listRecord_customContextMenuRequested(self, pos: QPoint):
+        # 如果列表没有选中项目则拒绝
         menu = QMenu()
         menu.addAction("删除", self.__list_del_item)
+        if self.listRecord.currentRow() == -1 or (
+            self.listRecord.item(self.listRecord.currentRow())
+            .text()
+            .startswith("基础分数")
+        ):
+            menu.actions()[0].setEnabled(False)
         menu.exec(self.listRecord.mapToGlobal(pos))
 
     def recalc_score(self):
@@ -523,6 +592,8 @@ class MainWindow(QMainWindow, MainUITemplate):
         for i in range(self.listRecord.count()):
             item = self.listRecord.item(i)
             text = item.text()
+            if text.startswith("基础分数"):
+                continue
             if "x" in text:
                 score_multi.append(float(text.split("x")[-1]))
             elif "+" in text:
@@ -535,8 +606,7 @@ class MainWindow(QMainWindow, MainUITemplate):
         self.record.score = score
         self.update_player_info()
         logger.info(f"Score recalculated: {score:.4f}")
-        if self.connected:
-            self.obs.fake.set_score(f"{score:.4f}".rstrip("0").rstrip("."))
+        self.sync_obs_score()
         ###### 以下为额外逻辑 ######
         six, five, four = 0, 0, 0
         for text in self.record.data:
@@ -566,32 +636,26 @@ class MainWindow(QMainWindow, MainUITemplate):
         self.record.time = int(datetime.datetime.now().timestamp())
         logger.info(f"Score change added: {text}")
         self.recalc_score()
-        if self.connected and self.checkBoxEnLowers.isChecked():
-            self.obs.fake.display_lower(
-                info1.split(" ")[0],
-                info2,
-                change,
-                duration=OBS_TOAST_DURATION,
-                plus_bk_path=os.path.join(RESOURCE_PATH, OBS_TOAST_PLUS_IMG_NAME),
-                minus_bk_path=os.path.join(RESOURCE_PATH, OBS_TOAST_MINUS_IMG_NAME),
-            )
 
     @Slot()
     def on_spinBoxBaseScore_editingFinished(self):
         self.record.base_score = self.spinBoxBaseScore.value()
+        if self.record.data[0].startswith("基础分数"):
+            self.record.data[0] = f"基础分数 {self.record.base_score}"
+        else:
+            self.record.data.insert(0, f"基础分数 {self.record.base_score}")
         self.record.time = int(datetime.datetime.now().timestamp())
         self.record.valid = True
+        if self.listRecord.count() > 0:
+            item = self.listRecord.item(0)
+            if item.text().startswith("基础分数"):
+                item.setText(f"基础分数 {self.record.base_score}")
+            else:
+                self.listRecord.insertItem(0, f"基础分数 {self.record.base_score}")
+        else:
+            self.listRecord.addItem(f"基础分数 {self.record.base_score}")
         logger.info(f"Base score changed to {self.record.base_score}")
         self.recalc_score()
-        if self.connected and self.checkBoxEnLowers.isChecked():
-            self.obs.fake.display_lower(
-                "基础分数",
-                f"+{self.record.base_score}",
-                0,
-                duration=OBS_TOAST_DURATION,
-                plus_bk_path=os.path.join(RESOURCE_PATH, OBS_TOAST_PLUS_IMG_NAME),
-                minus_bk_path=os.path.join(RESOURCE_PATH, OBS_TOAST_MINUS_IMG_NAME),
-            )
 
     @Slot()
     def on_pushButtonConnect_clicked(self):
@@ -621,6 +685,7 @@ class MainWindow(QMainWindow, MainUITemplate):
             self.labelConState.setStyleSheet("color: #93bd7a")
             self.obs.set_pause(self.checkBoxPause.isChecked())
             self.sync_obs_player_info()
+            self.sync_obs_score()
 
     @Slot()
     def on_pushButtonClrLowers_clicked(self):
@@ -636,6 +701,7 @@ class MainWindow(QMainWindow, MainUITemplate):
         self.obs.set_pause(self.checkBoxPause.isChecked())
         if not self.checkBoxPause.isChecked():
             self.sync_obs_player_info()
+            self.sync_obs_score()
 
     ############## 以下为分数逻辑 ##############
 
@@ -732,6 +798,7 @@ class MainWindow(QMainWindow, MainUITemplate):
                 if text2 != "":
                     text2 += "/"
                 text2 += "低部署"
+                text2.replace("特殊", "")
         else:
             if "<" in self.comboBoxEmerg.currentText():
                 score += 30
@@ -747,6 +814,11 @@ class MainWindow(QMainWindow, MainUITemplate):
         text = self.comboBoxKillSp.currentText()
         text1 = text
         text2 = "无漏" if perfect else ""
+        if "<" in text:
+            if text2:
+                text2 += "/"
+            text2 += text.split("<")[1].replace(">", "")
+            text1 = text.split("<")[0]
         if text == "普通关卡":
             score = 10 * val
             text1 = "特殊击杀"
@@ -778,7 +850,7 @@ class MainWindow(QMainWindow, MainUITemplate):
         if val == 0:
             return
         score = 20 * val
-        self.add_score_change("跨层紧急作战", f"{val}树洞藏品", score)
+        self.add_score_change("跨层紧急", f"{val}树洞藏品", score)
 
     @Slot()
     def on_pushButtonSubmitMoneyOverflow_clicked(self):
@@ -799,16 +871,24 @@ class MainWindow(QMainWindow, MainUITemplate):
             + {0: 0, 1: 170, 2: 200, 3: 250}[self.comboBoxEnding3.currentIndex()]
         )
         text = text1
+
+        def add_sp_to_text(text: str, sp: text):
+            if ">" in text:
+                text = text.split(">")[0] + f"/{sp}>"
+            else:
+                text += f"<{sp}>"
+            return text
+
         if text2 != "未达成":
             text = text2
             if self.checkBoxEndingEnd2Sp.isChecked():
                 score += 20
-                text += " (SP)"
+                text = add_sp_to_text(text, "年代")
         if text3 != "未达成":
             text = text3
             if self.checkBoxEndingEnd3Sp.isChecked():
                 score += 50
-                text += " (SP)"
+                text = add_sp_to_text(text, "年代")
         if score == 0:
             return
         self.add_score_change("达成结局", text, score)
@@ -829,7 +909,7 @@ class MainWindow(QMainWindow, MainUITemplate):
     def on_pushButtonSubmitBan_clicked(self):
         mul = 0
         if self.radioButtonWsde2.isChecked():
-            self.add_score_change("抓取维什戴尔", "独立乘算", -0.2, is_multi=True)
+            self.add_score_change("招募维什戴尔", "独立乘算", -0.2, is_multi=True)
         if self.radioButtonWsde3.isChecked():
             mul += 0.0711
 

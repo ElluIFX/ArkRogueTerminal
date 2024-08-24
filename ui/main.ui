@@ -413,7 +413,7 @@
                 </layout>
                </item>
                <item>
-                <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,1,1,1">
+                <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,1,1,0">
                  <item>
                   <widget class="QLabel" name="labelPlayerRecordNum">
                    <property name="font">
@@ -467,16 +467,50 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="comboBoxStartOperator">
-                   <property name="maxVisibleItems">
-                    <number>20</number>
+                  <layout class="QHBoxLayout" name="horizontalLayout_27">
+                   <property name="spacing">
+                    <number>3</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
                    </property>
                    <item>
-                    <property name="text">
-                     <string>未知</string>
-                    </property>
+                    <widget class="QComboBox" name="comboBoxStartOperator1">
+                     <property name="maxVisibleItems">
+                      <number>20</number>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>未知</string>
+                      </property>
+                     </item>
+                    </widget>
                    </item>
-                  </widget>
+                   <item>
+                    <widget class="QComboBox" name="comboBoxStartOperator2">
+                     <property name="maxVisibleItems">
+                      <number>20</number>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>未知</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="comboBoxStartOperator3">
+                     <property name="maxVisibleItems">
+                      <number>20</number>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>未知</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                 </layout>
                </item>
@@ -2270,7 +2304,7 @@
         <number>5</number>
        </property>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0,99,0,1">
+        <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,0,2,0,2">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_9">
            <item>
@@ -2284,7 +2318,7 @@
               <enum>Qt::ClickFocus</enum>
              </property>
              <property name="text">
-              <string>暂停刷新</string>
+              <string>暂停OBS信息同步</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -2295,37 +2329,17 @@
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBoxEnLowers">
-             <property name="font">
-              <font>
-               <pointsize>9</pointsize>
-              </font>
+            <spacer name="horizontalSpacer_7">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
              </property>
-             <property name="focusPolicy">
-              <enum>Qt::ClickFocus</enum>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
              </property>
-             <property name="text">
-              <string>显示弹出通知</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButtonClrLowers">
-             <property name="font">
-              <font>
-               <pointsize>9</pointsize>
-              </font>
-             </property>
-             <property name="focusPolicy">
-              <enum>Qt::ClickFocus</enum>
-             </property>
-             <property name="text">
-              <string>别弹通知了</string>
-             </property>
-            </widget>
+            </spacer>
            </item>
           </layout>
          </item>
@@ -2374,23 +2388,6 @@
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_8">
-           <item>
-            <widget class="QLabel" name="label_2">
-             <property name="font">
-              <font>
-               <pointsize>9</pointsize>
-               <italic>false</italic>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>服务器:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
            <item>
             <widget class="QLineEdit" name="lineEditServer">
              <property name="sizePolicy">

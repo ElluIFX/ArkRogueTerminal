@@ -252,17 +252,37 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_4.addWidget(self.comboBoxStartTeam)
 
-        self.comboBoxStartOperator = QComboBox(self.frame)
-        self.comboBoxStartOperator.addItem("")
-        self.comboBoxStartOperator.setObjectName(u"comboBoxStartOperator")
-        self.comboBoxStartOperator.setMaxVisibleItems(20)
+        self.horizontalLayout_27 = QHBoxLayout()
+        self.horizontalLayout_27.setSpacing(3)
+        self.horizontalLayout_27.setObjectName(u"horizontalLayout_27")
+        self.horizontalLayout_27.setContentsMargins(-1, -1, -1, 0)
+        self.comboBoxStartOperator1 = QComboBox(self.frame)
+        self.comboBoxStartOperator1.addItem("")
+        self.comboBoxStartOperator1.setObjectName(u"comboBoxStartOperator1")
+        self.comboBoxStartOperator1.setMaxVisibleItems(20)
 
-        self.verticalLayout_4.addWidget(self.comboBoxStartOperator)
+        self.horizontalLayout_27.addWidget(self.comboBoxStartOperator1)
+
+        self.comboBoxStartOperator2 = QComboBox(self.frame)
+        self.comboBoxStartOperator2.addItem("")
+        self.comboBoxStartOperator2.setObjectName(u"comboBoxStartOperator2")
+        self.comboBoxStartOperator2.setMaxVisibleItems(20)
+
+        self.horizontalLayout_27.addWidget(self.comboBoxStartOperator2)
+
+        self.comboBoxStartOperator3 = QComboBox(self.frame)
+        self.comboBoxStartOperator3.addItem("")
+        self.comboBoxStartOperator3.setObjectName(u"comboBoxStartOperator3")
+        self.comboBoxStartOperator3.setMaxVisibleItems(20)
+
+        self.horizontalLayout_27.addWidget(self.comboBoxStartOperator3)
+
+
+        self.verticalLayout_4.addLayout(self.horizontalLayout_27)
 
         self.verticalLayout_4.setStretch(0, 1)
         self.verticalLayout_4.setStretch(1, 1)
         self.verticalLayout_4.setStretch(2, 1)
-        self.verticalLayout_4.setStretch(3, 1)
 
         self.horizontalLayout_5.addLayout(self.verticalLayout_4)
 
@@ -1188,20 +1208,9 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_9.addWidget(self.checkBoxPause)
 
-        self.checkBoxEnLowers = QCheckBox(self.frame_3)
-        self.checkBoxEnLowers.setObjectName(u"checkBoxEnLowers")
-        self.checkBoxEnLowers.setFont(font6)
-        self.checkBoxEnLowers.setFocusPolicy(Qt.ClickFocus)
-        self.checkBoxEnLowers.setChecked(True)
+        self.horizontalSpacer_7 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.horizontalLayout_9.addWidget(self.checkBoxEnLowers)
-
-        self.pushButtonClrLowers = QPushButton(self.frame_3)
-        self.pushButtonClrLowers.setObjectName(u"pushButtonClrLowers")
-        self.pushButtonClrLowers.setFont(font6)
-        self.pushButtonClrLowers.setFocusPolicy(Qt.ClickFocus)
-
-        self.horizontalLayout_9.addWidget(self.pushButtonClrLowers)
+        self.horizontalLayout_9.addItem(self.horizontalSpacer_7)
 
 
         self.horizontalLayout.addLayout(self.horizontalLayout_9)
@@ -1223,13 +1232,6 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_8 = QHBoxLayout()
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
-        self.label_2 = QLabel(self.frame_3)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setFont(font2)
-        self.label_2.setAlignment(Qt.AlignCenter)
-
-        self.horizontalLayout_8.addWidget(self.label_2)
-
         self.lineEditServer = QLineEdit(self.frame_3)
         self.lineEditServer.setObjectName(u"lineEditServer")
         sizePolicy.setHeightForWidth(self.lineEditServer.sizePolicy().hasHeightForWidth())
@@ -1259,9 +1261,9 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addLayout(self.horizontalLayout_8)
 
-        self.horizontalLayout.setStretch(0, 1)
-        self.horizontalLayout.setStretch(2, 99)
-        self.horizontalLayout.setStretch(4, 1)
+        self.horizontalLayout.setStretch(0, 2)
+        self.horizontalLayout.setStretch(2, 2)
+        self.horizontalLayout.setStretch(4, 2)
 
         self.horizontalLayout_2.addLayout(self.horizontalLayout)
 
@@ -1296,7 +1298,11 @@ class Ui_MainWindow(object):
         self.labelPlayerMaxRecord.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.comboBoxStartTeam.setItemText(0, QCoreApplication.translate("MainWindow", u"\u672a\u77e5", None))
 
-        self.comboBoxStartOperator.setItemText(0, QCoreApplication.translate("MainWindow", u"\u672a\u77e5", None))
+        self.comboBoxStartOperator1.setItemText(0, QCoreApplication.translate("MainWindow", u"\u672a\u77e5", None))
+
+        self.comboBoxStartOperator2.setItemText(0, QCoreApplication.translate("MainWindow", u"\u672a\u77e5", None))
+
+        self.comboBoxStartOperator3.setItemText(0, QCoreApplication.translate("MainWindow", u"\u672a\u77e5", None))
 
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u5e72\u5458\u9009\u62e9:", None))
         self.pushButtonAddPlayer.setText(QCoreApplication.translate("MainWindow", u"\u6dfb\u52a0", None))
@@ -1427,11 +1433,8 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"\u603b\u5206:", None))
         self.labelScore.setText(QCoreApplication.translate("MainWindow", u"0", None))
-        self.checkBoxPause.setText(QCoreApplication.translate("MainWindow", u"\u6682\u505c\u5237\u65b0", None))
-        self.checkBoxEnLowers.setText(QCoreApplication.translate("MainWindow", u"\u663e\u793a\u5f39\u51fa\u901a\u77e5", None))
-        self.pushButtonClrLowers.setText(QCoreApplication.translate("MainWindow", u"\u522b\u5f39\u901a\u77e5\u4e86", None))
+        self.checkBoxPause.setText(QCoreApplication.translate("MainWindow", u"\u6682\u505cOBS\u4fe1\u606f\u540c\u6b65", None))
         self.labelConState.setText(QCoreApplication.translate("MainWindow", u"/// PRTS \u672a\u8fde\u63a5 ///", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u670d\u52a1\u5668:", None))
         self.lineEditServer.setText(QCoreApplication.translate("MainWindow", u"localhost", None))
         self.pushButtonConnect.setText(QCoreApplication.translate("MainWindow", u"\u8fde\u63a5OBS", None))
     # retranslateUi

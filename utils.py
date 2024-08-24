@@ -2,7 +2,7 @@ import os
 import time
 from queue import Empty as QueueEmptyError
 from queue import Queue
-from typing import Literal
+from typing import List, Literal
 
 import obsws_python as obs
 from loguru import logger
@@ -46,103 +46,25 @@ class ReqClientEx(obs.ReqClient):
             scene_name, self.find_source(scene_name, item_name)["sceneItemId"], enabled
         )
 
-    # https://obs.infor-r.com/lower?id=3&line1=OBS&color1=ffffff&line2=Studio&color2=cf4c4e
-    def display_web_lower_thirds(
+    def display_score(
         self,
-        scene_name: str,
-        web_item_name: str,
-        line1: str,
-        line2: str,
-        color1: str = "ffffff",
-        color2: str = "ffffff",
-        style: Literal[1, 2, 3, 4, 5] = 1,
+        details: List[str],
+        total: float,
     ):
-        addr = f"https://obs.infor-r.com/lower?id={style}&line1={line1}&color1={color1}&line2={line2}&color2={color2}"
-        self.set_scene_item_enabled(
-            scene_name,
-            self.find_source(scene_name, web_item_name)["sceneItemId"],
-            False,
+        self.set_input_settings(
+            "text_score_details", {"text": "\n".join(details)}, True
         )
-        # time.sleep(0.15)
-        self.set_input_settings(web_item_name, {"url": addr}, True)
-        # time.sleep(0.15)
-        self.set_scene_item_enabled(
-            scene_name,
-            self.find_source(scene_name, web_item_name)["sceneItemId"],
-            True,
-        )
-
-    def display_lower(
-        self,
-        line1: str,
-        line2: str,
-        num: int,
-        duration: float = 3,
-        animation: float = 1,
-        plus_bk_path: str = "plus.png",
-        minus_bk_path: str = "minus.png",
-    ):
-        GROUP_NAME = "lower_group"
-        LINE1_NAME = "lower_text_a"
-        LINE2_NAME = "lower_text_b"
-        TWO_DIGIT_NAME = "lower_text_c"
-        THREE_DIGIT_NAME = "lower_text_d"
-        BK_NAME = "lower_bk"
-        PLUS_COLOR = 0xFFFFF5C9
-        MINUS_COLOR = 0xFF5C59FF
-
-        if abs(num) < 100:
-            name = TWO_DIGIT_NAME
-            name_o = THREE_DIGIT_NAME
-        else:
-            name = THREE_DIGIT_NAME
-            name_o = TWO_DIGIT_NAME
-        if num >= 0:
-            path = plus_bk_path
-            color = PLUS_COLOR
-        else:
-            path = minus_bk_path
-            color = MINUS_COLOR
-        self.set_input_settings(LINE1_NAME, {"text": line1, "color": color}, True)
-        self.set_input_settings(LINE2_NAME, {"text": line2, "color": color}, True)
-        if num == 0:
-            self.set_input_settings(name, {"text": " +", "color": color}, True)
-        else:
-            self.set_input_settings(
-                name, {"text": f"{abs(num):d}", "color": color}, True
-            )
-        self.set_input_settings(name_o, {"text": " "}, True)
-        path = os.path.abspath(path)
-        self.set_input_settings(BK_NAME, {"file": path}, True)
-        self.set_source_enabled("main", GROUP_NAME, True)
-        time.sleep(animation)
-        time.sleep(duration)
-        self.set_source_enabled("main", GROUP_NAME, False)
-        time.sleep(animation)
-
-    def set_score(self, score: str):
-        MID_X = 625  # 文字的对齐中心X
-        Y = 963  # 文字的Y
-        score = str(score)
-        self.set_input_settings("text_score", {"text": score}, True)
-        # time.sleep(0.15)
-        width = 35 * len(score)
-        if "." in score:
-            width -= 14
-        x = MID_X - width / 2
-        self.set_scene_item_transform(
-            "main",
-            self.find_source("main", "text_score")["sceneItemId"],
-            {"positionX": x, "positionY": Y},
+        self.set_input_settings(
+            "text_score_sum", {"text": f"总分：{total:>6.2f}"}, True
         )
 
     def set_player(self, name: str, avatar_path: str):
-        MID_X = 130  # 文字的对齐中心X
-        X_MIN = 28  # 文字的左换行边界
-        Y1 = 390  # 第一行文字的Y
-        Y2 = 377  # 第二行文字的Y
-        Y3 = 415  # 第三行文字的Y
-        Y2_ONLY = 395  # 只有第二行文字的Y
+        MID_X = 145  # 文字的对齐中心X
+        X_MIN = 35  # 文字的左换行边界
+        Y1 = 440  # 第一行文字的Y
+        Y2 = 433  # 第二行文字的Y
+        Y3 = 463  # 第三行文字的Y
+        Y2_ONLY = 446  # 只有第二行文字的Y
 
         self.set_input_settings("icon_player", {"file": avatar_path}, True)
         self.set_source_enabled("main", "text_player1", False)
@@ -200,17 +122,24 @@ class ReqClientEx(obs.ReqClient):
         self.set_source_enabled("main", "text_player2", True)
         self.set_source_enabled("main", "text_player3", True)
 
-    def set_start(self, team_path: str, operator_path: str):
+    def set_start(
+        self,
+        team_path: str,
+        operator_path1: str,
+        operator_path2: str,
+        operator_path3: str,
+    ):
         if team_path:
             self.set_input_settings("icon_team", {"file": team_path}, True)
             self.set_source_enabled("main", "icon_team", True)
         else:
             self.set_source_enabled("main", "icon_team", False)
-        if operator_path:
-            self.set_input_settings("icon_operator", {"file": operator_path}, True)
-            self.set_source_enabled("main", "icon_operator", True)
-        else:
-            self.set_source_enabled("main", "icon_operator", False)
+        for i, path in enumerate([operator_path1, operator_path2, operator_path3]):
+            if path:
+                self.set_input_settings(f"icon_operator{i + 1}", {"file": path}, True)
+                self.set_source_enabled("main", f"icon_operator{i + 1}", True)
+            else:
+                self.set_source_enabled("main", f"icon_operator{i + 1}", False)
 
 
 class Worker(QObject):
