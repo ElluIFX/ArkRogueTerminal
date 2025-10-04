@@ -1,5 +1,6 @@
 import datetime
 import os
+import re
 import shelve
 import sys
 import tempfile
@@ -12,7 +13,7 @@ from PySide6.QtCore import QFile, QPoint, Qt, QTimer, Slot
 from PySide6.QtGui import QCloseEvent, QIcon, QPixmap
 from PySide6.QtWidgets import (
     QApplication,
-    QCheckBox,
+    QCheckBox,  # noqa: F401
     QComboBox,
     QInputDialog,
     QMainWindow,
@@ -30,8 +31,8 @@ qdarktheme import after QT
 import qdarktheme
 
 UUID_NAMESPACE = uuid.UUID("1b671a64-40d5-491e-99b0-da01ff1f3342")
-VERSION = "1.1.2"
-MINIMUM_DB_VERSION = "1.1.0"
+VERSION = "1.3.2"
+MINIMUM_DB_VERSION = "1.3.0"
 AVATAR_SIZE = 140  # 软件内头像大小
 OBS_AVATAR_SIZE = 224  # OBS头像大小
 MAX_SLOT = 16  # 最大记录槽位
@@ -90,10 +91,11 @@ class Record:
     data: list[str]  # 记录数据
     base_score: float = 0  # 基础分数
     score: float = 0  # 总分
-    start_operator1: str = "未知"  # 开局干员1
-    start_operator2: str = "未知"  # 开局干员2
-    start_operator3: str = "未知"  # 开局干员3
-    start_team: str = "未知"  # 开局队伍
+    start_operator: str = ""  # 开局干员
+    start_team: str = ""  # 开局队伍
+    cup: str = ""  # 杯数
+    team: str = ""  # 队伍
+    select: str = ""  # 选择
     time: int = 0  # 时间戳
     valid: bool = False  # 是否是有效记录
 
@@ -120,9 +122,11 @@ class MainWindow(QMainWindow, MainUITemplate):
         self.setupUi(self)
 
         self.setWindowTitle(
-            f"罗德岛裁判终端 Beta - 荆楚歌/萨卡兹的无终奇语 - {VERSION} by Ellu"
+            f"罗德岛裁判终端 Beta - 那啥杯#2/萨卡兹的无终奇语 - {VERSION} by Ellu"
         )
         self.setWindowIcon(QIcon(os.path.join(PATH, "icon.png")))
+
+        self.pushButtonSyncOBS.setEnabled(False)
 
         self.players: dict[str, Player] = {}
         self.connected = False
@@ -135,9 +139,7 @@ class MainWindow(QMainWindow, MainUITemplate):
         # 添加开局干员
         for file in os.listdir(START_OPERATOR_PATH):
             if file.endswith(".png"):
-                self.comboBoxStartOperator1.addItem(os.path.splitext(file)[0])
-                self.comboBoxStartOperator2.addItem(os.path.splitext(file)[0])
-                self.comboBoxStartOperator3.addItem(os.path.splitext(file)[0])
+                self.comboBoxStartOperator.addItem(os.path.splitext(file)[0])
         # 添加开局队伍
         for file in os.listdir(START_TEAM_PATH):
             if file.endswith(".png"):
@@ -156,6 +158,8 @@ class MainWindow(QMainWindow, MainUITemplate):
         self.db_timer.start(10000)  # 10s
 
         self.listRecord.setContextMenuPolicy(Qt.CustomContextMenu)
+
+        self.register_team_score_change()
 
     def closeEvent(self, event: QCloseEvent) -> None:
         """
@@ -284,28 +288,27 @@ class MainWindow(QMainWindow, MainUITemplate):
         if not self.connected:
             return
         if not skip_sync_name:
-            self.obs.fake.set_player(self.player_now.name, self.avatar_obs_path)
-
-        def get_op_path(name: str):
-            if name == "未知":
-                return ""
-            return os.path.join(START_OPERATOR_PATH, f"{name}.png")
-
-        self.obs.fake.set_start(
+            self.obs.a.set_player(self.player_now.name, self.avatar_obs_path)
+        self.obs.a.set_metadata(
             os.path.join(START_TEAM_PATH, f"{self.record.start_team}.png")
-            if self.record.start_team != "未知"
+            if self.record.start_team
             else "",
-            get_op_path(self.record.start_operator1),
-            get_op_path(self.record.start_operator2),
-            get_op_path(self.record.start_operator3),
+            os.path.join(START_OPERATOR_PATH, f"{self.record.start_operator}.png")
+            if self.record.start_operator
+            else "",
+            self.record.cup,
+            self.record.team,
+            self.record.select,
+            self.lineEditSpeaker.text(),
         )
 
     def sync_obs_score(self):
+        return
         if not self.connected:
             return
-        details = self.record.data
+        details = [item for item in self.record.data if "<无效>" not in item]
         total = self.record.score
-        self.obs.fake.display_score(details, total)
+        self.obs.a.display_score(details, total)
 
     def load_player(self, name: str):
         """
@@ -394,9 +397,7 @@ class MainWindow(QMainWindow, MainUITemplate):
             else:
                 combo.setCurrentIndex(0)
 
-        load_op(self.comboBoxStartOperator1, self.record.start_operator1)
-        load_op(self.comboBoxStartOperator2, self.record.start_operator2)
-        load_op(self.comboBoxStartOperator3, self.record.start_operator3)
+        load_op(self.comboBoxStartOperator, self.record.start_operator)
 
         if self.record.start_team in [
             self.comboBoxStartTeam.itemText(i)
@@ -423,8 +424,8 @@ class MainWindow(QMainWindow, MainUITemplate):
         self.record.base_score = 0
         self.record.score = 0
         self.record.time = 0
-        self.record.start_operator = "未知"
-        self.record.start_team = "未知"
+        self.record.start_operator = ""
+        self.record.start_team = ""
         self.spinBoxBaseScore.setValue(0)
         self.listRecord.clear()
         self.listRecord.addItem(f"基础分数 {self.record.base_score}")
@@ -530,32 +531,40 @@ class MainWindow(QMainWindow, MainUITemplate):
         logger.info(f"Player {self.player_now.name} note updated: {note}")
 
     @Slot(int)
-    def on_comboBoxStartOperator1_currentIndexChanged(self, index: int):
-        name = self.comboBoxStartOperator1.currentText()
-        self.record.start_operator1 = name
-        self.sync_obs_player_info(True)
-        logger.info(f"Start operator 1 updated: {name}")
-
-    @Slot(int)
-    def on_comboBoxStartOperator2_currentIndexChanged(self, index: int):
-        name = self.comboBoxStartOperator2.currentText()
-        self.record.start_operator2 = name
-        self.sync_obs_player_info(True)
-        logger.info(f"Start operator 2 updated: {name}")
-
-    @Slot(int)
-    def on_comboBoxStartOperator3_currentIndexChanged(self, index: int):
-        name = self.comboBoxStartOperator3.currentText()
-        self.record.start_operator3 = name
-        self.sync_obs_player_info(True)
-        logger.info(f"Start operator 3 updated: {name}")
+    def on_comboBoxStartOperator_currentIndexChanged(self, index: int):
+        name = self.comboBoxStartOperator.currentText()
+        if name == "未知":
+            name = ""
+        self.record.start_operator = name
+        logger.info(f"Start operator updated: {name}")
 
     @Slot(int)
     def on_comboBoxStartTeam_currentIndexChanged(self, index: int):
         name = self.comboBoxStartTeam.currentText()
+        if name == "未知":
+            name = ""
         self.record.start_team = name
-        self.sync_obs_player_info(True)
         logger.info(f"Start team updated: {name}")
+
+    @Slot(int)
+    def on_comboBoxCup_currentIndexChanged(self, index: int):
+        self.record.cup = self.comboBoxCup.currentText()
+        logger.info(f"Cup updated: {self.record.cup}")
+
+    @Slot()
+    def on_lineEditPlayerTeam_textChanged(self):
+        self.record.team = self.lineEditPlayerTeam.text().strip()
+        logger.info(f"Team updated: {self.record.team}")
+
+    @Slot()
+    def on_lineEditPlayerSelect_textChanged(self):
+        self.record.select = self.lineEditPlayerSelect.text().strip()
+        logger.info(f"Select updated: {self.record.select}")
+
+    @Slot()
+    def on_pushButtonSyncOBS_clicked(self):
+        self.sync_obs_player_info()
+        self.sync_obs_score()
 
     # listRecord 删除
     def __list_del_item(self):
@@ -592,6 +601,8 @@ class MainWindow(QMainWindow, MainUITemplate):
         for i in range(self.listRecord.count()):
             item = self.listRecord.item(i)
             text = item.text()
+            if "<无效>" in text:
+                continue
             if text.startswith("基础分数"):
                 continue
             if "x" in text:
@@ -616,26 +627,38 @@ class MainWindow(QMainWindow, MainUITemplate):
                 five += 1
             elif "四星" in text:
                 four += 1
-        self.labelHeaderTemp.setText(f"// 六星: {six} 五星: {five} 四星: {four} //")
+        self.labelHeaderTemp.setText(f"[总数] 六星: {six} 五星: {five} 四星: {four}")
+        kill = 0
+        for text in self.record.data:
+            if "特殊击杀" in text:  # 特殊击杀 X只
+                kill += int(re.findall(r"(\d+)只", text)[0])
+        self.labelHeaderkillSp.setText(f"[总数] 击杀 {kill} 只鸭/狗/熊")
 
     def add_score_change(
-        self, info1: str, info2: str, change: float, is_multi: bool = False
+        self, text: str, change: float, is_multi: bool = False, invalid: bool = False
     ):
-        text = info1
-        if info2:
-            text += f" {info2}"
         if is_multi:
-            text += f" x{change+1:.4f}".rstrip("0").rstrip(".")
-            info2 = f"最终乘算 x{change+1:.4f}".rstrip("0").rstrip(".")
+            text += f" 最终x{change+1:.4f}".rstrip("0").rstrip(".")
             change = 0
         else:
             text += f" {change:+}"
+        if invalid:
+            text = f"<无效> {text}"
         self.listRecord.addItem(text)
+        self.listRecord.setCurrentRow(self.listRecord.count() - 1)
         self.record.data.append(text)
         self.record.valid = True
         self.record.time = int(datetime.datetime.now().timestamp())
         logger.info(f"Score change added: {text}")
         self.recalc_score()
+
+    def invalid_score_record(self, key: str):
+        for i in range(1, self.listRecord.count()):
+            if self.listRecord.item(i).text().startswith(key):
+                item = self.listRecord.item(i)
+                item.setText(f"<无效> {item.text()}")
+                self.record.data[i] = f"<无效> {self.record.data[i]}"
+                break
 
     @Slot()
     def on_spinBoxBaseScore_editingFinished(self):
@@ -665,6 +688,7 @@ class MainWindow(QMainWindow, MainUITemplate):
             self.connected = False
             self.labelConState.setText("/// PRTS 未连接 ///")
             self.labelConState.setStyleSheet("")
+            self.pushButtonSyncOBS.setEnabled(False)
         else:
             addr = self.lineEditServer.text()
             port = self.spinBoxConPort.value()
@@ -686,13 +710,7 @@ class MainWindow(QMainWindow, MainUITemplate):
             self.obs.set_pause(self.checkBoxPause.isChecked())
             self.sync_obs_player_info()
             self.sync_obs_score()
-
-    @Slot()
-    def on_pushButtonClrLowers_clicked(self):
-        if not self.connected:
-            logger.warning("OBS not connected")
-            return
-        self.obs.clear()
+            self.pushButtonSyncOBS.setEnabled(True)
 
     @Slot()
     def on_checkBoxPause_toggled(self):
@@ -706,29 +724,32 @@ class MainWindow(QMainWindow, MainUITemplate):
     ############## 以下为分数逻辑 ##############
 
     @Slot(int)
-    def on_comboBoxKillSp_currentIndexChanged(self, index: int):
-        text = self.comboBoxKillSp.currentText()
-        self.checkBoxKillSpPerfect.setEnabled(text in ["鸭速公路<紧急>"])
-        self.checkBoxKillSpPerfect.setChecked(False)
-        if "信号灯" in text or "劫虚济实" in text or "叙事邀约" in text:
-            self.checkBoxKillSpPerfect.setChecked(True)
-        self.spinBoxKillSp.setEnabled(
-            "狭路相逢" not in text
-            and "叙事邀约" not in text
-            and "战场侧面" not in text
-            and "信号灯" not in text
-            and "劫虚济实" not in text
-        )
-
-    @Slot(int)
     def on_comboBoxEmerg_currentIndexChanged(self, index: int):
         text = self.comboBoxEmerg.currentText()
-        self.checkBoxEmergBswLessFour.setChecked(False)
         self.pushButtonSubmitEmerg.setEnabled("—" not in text)
-        if "溃乱魔典" in text or "大棋一盘" in text or "BOSS" in text or "—" in text:
-            self.checkBoxEmergBswLessFour.setEnabled(False)
+
+    @Slot(int)
+    def on_comboBoxEnding_currentIndexChanged(self, index: int):
+        text = self.comboBoxEnding.currentText()
+        self.comboBoxEndingEx.clear()
+        if text not in ["圣城", "授法", "不容拒绝"]:
+            for i in ["普通", "紧急"]:
+                self.comboBoxEndingEx.addItem(i)
         else:
-            self.checkBoxEmergBswLessFour.setEnabled(True)
+            if text == "圣城":
+                pass
+            elif text == "授法":
+                for i in ["通关", "击杀一阶段", "击杀二阶段"]:
+                    self.comboBoxEndingEx.addItem(i)
+            else:
+                for i in ["终结的骨架", "终结的躯体", "终结的实相"]:
+                    self.comboBoxEndingEx.addItem(i)
+        self.comboBoxEndingEx.setCurrentIndex(0)
+        if self.comboBoxEndingEx.count() == 0:
+            self.comboBoxEndingEx.setEnabled(False)
+        else:
+            self.comboBoxEndingEx.setEnabled(True)
+        self.checkBoxEndingChaos.setChecked(False)
 
     @Slot()
     def on_pushButtonSubmitCustom_clicked(self):
@@ -736,22 +757,22 @@ class MainWindow(QMainWindow, MainUITemplate):
         if not text:
             QMessageBox.warning(self, "不许黑幕", "请给出打分理由")
             return
-        self.add_score_change(text, "", self.spinBoxCustomScore.value())
+        self.add_score_change(text, self.spinBoxCustomScore.value())
 
     @Slot()
     def on_pushButtonSubmitTemp_clicked(self):
         if self.radioButtonTempSix.isChecked():
-            score = 50
-            text = "六星干员"
+            score = 30
+            text = "临招六星"
         elif self.radioButtonTempFive.isChecked():
             score = 20
-            text = "五星干员"
+            text = "临招五星"
         elif self.radioButtonTempFour.isChecked():
             score = 10
-            text = "四星干员"
+            text = "临招四星"
         else:
             return
-        self.add_score_change("临时招募", text, score)
+        self.add_score_change(text, score)
 
     @Slot()
     def on_pushButtonSubmitEmerg_clicked(self):
@@ -763,185 +784,165 @@ class MainWindow(QMainWindow, MainUITemplate):
         )
         if text.startswith("—"):
             return
-        score_dict = {
-            "溃乱魔典": 30,
-            "大棋一盘": 20,
-            "猩红甬道": 40,
-            "假象对冲": 30,
-            "朽败考察": 20,
-            "年代断层": 0,
-            "计划耕种": 70,
-            "寄人城池下": 50,
-            "通道封锁": 30,
-            "无罪净土": 30,
-            "巫咒同盟": 30,
-            "残损学院": 20,
-            "谋求共识": 70,
-            "神圣的渴求": 40,
-            "三层BOSS关": 30,
-            "四层普通紧急": 0,
-            "五层普通紧急": 0,
-            "六层普通紧急": 0,
+        sp_score_dict = {
+            "紧急劫虚济实无漏": 20,
+            "紧急战场侧面": 50,
+            "斩首": 10,
+            "奉献": 10,
+            "或然面纱": 20,
+            "离歌的庭院": 40,
+            "赴敌者": 40,
+            "王冠之下": 40,
         }
-        score = score_dict[text]
-        text2 = ""
-        if "BOSS" not in text:
-            if "<" in self.comboBoxEmerg.currentText():
-                score += 20
-                text2 += "特殊年代"
-            if (
-                self.checkBoxEmergBswLessFour.isChecked()
-                and "溃乱魔典" not in text
-                and "大棋一盘" not in text
-            ):
-                score += 15
-                if text2 != "":
-                    text2 += "/"
-                text2 += "低部署"
-                text2.replace("特殊", "")
+        emer_score_dict = {
+            "大棋一盘": 10,
+            "溃乱魔典": 15,
+            "机动队": 15,
+            "假想对冲": 10,
+            "年代断层": 15,
+            "猩红甬道": 25,
+            "混沌": 35,
+            "神出鬼没": 50,
+            "争议频发": 60,
+            "通道封锁": 20,
+            "寄人城池下": 30,
+            "计划耕种": 50,
+            "莱茵卫士": 70,
+            "建制": 80,
+            "神圣的渴求": 50,
+            "谋求共识": 60,
+            "外道": 70,
+            "洞天福地": 100,
+        }
+        if text in sp_score_dict:
+            score = sp_score_dict[text]
+            emer = False
+        elif text in emer_score_dict:
+            score = emer_score_dict[text]
+            emer = True
         else:
-            if "<" in self.comboBoxEmerg.currentText():
-                score += 30
-                text2 += "卫国前夜"
-        if score == 0:
-            return
-        self.add_score_change(text, text2, score)
+            raise ValueError(f"事件 {text} 未找到")
+        if emer:
+            text = f"紧急: {text}"
+            # 检索所有已存在的紧急记录
+            emer_list = []
+
+            def parse_emer_score(text: str):
+                return int(re.findall(r"\+(\d+)", text)[0])
+
+            for item in self.record.data:
+                if item.startswith("紧急: "):
+                    emer_list.append(
+                        (item.split("+")[0].strip(), parse_emer_score(item))
+                    )
+
+            # 按加分从高到低排序
+            emer_list.sort(key=lambda x: x[1], reverse=True)
+            logger.info(f"紧急记录: {emer_list} 本次: {text}")
+
+            if sum(1 for item in emer_list if item[0] == text) >= 2:
+                self.add_score_change(text, score, invalid=True)
+                return
+
+            if len(emer_list) >= 10:
+                if emer_list[-1][1] >= score:  # 最低分已经高于本次分数
+                    self.add_score_change(text, score, invalid=True)
+                    return
+                # 无效化最低分记录
+                self.invalid_score_record(emer_list[-1][0])
+
+        self.add_score_change(text, score)
 
     @Slot()
     def on_pushButtonSubmitKillSp_clicked(self):
         val = self.spinBoxKillSp.value()
-        perfect = self.checkBoxKillSpPerfect.isChecked()
-        text = self.comboBoxKillSp.currentText()
-        text1 = text
-        text2 = "无漏" if perfect else ""
-        if "<" in text:
-            if text2:
-                text2 += "/"
-            text2 += text.split("<")[1].replace(">", "")
-            text1 = text.split("<")[0]
-        if text == "普通关卡":
-            score = 10 * val
-            text1 = "特殊击杀"
-            text2 = f"{val}只"
-        elif "信号灯" in text or "劫虚济实" in text:
-            score = 50 if "紧急" in text else 25
-        elif "战场侧面" in text:
-            score = 40 if "紧急" in text else 20
-        elif text == "鸭速公路<紧急>":
-            score = 20 * val
-            text2 = f"特殊击杀{val}只"
-            if perfect:
-                score += 40
-                text2 += "/无漏"
-        elif "狭路相逢" in text:
-            score = 10
-            text2 = "未使用过的组合"
-        elif text == "叙事邀约":
-            score = 40
-        else:
-            return
-        if score == 0:
-            return
-        self.add_score_change(text1, text2, score)
-
-    @Slot()
-    def on_pushButtonEarlyEmerg_clicked(self):
-        val = self.spinBoxEarlyEmerg.value()
-        if val == 0:
-            return
         score = 20 * val
-        self.add_score_change("跨层紧急", f"{val}树洞藏品", score)
-
-    @Slot()
-    def on_pushButtonSubmitMoneyOverflow_clicked(self):
-        val = self.spinBoxMoneyOverflow.value()
-        if val == 0:
-            return
-        score = -50 * val
-        self.add_score_change("取钱超支", f"{val}点", score)
+        self.add_score_change(f"特殊击杀{val}只", score)
 
     @Slot()
     def on_pushButtonSubmitEnding_clicked(self):
-        text1 = self.comboBoxEnding1.currentText()
-        text2 = self.comboBoxEnding2.currentText()
-        text3 = self.comboBoxEnding3.currentText()
-        score = (
-            {0: 0, 1: 20, 2: 70}[self.comboBoxEnding1.currentIndex()]
-            + {0: 0, 1: 120, 2: 140, 3: 190}[self.comboBoxEnding2.currentIndex()]
-            + {0: 0, 1: 170, 2: 200, 3: 250}[self.comboBoxEnding3.currentIndex()]
-        )
-        text = text1
-
-        def add_sp_to_text(text: str, sp: text):
-            if ">" in text:
-                text = text.split(">")[0] + f"/{sp}>"
-            else:
-                text += f"<{sp}>"
-            return text
-
-        if text2 != "未达成":
-            text = text2
-            if self.checkBoxEndingEnd2Sp.isChecked():
+        text = self.comboBoxEnding.currentText()
+        textex = self.comboBoxEndingEx.currentText()
+        if not textex:
+            all = text
+        else:
+            all = f"{text} ({textex})"
+        score = {
+            "紧急授课 (普通)": 50,
+            "紧急授课 (紧急)": 80,
+            "朝谒 (普通)": 100,
+            "朝谒 (紧急)": 150,
+            "思维矫正 (普通)": 150,
+            "思维矫正 (紧急)": 180,
+            "魂灵朝谒 (普通)": 200,
+            "魂灵朝谒 (紧急)": 250,
+            "圣城": 100,
+            "授法 (通关)": 150,
+            "授法 (击杀一阶段)": 300,
+            "授法 (击杀二阶段)": 100,
+            "不容拒绝 (终结的骨架)": 350,
+            "不容拒绝 (终结的躯体)": 400,
+            "不容拒绝 (终结的实相)": 650,
+        }[all]
+        chaos = self.checkBoxEndingChaos.isChecked()
+        if chaos:
+            if text in ["紧急授课", "朝谒", "思维矫正"]:
+                score += 10
+            elif text == "圣城":
                 score += 20
-                text = add_sp_to_text(text, "年代")
-        if text3 != "未达成":
-            text = text3
-            if self.checkBoxEndingEnd3Sp.isChecked():
-                score += 50
-                text = add_sp_to_text(text, "年代")
-        if score == 0:
-            return
-        self.add_score_change("达成结局", text, score)
+            elif text == "魂灵朝谒":
+                score += 40
+            elif text == "授法":
+                score += 80
+            elif text == "不容拒绝":
+                score += 150 if "终结的实相" in all else 100
+        title = f"结局: {all}" + (" (混乱)" if chaos else "")
+        self.add_score_change(title, score)
 
     @Slot()
-    def on_pushButtonSubmitSum_clicked(self):
-        ter = self.spinBoxSumTreasure.value()
-        emerg = self.spinBoxSumEmerg.value()
-        bbtsy = self.checkBoxSumHasBbtsy.isChecked()
-        score = -6 * ter + -15 * emerg + (20 if bbtsy else 0)
-        self.add_score_change(
-            "最终结算",
-            f"藏品:{ter} 紧急:{emerg}" + (" (誓言)" if bbtsy else ""),
-            score,
+    def on_pushButtonSubmitSp_clicked(self):
+        if self.radioButtonSpDsb.isChecked():
+            self.add_score_change('"大啥杯"进入六层关底', 0.3, True)
+        elif self.radioButtonSpSsef.isChecked():
+            self.add_score_change("似是而非补偿分", 100)
+        elif self.radioButtonSpRed.isChecked():
+            self.add_score_change("技术违规", -500)
+
+    def recalc_team_score(self, _=None):
+        score = (
+            self.doubleSpinBoxTeamScore_1.value()
+            + self.doubleSpinBoxTeamScore_2.value()
+            + self.doubleSpinBoxTeamScore_3.value()
+            + self.doubleSpinBoxTeamScore_4.value()
+            + self.doubleSpinBoxTeamScore_5.value()
         )
+        if self.checkBoxTeam4End.isChecked():
+            score += 1000
+        if self.spinBoxTeamGdxz.value() > 0:
+            score += {
+                1: 300,
+                2: 500,
+                3: 700,
+            }.get(self.spinBoxTeamGdxz.value(), 700)
+        score -= 100 * self.spinBoxTeamQqcz.value()
+        score -= 300 * self.spinBoxTeamDup.value()
+        score -= 600 * self.spinBoxTeamDupEw.value()
+        self.labelTeamScore.setText(f"{score:.4f}".rstrip("0").rstrip("."))
 
-    @Slot()
-    def on_pushButtonSubmitBan_clicked(self):
-        mul = 0
-        if self.radioButtonWsde2.isChecked():
-            self.add_score_change("招募维什戴尔", "独立乘算", -0.2, is_multi=True)
-        if self.radioButtonWsde3.isChecked():
-            mul += 0.0711
-
-        def get_ban_count(checkBox: QCheckBox):
-            if checkBox.checkState() == Qt.CheckState.PartiallyChecked:
-                return 1
-            elif checkBox.checkState() == Qt.CheckState.Checked:
-                return 2
-            return 0
-
-        mul += 0.03 * (
-            get_ban_count(self.checkBoxBanCjayfl)
-            + get_ban_count(self.checkBoxBanKalsit)
-            + get_ban_count(self.checkBoxBanYns)
-            + get_ban_count(self.checkBoxBanSuxin)
-            + get_ban_count(self.checkBoxBanWeba)
-            + get_ban_count(self.checkBoxBanNifu)
-        )
-        mul += 0.05 * (
-            get_ban_count(self.checkBoxBanLogos)
-            + get_ban_count(self.checkBoxBanAskl)
-            + get_ban_count(self.checkBoxBanQlsyd)
-            + get_ban_count(self.checkBoxBanKuiying)
-        )
-        if mul == 0:
-            return
-        self.add_score_change("禁用干员", "最终乘算", mul, is_multi=True)
-
-    @Slot()
-    def on_pushButtonClearBan_clicked(self):
-        for widget in self.frameBan.findChildren(QCheckBox):
-            widget.setCheckState(Qt.CheckState.Unchecked)
+    def register_team_score_change(self):
+        for spinbox in [
+            self.doubleSpinBoxTeamScore_1,
+            self.doubleSpinBoxTeamScore_2,
+            self.doubleSpinBoxTeamScore_3,
+            self.doubleSpinBoxTeamScore_4,
+            self.doubleSpinBoxTeamScore_5,
+        ]:
+            spinbox.valueChanged.connect(self.recalc_team_score)
+        self.spinBoxTeamGdxz.valueChanged.connect(self.recalc_team_score)
+        self.spinBoxTeamQqcz.valueChanged.connect(self.recalc_team_score)
+        self.spinBoxTeamDup.valueChanged.connect(self.recalc_team_score)
+        self.spinBoxTeamDupEw.valueChanged.connect(self.recalc_team_score)
+        self.checkBoxTeam4End.stateChanged.connect(self.recalc_team_score)
 
 
 def clear_splash():
@@ -964,6 +965,20 @@ def main() -> int:
     ]
     app = QApplication(argv)
     win = MainWindow()
+    additional_qss = (
+        "QToolTip {"
+        "   color: rgb(228, 231, 235);"
+        "   background-color: rgb(32, 33, 36);"
+        "   border: 1px solid rgb(63, 64, 66);"
+        "   border-radius: 4px;"
+        "}"
+        "QSlider::add-page:horizontal {"
+        "   background: #36ff8888;"
+        "}"
+        "QSlider::sub-page:horizontal {"
+        "   background: #368888ff;"
+        "}"
+    )
     qdarktheme.setup_theme(
         theme="dark",
         custom_colors={
@@ -971,6 +986,7 @@ def main() -> int:
             "background": "#1F1C1C",
             "foreground": "#F5F5F5",
         },
+        additional_qss=additional_qss,
     )
     win.show()
     clear_splash()

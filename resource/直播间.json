@@ -40,7 +40,7 @@
             "name": "idle"
         }
     ],
-    "name": "荆楚歌直播间",
+    "name": "那啥杯直播间",
     "groups": [],
     "quick_transitions": [
         {
@@ -113,7 +113,7 @@
             "versioned_id": "window_capture",
             "settings": {
                 "priority": 2,
-                "window": "CSDN Markdown编辑器图片居中、添加标题_markdown添加图片注释并居中-CSDN博客 和另外 2 个页面 - Rosmontis - Microsoft​ Edge Dev:Chrome_WidgetWin_1:msedge.exe",
+                "window": "main.py - whatcup_terminal - Cursor:Chrome_WidgetWin_1:Cursor.exe",
                 "method": 0,
                 "cursor": false
             },
@@ -175,33 +175,7 @@
             "id": "image_source",
             "versioned_id": "image_source",
             "settings": {
-                "file": "C:/WorkingSpace/WhatCUP/whatcup_terminal/resource/background.png"
-            },
-            "mixers": 0,
-            "sync": 0,
-            "flags": 0,
-            "volume": 1.0,
-            "balance": 0.5,
-            "enabled": true,
-            "muted": false,
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "hotkeys": {},
-            "deinterlace_mode": 0,
-            "deinterlace_field_order": 0,
-            "monitoring_type": 0,
-            "private_settings": {}
-        },
-        {
-            "prev_ver": 503447554,
-            "name": "background 2",
-            "uuid": "428b498a-cdf1-4341-a10c-36eb4357a78a",
-            "id": "image_source",
-            "versioned_id": "image_source",
-            "settings": {
-                "file": "C:/WorkingSpace/WhatCUP/whatcup_terminal/resource/background2.png"
+                "file": "C:/PersonalDocument/Projects/WhatCUP/whatcup_terminal/resource/background.png"
             },
             "mixers": 0,
             "sync": 0,
@@ -227,8 +201,8 @@
             "id": "image_source",
             "versioned_id": "image_source",
             "settings": {
-                "file": "C:/WorkingSpace/WhatCUP/直播整合包/resource/res1.png",
-                "unload": true
+                "unload": true,
+                "file": "C:/PersonalDocument/Projects/WhatCUP/whatcup_terminal/resource/res1.png"
             },
             "mixers": 0,
             "sync": 0,
@@ -249,12 +223,12 @@
         },
         {
             "prev_ver": 503447554,
-            "name": "icon_background",
-            "uuid": "66545e81-5c80-4746-8592-d12518da0618",
+            "name": "icon_background.png",
+            "uuid": "6e2c3819-56c9-4c7b-bfd8-da5403191f21",
             "id": "image_source",
             "versioned_id": "image_source",
             "settings": {
-                "file": "C:/WorkingSpace/WhatCUP/whatcup_terminal/resource/icon_background.png"
+                "file": "C:/PersonalDocument/Projects/WhatCUP/whatcup_terminal/resource/icon_background.png"
             },
             "mixers": 0,
             "sync": 0,
@@ -275,142 +249,12 @@
         },
         {
             "prev_ver": 503447554,
-            "name": "icon_background 2",
-            "uuid": "12ff633b-adf1-49f5-ae9c-9683f78315c3",
-            "id": "image_source",
-            "versioned_id": "image_source",
-            "settings": {
-                "file": "C:/WorkingSpace/WhatCUP/whatcup_terminal/resource/icon_background.png"
-            },
-            "mixers": 0,
-            "sync": 0,
-            "flags": 0,
-            "volume": 1.0,
-            "balance": 0.5,
-            "enabled": true,
-            "muted": false,
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "hotkeys": {},
-            "deinterlace_mode": 0,
-            "deinterlace_field_order": 0,
-            "monitoring_type": 0,
-            "private_settings": {}
-        },
-        {
-            "prev_ver": 503447554,
-            "name": "icon_background 2 2",
-            "uuid": "e8b76512-3b24-440b-a491-a66d0fd8fd94",
-            "id": "image_source",
-            "versioned_id": "image_source",
-            "settings": {
-                "file": "C:/WorkingSpace/WhatCUP/whatcup_terminal/resource/icon_background.png"
-            },
-            "mixers": 0,
-            "sync": 0,
-            "flags": 0,
-            "volume": 1.0,
-            "balance": 0.5,
-            "enabled": true,
-            "muted": false,
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "hotkeys": {},
-            "deinterlace_mode": 0,
-            "deinterlace_field_order": 0,
-            "monitoring_type": 0,
-            "private_settings": {}
-        },
-        {
-            "prev_ver": 503447554,
-            "name": "icon_background 2 3",
-            "uuid": "3232f627-0b62-4a24-a086-0ac4b88189d4",
-            "id": "image_source",
-            "versioned_id": "image_source",
-            "settings": {
-                "file": "C:/WorkingSpace/WhatCUP/whatcup_terminal/resource/icon_background.png"
-            },
-            "mixers": 0,
-            "sync": 0,
-            "flags": 0,
-            "volume": 1.0,
-            "balance": 0.5,
-            "enabled": true,
-            "muted": false,
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "hotkeys": {},
-            "deinterlace_mode": 0,
-            "deinterlace_field_order": 0,
-            "monitoring_type": 0,
-            "private_settings": {}
-        },
-        {
-            "prev_ver": 503447554,
-            "name": "icon_operator1",
+            "name": "icon_operator",
             "uuid": "0f828345-fb1d-4e9f-86e7-99e154040b18",
             "id": "image_source",
             "versioned_id": "image_source",
             "settings": {
-                "file": "c:\\WorkingSpace\\WhatCUP\\whatcup_terminal\\resource\\operator\\令.png"
-            },
-            "mixers": 0,
-            "sync": 0,
-            "flags": 0,
-            "volume": 1.0,
-            "balance": 0.5,
-            "enabled": true,
-            "muted": false,
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "hotkeys": {},
-            "deinterlace_mode": 0,
-            "deinterlace_field_order": 0,
-            "monitoring_type": 0,
-            "private_settings": {}
-        },
-        {
-            "prev_ver": 503447554,
-            "name": "icon_operator2",
-            "uuid": "c5f2e734-a69b-4ac4-a8b7-8800b2daf98d",
-            "id": "image_source",
-            "versioned_id": "image_source",
-            "settings": {
-                "file": "c:\\WorkingSpace\\WhatCUP\\whatcup_terminal\\resource\\operator\\凯尔希.png"
-            },
-            "mixers": 0,
-            "sync": 0,
-            "flags": 0,
-            "volume": 1.0,
-            "balance": 0.5,
-            "enabled": true,
-            "muted": false,
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "hotkeys": {},
-            "deinterlace_mode": 0,
-            "deinterlace_field_order": 0,
-            "monitoring_type": 0,
-            "private_settings": {}
-        },
-        {
-            "prev_ver": 503447554,
-            "name": "icon_operator3",
-            "uuid": "506e268d-4899-49ee-b952-4671a9741c2d",
-            "id": "image_source",
-            "versioned_id": "image_source",
-            "settings": {
-                "file": "c:\\WorkingSpace\\WhatCUP\\whatcup_terminal\\resource\\operator\\缄默德克萨斯.png"
+                "file": "c:\\PersonalDocument\\Projects\\WhatCUP\\whatcup_terminal\\resource\\operator\\迷迭香.png"
             },
             "mixers": 0,
             "sync": 0,
@@ -436,7 +280,7 @@
             "id": "image_source",
             "versioned_id": "image_source",
             "settings": {
-                "file": "c:\\WorkingSpace\\WhatCUP\\whatcup_terminal\\ark_data\\obstemp\\avatar_224_F76E0F23-FD7C-59D6-844A-1420487BF95A.png"
+                "file": "C:\\PersonalDocument\\Projects\\WhatCUP\\whatcup_terminal\\ark_data\\obstemp\\avatar_224_41366368-DF5B-5733-A48C-0D9B2240839E.png"
             },
             "mixers": 0,
             "sync": 0,
@@ -462,7 +306,7 @@
             "id": "image_source",
             "versioned_id": "image_source",
             "settings": {
-                "file": "c:\\WorkingSpace\\WhatCUP\\whatcup_terminal\\resource\\team\\堡垒战术分队.png"
+                "file": "c:\\PersonalDocument\\Projects\\WhatCUP\\whatcup_terminal\\resource\\team\\博闻广记分队.png"
             },
             "mixers": 0,
             "sync": 0,
@@ -713,8 +557,8 @@
             "id": "image_source",
             "versioned_id": "image_source",
             "settings": {
-                "file": "C:/WorkingSpace/WhatCUP/whatcup_terminal/resource/loading.gif",
-                "unload": true
+                "unload": true,
+                "file": "C:/PersonalDocument/Projects/WhatCUP/whatcup_terminal/resource/loading.gif"
             },
             "mixers": 0,
             "sync": 0,
@@ -768,8 +612,8 @@
             "id": "image_source",
             "versioned_id": "image_source",
             "settings": {
-                "file": "C:/WorkingSpace/WhatCUP/whatcup_terminal/resource/logo.png",
-                "unload": true
+                "unload": true,
+                "file": "C:/PersonalDocument/Projects/WhatCUP/whatcup_terminal/resource/logo.png"
             },
             "mixers": 0,
             "sync": 0,
@@ -848,23 +692,49 @@
         },
         {
             "prev_ver": 503447554,
+            "name": "lower_background",
+            "uuid": "428b498a-cdf1-4341-a10c-36eb4357a78a",
+            "id": "image_source",
+            "versioned_id": "image_source",
+            "settings": {
+                "file": "C:/PersonalDocument/Projects/WhatCUP/whatcup_terminal/resource/background2.png"
+            },
+            "mixers": 0,
+            "sync": 0,
+            "flags": 0,
+            "volume": 1.0,
+            "balance": 0.5,
+            "enabled": true,
+            "muted": false,
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "hotkeys": {},
+            "deinterlace_mode": 0,
+            "deinterlace_field_order": 0,
+            "monitoring_type": 0,
+            "private_settings": {}
+        },
+        {
+            "prev_ver": 503447554,
             "name": "main",
             "uuid": "33decdf3-8322-413a-a458-f95e134d2519",
             "id": "scene",
             "versioned_id": "scene",
             "settings": {
                 "custom_size": false,
-                "id_counter": 52,
+                "id_counter": 59,
                 "items": [
                     {
-                        "name": "background 2",
+                        "name": "lower_background",
                         "source_uuid": "428b498a-cdf1-4341-a10c-36eb4357a78a",
                         "visible": true,
                         "locked": true,
                         "rot": 0.0,
                         "pos": {
-                            "x": 290.0,
-                            "y": 26.0
+                            "x": 231.0,
+                            "y": 19.0
                         },
                         "scale": {
                             "x": 1.0,
@@ -875,638 +745,14 @@
                         "bounds_align": 0,
                         "bounds_crop": false,
                         "bounds": {
-                            "x": 1614.0,
-                            "y": 908.0
+                            "x": 1669.0,
+                            "y": 941.0
                         },
                         "crop_left": 0,
                         "crop_top": 0,
                         "crop_right": 0,
                         "crop_bottom": 0,
                         "id": 25,
-                        "group_item_backup": false,
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {}
-                    },
-                    {
-                        "name": "icon_background 2 2",
-                        "source_uuid": "e8b76512-3b24-440b-a491-a66d0fd8fd94",
-                        "visible": true,
-                        "locked": true,
-                        "rot": 0.0,
-                        "pos": {
-                            "x": 661.0,
-                            "y": 970.0
-                        },
-                        "scale": {
-                            "x": 0.41326531767845154,
-                            "y": 0.41450777649879456
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 46,
-                        "group_item_backup": false,
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {}
-                    },
-                    {
-                        "name": "icon_background 2 3",
-                        "source_uuid": "3232f627-0b62-4a24-a086-0ac4b88189d4",
-                        "visible": true,
-                        "locked": true,
-                        "rot": 0.0,
-                        "pos": {
-                            "x": 747.0,
-                            "y": 969.0
-                        },
-                        "scale": {
-                            "x": 0.41326531767845154,
-                            "y": 0.41450777649879456
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 47,
-                        "group_item_backup": false,
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {}
-                    },
-                    {
-                        "name": "icon_background 2",
-                        "source_uuid": "12ff633b-adf1-49f5-ae9c-9683f78315c3",
-                        "visible": true,
-                        "locked": true,
-                        "rot": 0.0,
-                        "pos": {
-                            "x": 832.0,
-                            "y": 969.0
-                        },
-                        "scale": {
-                            "x": 0.41326531767845154,
-                            "y": 0.41450777649879456
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 43,
-                        "group_item_backup": false,
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {}
-                    },
-                    {
-                        "name": "icon_operator1",
-                        "source_uuid": "0f828345-fb1d-4e9f-86e7-99e154040b18",
-                        "visible": true,
-                        "locked": true,
-                        "rot": 0.0,
-                        "pos": {
-                            "x": 663.0,
-                            "y": 969.0
-                        },
-                        "scale": {
-                            "x": 0.44999998807907104,
-                            "y": 0.44999998807907104
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 20,
-                        "group_item_backup": false,
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {}
-                    },
-                    {
-                        "name": "icon_operator2",
-                        "source_uuid": "c5f2e734-a69b-4ac4-a8b7-8800b2daf98d",
-                        "visible": true,
-                        "locked": true,
-                        "rot": 0.0,
-                        "pos": {
-                            "x": 747.0,
-                            "y": 968.0
-                        },
-                        "scale": {
-                            "x": 0.45555555820465088,
-                            "y": 0.45555555820465088
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 51,
-                        "group_item_backup": false,
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {}
-                    },
-                    {
-                        "name": "icon_operator3",
-                        "source_uuid": "506e268d-4899-49ee-b952-4671a9741c2d",
-                        "visible": true,
-                        "locked": true,
-                        "rot": 0.0,
-                        "pos": {
-                            "x": 834.0,
-                            "y": 968.0
-                        },
-                        "scale": {
-                            "x": 0.45555555820465088,
-                            "y": 0.45555555820465088
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 52,
-                        "group_item_backup": false,
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {}
-                    },
-                    {
-                        "name": "icon_background",
-                        "source_uuid": "66545e81-5c80-4746-8592-d12518da0618",
-                        "visible": true,
-                        "locked": true,
-                        "rot": 0.0,
-                        "pos": {
-                            "x": 25.0,
-                            "y": 187.0
-                        },
-                        "scale": {
-                            "x": 1.1989796161651611,
-                            "y": 1.196891188621521
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 41,
-                        "group_item_backup": false,
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {}
-                    },
-                    {
-                        "name": "窗口采集",
-                        "source_uuid": "e4c8a3ff-f1f4-4fde-8992-f458eea9149b",
-                        "visible": true,
-                        "locked": false,
-                        "rot": 0.0,
-                        "pos": {
-                            "x": 177.73001098632812,
-                            "y": -61.0
-                        },
-                        "scale": {
-                            "x": 1.0,
-                            "y": 1.0
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 34,
-                        "group_item_backup": false,
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {}
-                    },
-                    {
-                        "name": "icon_player",
-                        "source_uuid": "413c7f88-3c4e-421a-a62d-a94c668d070b",
-                        "visible": true,
-                        "locked": true,
-                        "rot": 0.0,
-                        "pos": {
-                            "x": 32.0,
-                            "y": 191.0
-                        },
-                        "scale": {
-                            "x": 1.0044642686843872,
-                            "y": 1.0044642686843872
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 21,
-                        "group_item_backup": false,
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {}
-                    },
-                    {
-                        "name": "background",
-                        "source_uuid": "a3a21e3f-14ab-4877-9037-6985c46a74a2",
-                        "visible": true,
-                        "locked": true,
-                        "rot": 0.0,
-                        "pos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "scale": {
-                            "x": 1.0,
-                            "y": 1.0
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 12,
-                        "group_item_backup": false,
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {}
-                    },
-                    {
-                        "name": "icon_team",
-                        "source_uuid": "89d93166-fee7-4e1c-a23e-b8792e635f04",
-                        "visible": false,
-                        "locked": true,
-                        "rot": 0.0,
-                        "pos": {
-                            "x": 286.0,
-                            "y": 955.0
-                        },
-                        "scale": {
-                            "x": 0.56111109256744385,
-                            "y": 0.56111109256744385
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 26,
-                        "group_item_backup": false,
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {}
-                    },
-                    {
-                        "name": "text_score_sum",
-                        "source_uuid": "239465c2-2680-44b0-b5f3-b21064427beb",
-                        "visible": true,
-                        "locked": true,
-                        "rot": 0.0,
-                        "pos": {
-                            "x": 27.499984741210938,
-                            "y": 994.0
-                        },
-                        "scale": {
-                            "x": 0.69999998807907104,
-                            "y": 0.69999998807907104
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 48,
-                        "group_item_backup": false,
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {}
-                    },
-                    {
-                        "name": "text_score_details",
-                        "source_uuid": "a41161c7-ade6-4b5d-b1bc-08e131ebbba1",
-                        "visible": true,
-                        "locked": false,
-                        "rot": 0.0,
-                        "pos": {
-                            "x": 26.0,
-                            "y": 580.0
-                        },
-                        "scale": {
-                            "x": 0.59249997138977051,
-                            "y": 0.59142857789993286
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 27,
-                        "group_item_backup": false,
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {}
-                    },
-                    {
-                        "name": "text_player3",
-                        "source_uuid": "15087b9c-101a-41c6-8b48-5ca3b1979700",
-                        "visible": false,
-                        "locked": true,
-                        "rot": 0.0,
-                        "pos": {
-                            "x": 99.270004272460938,
-                            "y": 463.0
-                        },
-                        "scale": {
-                            "x": 1.2899999618530273,
-                            "y": 1.2899999618530273
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 38,
-                        "group_item_backup": false,
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {}
-                    },
-                    {
-                        "name": "text_player2",
-                        "source_uuid": "a301926e-af08-4f07-9974-83cb3cbe4984",
-                        "visible": true,
-                        "locked": true,
-                        "rot": 0.0,
-                        "pos": {
-                            "x": 44.3800048828125,
-                            "y": 446.0
-                        },
-                        "scale": {
-                            "x": 1.2899999618530273,
-                            "y": 1.2899999618530273
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 39,
-                        "group_item_backup": false,
-                        "scale_filter": "disable",
-                        "blend_method": "default",
-                        "blend_type": "normal",
-                        "show_transition": {
-                            "duration": 0
-                        },
-                        "hide_transition": {
-                            "duration": 0
-                        },
-                        "private_settings": {}
-                    },
-                    {
-                        "name": "text_player1",
-                        "source_uuid": "b596e9b3-6f9b-490d-9355-b00f0da5c749",
-                        "visible": false,
-                        "locked": true,
-                        "rot": 0.0,
-                        "pos": {
-                            "x": 108.8800048828125,
-                            "y": 440.0
-                        },
-                        "scale": {
-                            "x": 1.2899999618530273,
-                            "y": 1.2899999618530273
-                        },
-                        "align": 5,
-                        "bounds_type": 0,
-                        "bounds_align": 0,
-                        "bounds_crop": false,
-                        "bounds": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "crop_left": 0,
-                        "crop_top": 0,
-                        "crop_right": 0,
-                        "crop_bottom": 0,
-                        "id": 30,
                         "group_item_backup": false,
                         "scale_filter": "disable",
                         "blend_method": "default",
@@ -1559,18 +805,369 @@
                         "private_settings": {}
                     },
                     {
+                        "name": "窗口采集",
+                        "source_uuid": "e4c8a3ff-f1f4-4fde-8992-f458eea9149b",
+                        "visible": true,
+                        "locked": false,
+                        "rot": 0.0,
+                        "pos": {
+                            "x": 219.0,
+                            "y": 0.0
+                        },
+                        "scale": {
+                            "x": 0.58298611640930176,
+                            "y": 0.58275461196899414
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 34,
+                        "group_item_backup": false,
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {}
+                    },
+                    {
+                        "name": "background",
+                        "source_uuid": "a3a21e3f-14ab-4877-9037-6985c46a74a2",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0.0,
+                        "pos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 12,
+                        "group_item_backup": false,
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {}
+                    },
+                    {
+                        "name": "icon_background.png",
+                        "source_uuid": "6e2c3819-56c9-4c7b-bfd8-da5403191f21",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0.0,
+                        "pos": {
+                            "x": 23.0,
+                            "y": 776.0
+                        },
+                        "scale": {
+                            "x": 0.95918369293212891,
+                            "y": 0.95854920148849487
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 59,
+                        "group_item_backup": false,
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {}
+                    },
+                    {
+                        "name": "icon_operator",
+                        "source_uuid": "0f828345-fb1d-4e9f-86e7-99e154040b18",
+                        "visible": false,
+                        "locked": false,
+                        "rot": 0.0,
+                        "pos": {
+                            "x": 27.0,
+                            "y": 778.0
+                        },
+                        "scale": {
+                            "x": 1.0055555105209351,
+                            "y": 1.0055555105209351
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 20,
+                        "group_item_backup": false,
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {}
+                    },
+                    {
+                        "name": "icon_player",
+                        "source_uuid": "413c7f88-3c4e-421a-a62d-a94c668d070b",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0.0,
+                        "pos": {
+                            "x": 20.0,
+                            "y": 74.0
+                        },
+                        "scale": {
+                            "x": 0.8883928656578064,
+                            "y": 0.8883928656578064
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 21,
+                        "group_item_backup": false,
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {}
+                    },
+                    {
+                        "name": "text_team",
+                        "source_uuid": "29089b03-f6b8-4877-90b7-4f328c3e79f4",
+                        "visible": false,
+                        "locked": false,
+                        "rot": 0.0,
+                        "pos": {
+                            "x": 70.5,
+                            "y": 672.0
+                        },
+                        "scale": {
+                            "x": 1.1015625,
+                            "y": 1.1000000238418579
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 57,
+                        "group_item_backup": false,
+                        "scale_filter": "bilinear",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {}
+                    },
+                    {
+                        "name": "icon_team",
+                        "source_uuid": "89d93166-fee7-4e1c-a23e-b8792e635f04",
+                        "visible": false,
+                        "locked": true,
+                        "rot": 0.0,
+                        "pos": {
+                            "x": 12.0,
+                            "y": 660.0
+                        },
+                        "scale": {
+                            "x": 0.30000001192092896,
+                            "y": 0.30000001192092896
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 26,
+                        "group_item_backup": false,
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {}
+                    },
+                    {
+                        "name": "text_score_sum",
+                        "source_uuid": "239465c2-2680-44b0-b5f3-b21064427beb",
+                        "visible": false,
+                        "locked": true,
+                        "rot": 0.0,
+                        "pos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "align": 5,
+                        "bounds_type": 1,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "bounds": {
+                            "x": 1920.0,
+                            "y": 1080.0
+                        },
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 48,
+                        "group_item_backup": false,
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {}
+                    },
+                    {
+                        "name": "text_score_details",
+                        "source_uuid": "a41161c7-ade6-4b5d-b1bc-08e131ebbba1",
+                        "visible": false,
+                        "locked": true,
+                        "rot": 0.0,
+                        "pos": {
+                            "x": 1661.0,
+                            "y": 487.0
+                        },
+                        "scale": {
+                            "x": 0.59249997138977051,
+                            "y": 0.59142857789993286
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 27,
+                        "group_item_backup": false,
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {}
+                    },
+                    {
                         "name": "text_day",
                         "source_uuid": "97920d5f-5a8c-48db-9ae0-58af87c6065e",
                         "visible": true,
                         "locked": true,
                         "rot": 0.0,
                         "pos": {
-                            "x": 161.0,
-                            "y": 118.51515197753906
+                            "x": 527.0,
+                            "y": 965.0
                         },
                         "scale": {
-                            "x": 0.78571426868438721,
-                            "y": 0.78787881135940552
+                            "x": 1.1666666269302368,
+                            "y": 1.1666666269302368
                         },
                         "align": 5,
                         "bounds_type": 0,
@@ -1598,14 +1195,53 @@
                         "private_settings": {}
                     },
                     {
+                        "name": "text_player",
+                        "source_uuid": "a301926e-af08-4f07-9974-83cb3cbe4984",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0.0,
+                        "pos": {
+                            "x": 18.0,
+                            "y": 280.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 39,
+                        "group_item_backup": false,
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {}
+                    },
+                    {
                         "name": "text_speaker",
                         "source_uuid": "834a9655-2f5c-47a2-8e05-9f0c5d8d8c4a",
                         "visible": true,
                         "locked": true,
                         "rot": 0.0,
                         "pos": {
-                            "x": 1312.0,
-                            "y": 973.0
+                            "x": 1428.0,
+                            "y": 983.0
                         },
                         "scale": {
                             "x": 1.0,
@@ -1635,6 +1271,123 @@
                             "duration": 0
                         },
                         "private_settings": {}
+                    },
+                    {
+                        "name": "text_player_team",
+                        "source_uuid": "4dbf8f71-7197-41c8-a3d3-d67cea770f82",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0.0,
+                        "pos": {
+                            "x": 121.0,
+                            "y": 441.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 55,
+                        "group_item_backup": false,
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {}
+                    },
+                    {
+                        "name": "text_select",
+                        "source_uuid": "efc56c7a-c7fe-44e2-b347-511e4963da37",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0.0,
+                        "pos": {
+                            "x": 121.0,
+                            "y": 558.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 56,
+                        "group_item_backup": false,
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {}
+                    },
+                    {
+                        "name": "text_cup",
+                        "source_uuid": "8ff5d96a-61bb-448f-b63d-5198254d20ad",
+                        "visible": true,
+                        "locked": true,
+                        "rot": 0.0,
+                        "pos": {
+                            "x": 156.0,
+                            "y": 324.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "align": 5,
+                        "bounds_type": 0,
+                        "bounds_align": 0,
+                        "bounds_crop": false,
+                        "bounds": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "crop_left": 0,
+                        "crop_top": 0,
+                        "crop_right": 0,
+                        "crop_bottom": 0,
+                        "id": 54,
+                        "group_item_backup": false,
+                        "scale_filter": "disable",
+                        "blend_method": "default",
+                        "blend_type": "normal",
+                        "show_transition": {
+                            "duration": 0
+                        },
+                        "hide_transition": {
+                            "duration": 0
+                        },
+                        "private_settings": {}
                     }
                 ]
             },
@@ -1653,44 +1406,38 @@
                 "OBSBasic.SelectScene": [],
                 "libobs.show_scene_item.25": [],
                 "libobs.hide_scene_item.25": [],
+                "libobs.show_scene_item.40": [],
+                "libobs.hide_scene_item.40": [],
                 "libobs.show_scene_item.34": [],
                 "libobs.hide_scene_item.34": [],
-                "libobs.show_scene_item.21": [],
-                "libobs.hide_scene_item.21": [],
-                "libobs.show_scene_item.20": [],
-                "libobs.hide_scene_item.20": [],
+                "libobs.show_scene_item.54": [],
+                "libobs.hide_scene_item.54": [],
+                "libobs.show_scene_item.55": [],
+                "libobs.hide_scene_item.55": [],
+                "libobs.show_scene_item.56": [],
+                "libobs.hide_scene_item.56": [],
+                "libobs.show_scene_item.29": [],
+                "libobs.hide_scene_item.29": [],
                 "libobs.show_scene_item.12": [],
                 "libobs.hide_scene_item.12": [],
+                "libobs.show_scene_item.20": [],
+                "libobs.hide_scene_item.20": [],
+                "libobs.show_scene_item.21": [],
+                "libobs.hide_scene_item.21": [],
+                "libobs.show_scene_item.57": [],
+                "libobs.hide_scene_item.57": [],
                 "libobs.show_scene_item.26": [],
                 "libobs.hide_scene_item.26": [],
+                "libobs.show_scene_item.48": [],
+                "libobs.hide_scene_item.48": [],
                 "libobs.show_scene_item.27": [],
                 "libobs.hide_scene_item.27": [],
                 "libobs.show_scene_item.28": [],
                 "libobs.hide_scene_item.28": [],
-                "libobs.show_scene_item.29": [],
-                "libobs.hide_scene_item.29": [],
-                "libobs.show_scene_item.38": [],
-                "libobs.hide_scene_item.38": [],
                 "libobs.show_scene_item.39": [],
                 "libobs.hide_scene_item.39": [],
-                "libobs.show_scene_item.30": [],
-                "libobs.hide_scene_item.30": [],
-                "libobs.show_scene_item.40": [],
-                "libobs.hide_scene_item.40": [],
-                "libobs.show_scene_item.41": [],
-                "libobs.hide_scene_item.41": [],
-                "libobs.show_scene_item.43": [],
-                "libobs.hide_scene_item.43": [],
-                "libobs.show_scene_item.46": [],
-                "libobs.hide_scene_item.46": [],
-                "libobs.show_scene_item.47": [],
-                "libobs.hide_scene_item.47": [],
-                "libobs.show_scene_item.48": [],
-                "libobs.hide_scene_item.48": [],
-                "libobs.show_scene_item.51": [],
-                "libobs.hide_scene_item.51": [],
-                "libobs.show_scene_item.52": [],
-                "libobs.hide_scene_item.52": []
+                "libobs.show_scene_item.59": [],
+                "libobs.hide_scene_item.59": []
             },
             "deinterlace_mode": 0,
             "deinterlace_field_order": 0,
@@ -1765,75 +1512,29 @@
         },
         {
             "prev_ver": 503447554,
-            "name": "text_day",
-            "uuid": "97920d5f-5a8c-48db-9ae0-58af87c6065e",
+            "name": "text_cup",
+            "uuid": "8ff5d96a-61bb-448f-b63d-5198254d20ad",
             "id": "text_gdiplus",
             "versioned_id": "text_gdiplus_v2",
             "settings": {
                 "chatlog": false,
                 "extents": false,
                 "outline": false,
-                "undo_suuid": "97920d5f-5a8c-48db-9ae0-58af87c6065e",
-                "font": {
-                    "face": "黑体",
-                    "style": "Regular",
-                    "size": 80,
-                    "flags": 0
-                },
-                "align": "center",
-                "valign": "center",
-                "outline_size": 4,
-                "outline_color": 4294943513,
-                "outline_opacity": 63,
-                "extents_wrap": false,
-                "extents_cx": 200,
-                "extents_cy": 140,
-                "antialiasing": true,
-                "opacity": 93,
-                "text": "- 1"
-            },
-            "mixers": 0,
-            "sync": 0,
-            "flags": 0,
-            "volume": 1.0,
-            "balance": 0.5,
-            "enabled": true,
-            "muted": false,
-            "push-to-mute": false,
-            "push-to-mute-delay": 0,
-            "push-to-talk": false,
-            "push-to-talk-delay": 0,
-            "hotkeys": {},
-            "deinterlace_mode": 0,
-            "deinterlace_field_order": 0,
-            "monitoring_type": 0,
-            "private_settings": {}
-        },
-        {
-            "prev_ver": 503447554,
-            "name": "text_player1",
-            "uuid": "b596e9b3-6f9b-490d-9355-b00f0da5c749",
-            "id": "text_gdiplus",
-            "versioned_id": "text_gdiplus_v2",
-            "settings": {
-                "chatlog": false,
-                "extents": false,
-                "outline": false,
+                "text": "",
                 "undo_suuid": "b596e9b3-6f9b-490d-9355-b00f0da5c749",
                 "vertical": false,
                 "font": {
-                    "face": "思源宋体 Heavy",
-                    "style": "Heavy",
-                    "size": 40,
-                    "flags": 1
+                    "face": "思源宋体 Medium",
+                    "style": "Medium",
+                    "size": 50,
+                    "flags": 0
                 },
                 "align": "center",
                 "valign": "center",
                 "extents_cx": 160,
                 "extents_cy": 60,
                 "transform": 0,
-                "antialiasing": false,
-                "text": "临时招募·迷迭香"
+                "antialiasing": true
             },
             "mixers": 0,
             "sync": 0,
@@ -1855,7 +1556,7 @@
                 {
                     "prev_ver": 503447554,
                     "name": "图像蒙版/混合",
-                    "uuid": "dbb0356d-e0fe-4b30-a08f-9e9618baca8c",
+                    "uuid": "f649dc2f-5f46-4983-ad79-3344e5c6351f",
                     "id": "mask_filter",
                     "versioned_id": "mask_filter_v2",
                     "settings": {
@@ -1886,7 +1587,53 @@
         },
         {
             "prev_ver": 503447554,
-            "name": "text_player2",
+            "name": "text_day",
+            "uuid": "97920d5f-5a8c-48db-9ae0-58af87c6065e",
+            "id": "text_gdiplus",
+            "versioned_id": "text_gdiplus_v2",
+            "settings": {
+                "chatlog": false,
+                "extents": false,
+                "outline": false,
+                "undo_suuid": "97920d5f-5a8c-48db-9ae0-58af87c6065e",
+                "font": {
+                    "face": "思源黑体 Medium",
+                    "style": "Medium",
+                    "size": 90,
+                    "flags": 0
+                },
+                "align": "center",
+                "valign": "center",
+                "opacity": 100,
+                "outline_size": 4,
+                "outline_color": 4294943513,
+                "outline_opacity": 63,
+                "extents_wrap": false,
+                "extents_cx": 200,
+                "extents_cy": 140,
+                "antialiasing": true,
+                "text": "-1"
+            },
+            "mixers": 0,
+            "sync": 0,
+            "flags": 0,
+            "volume": 1.0,
+            "balance": 0.5,
+            "enabled": true,
+            "muted": false,
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "hotkeys": {},
+            "deinterlace_mode": 0,
+            "deinterlace_field_order": 0,
+            "monitoring_type": 0,
+            "private_settings": {}
+        },
+        {
+            "prev_ver": 503447554,
+            "name": "text_player",
             "uuid": "a301926e-af08-4f07-9974-83cb3cbe4984",
             "id": "text_gdiplus",
             "versioned_id": "text_gdiplus_v2",
@@ -1894,12 +1641,13 @@
                 "chatlog": false,
                 "extents": false,
                 "outline": false,
+                "text": "临时招募·迷迭香",
                 "undo_suuid": "b596e9b3-6f9b-490d-9355-b00f0da5c749",
                 "vertical": false,
                 "font": {
                     "face": "思源宋体 Heavy",
                     "style": "Heavy",
-                    "size": 30,
+                    "size": 40,
                     "flags": 1
                 },
                 "align": "center",
@@ -1907,8 +1655,7 @@
                 "extents_cx": 160,
                 "extents_cy": 60,
                 "transform": 0,
-                "antialiasing": false,
-                "text": "临时招募·迷迭香"
+                "antialiasing": true
             },
             "mixers": 0,
             "sync": 0,
@@ -1961,21 +1708,21 @@
         },
         {
             "prev_ver": 503447554,
-            "name": "text_player3",
-            "uuid": "15087b9c-101a-41c6-8b48-5ca3b1979700",
+            "name": "text_player_team",
+            "uuid": "4dbf8f71-7197-41c8-a3d3-d67cea770f82",
             "id": "text_gdiplus",
             "versioned_id": "text_gdiplus_v2",
             "settings": {
                 "chatlog": false,
                 "extents": false,
                 "outline": false,
-                "text": "迷迭香",
+                "text": "",
                 "undo_suuid": "b596e9b3-6f9b-490d-9355-b00f0da5c749",
                 "vertical": false,
                 "font": {
                     "face": "思源宋体 Heavy",
                     "style": "Heavy",
-                    "size": 30,
+                    "size": 40,
                     "flags": 1
                 },
                 "align": "center",
@@ -1983,7 +1730,7 @@
                 "extents_cx": 160,
                 "extents_cy": 60,
                 "transform": 0,
-                "antialiasing": false
+                "antialiasing": true
             },
             "mixers": 0,
             "sync": 0,
@@ -2005,7 +1752,7 @@
                 {
                     "prev_ver": 503447554,
                     "name": "图像蒙版/混合",
-                    "uuid": "e0db760c-df6a-44b2-a7b1-07d2011eae33",
+                    "uuid": "3d9c922f-e8f3-478e-8e2d-671df6edc342",
                     "id": "mask_filter",
                     "versioned_id": "mask_filter_v2",
                     "settings": {
@@ -2044,24 +1791,24 @@
                 "chatlog": true,
                 "extents": true,
                 "outline": true,
+                "text": "基础分 0\n达成结局 圣城 +170\n达成结局 圣城 <年代> +220\n达成结局 圣城<混乱/年代> +250\n达成结局 圣城<混乱/无漏/年代> +300\n达成结局 朝谒<混乱> +140\n跨层紧急作战 3树洞藏品 +60\n鸭速公路 特殊击杀3只 +60\n鸭速公路 特殊击杀7只 +140\n大棋一盘 +20\n四层普通紧急 低部署 +15\n猩红甬道 特殊年代 +60\n猩红甬道 特殊年代/低部署 +75\n年代断层 特殊年代 +20\n大棋一盘 特殊年代 +40\n三层BOSS关 卫国前夜 +60\n三层BOSS关 +30\n临时招募 四星干员 +10\n临时招募 五星干员 +20\n禁用干员 最终乘算 x1.08\n抓取维什戴尔 独立乘算 x0.8\n禁用干员 最终乘算 x1.08\n禁用干员 最终乘算 x1.08\n禁用干员 最终乘算 x1.1511",
                 "font": {
                     "face": "思源宋体 Medium",
-                    "style": "Medium",
+                    "flags": 0,
                     "size": 43,
-                    "flags": 0
+                    "style": "Medium"
                 },
                 "align": "left",
                 "valign": "top",
+                "opacity": 89,
                 "outline_size": 4,
                 "outline_color": 4278190165,
                 "outline_opacity": 63,
+                "chatlog_lines": 16,
                 "extents_wrap": false,
                 "extents_cx": 400,
                 "extents_cy": 700,
-                "transform": 1,
-                "opacity": 89,
-                "chatlog_lines": 16,
-                "text": "基础分 0\n达成结局 圣城 +170\n达成结局 圣城 <年代> +220\n达成结局 圣城<混乱/年代> +250\n达成结局 圣城<混乱/无漏/年代> +300\n达成结局 朝谒<混乱> +140\n跨层紧急作战 3树洞藏品 +60\n鸭速公路 特殊击杀3只 +60\n鸭速公路 特殊击杀7只 +140\n大棋一盘 +20\n四层普通紧急 低部署 +15\n猩红甬道 特殊年代 +60\n猩红甬道 特殊年代/低部署 +75\n年代断层 特殊年代 +20\n大棋一盘 特殊年代 +40\n三层BOSS关 卫国前夜 +60\n三层BOSS关 +30\n临时招募 四星干员 +10\n临时招募 五星干员 +20\n禁用干员 最终乘算 x1.08\n抓取维什戴尔 独立乘算 x0.8\n禁用干员 最终乘算 x1.08\n禁用干员 最终乘算 x1.08\n禁用干员 最终乘算 x1.1511"
+                "transform": 1
             },
             "mixers": 0,
             "sync": 0,
@@ -2090,11 +1837,12 @@
                 "chatlog": false,
                 "extents": false,
                 "outline": true,
+                "text": "总分：1960.47",
                 "font": {
                     "face": "思源宋体 Medium",
-                    "style": "Medium",
+                    "flags": 0,
                     "size": 70,
-                    "flags": 0
+                    "style": "Medium"
                 },
                 "align": "center",
                 "valign": "center",
@@ -2105,8 +1853,7 @@
                 "extents_wrap": false,
                 "extents_cx": 200,
                 "extents_cy": 140,
-                "transform": 1,
-                "text": "总分：1960.47"
+                "transform": 1
             },
             "mixers": 0,
             "sync": 0,
@@ -2127,20 +1874,95 @@
         },
         {
             "prev_ver": 503447554,
+            "name": "text_select",
+            "uuid": "efc56c7a-c7fe-44e2-b347-511e4963da37",
+            "id": "text_gdiplus",
+            "versioned_id": "text_gdiplus_v2",
+            "settings": {
+                "chatlog": false,
+                "extents": false,
+                "outline": false,
+                "text": "",
+                "undo_suuid": "b596e9b3-6f9b-490d-9355-b00f0da5c749",
+                "vertical": false,
+                "font": {
+                    "face": "思源宋体 Heavy",
+                    "style": "Heavy",
+                    "size": 40,
+                    "flags": 1
+                },
+                "align": "center",
+                "valign": "center",
+                "extents_cx": 160,
+                "extents_cy": 60,
+                "transform": 0,
+                "antialiasing": true
+            },
+            "mixers": 0,
+            "sync": 0,
+            "flags": 0,
+            "volume": 1.0,
+            "balance": 0.5,
+            "enabled": true,
+            "muted": false,
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "hotkeys": {},
+            "deinterlace_mode": 0,
+            "deinterlace_field_order": 0,
+            "monitoring_type": 0,
+            "private_settings": {},
+            "filters": [
+                {
+                    "prev_ver": 503447554,
+                    "name": "图像蒙版/混合",
+                    "uuid": "a71c155c-529e-4e0e-9592-41d51e42299d",
+                    "id": "mask_filter",
+                    "versioned_id": "mask_filter_v2",
+                    "settings": {
+                        "image_path": "D:/WorkingSpace/WhatCUP/whatcup_terminal/resource/brush.png",
+                        "stretch": true,
+                        "type": "mask_alpha_filter.effect",
+                        "color": 4294967295,
+                        "opacity": 1
+                    },
+                    "mixers": 0,
+                    "sync": 0,
+                    "flags": 0,
+                    "volume": 1.0,
+                    "balance": 0.5,
+                    "enabled": true,
+                    "muted": false,
+                    "push-to-mute": false,
+                    "push-to-mute-delay": 0,
+                    "push-to-talk": false,
+                    "push-to-talk-delay": 0,
+                    "hotkeys": {},
+                    "deinterlace_mode": 0,
+                    "deinterlace_field_order": 0,
+                    "monitoring_type": 0,
+                    "private_settings": {}
+                }
+            ]
+        },
+        {
+            "prev_ver": 503447554,
             "name": "text_speaker",
             "uuid": "834a9655-2f5c-47a2-8e05-9f0c5d8d8c4a",
             "id": "text_gdiplus",
             "versioned_id": "text_gdiplus_v2",
             "settings": {
-                "text": "解说1      解说2      解说3",
                 "undo_suuid": "834a9655-2f5c-47a2-8e05-9f0c5d8d8c4a",
                 "font": {
                     "face": "思源宋体 Heavy",
                     "style": "Heavy",
-                    "size": 60,
+                    "size": 70,
                     "flags": 1
                 },
-                "antialiasing": false
+                "antialiasing": false,
+                "text": ""
             },
             "mixers": 0,
             "sync": 0,
@@ -2163,6 +1985,81 @@
                     "prev_ver": 503447554,
                     "name": "图像蒙版/混合",
                     "uuid": "8c8ecd96-bfc8-43c4-b0fe-7bb1d245b929",
+                    "id": "mask_filter",
+                    "versioned_id": "mask_filter_v2",
+                    "settings": {
+                        "image_path": "D:/WorkingSpace/WhatCUP/whatcup_terminal/resource/brush.png",
+                        "stretch": true,
+                        "type": "mask_alpha_filter.effect",
+                        "color": 4294967295,
+                        "opacity": 1
+                    },
+                    "mixers": 0,
+                    "sync": 0,
+                    "flags": 0,
+                    "volume": 1.0,
+                    "balance": 0.5,
+                    "enabled": true,
+                    "muted": false,
+                    "push-to-mute": false,
+                    "push-to-mute-delay": 0,
+                    "push-to-talk": false,
+                    "push-to-talk-delay": 0,
+                    "hotkeys": {},
+                    "deinterlace_mode": 0,
+                    "deinterlace_field_order": 0,
+                    "monitoring_type": 0,
+                    "private_settings": {}
+                }
+            ]
+        },
+        {
+            "prev_ver": 503447554,
+            "name": "text_team",
+            "uuid": "29089b03-f6b8-4877-90b7-4f328c3e79f4",
+            "id": "text_gdiplus",
+            "versioned_id": "text_gdiplus_v2",
+            "settings": {
+                "chatlog": false,
+                "extents": false,
+                "outline": false,
+                "text": "博闻广记分队",
+                "undo_suuid": "b596e9b3-6f9b-490d-9355-b00f0da5c749",
+                "vertical": false,
+                "font": {
+                    "face": "思源宋体 Heavy",
+                    "style": "Heavy",
+                    "size": 30,
+                    "flags": 1
+                },
+                "align": "center",
+                "valign": "center",
+                "extents_cx": 160,
+                "extents_cy": 60,
+                "transform": 0,
+                "antialiasing": false
+            },
+            "mixers": 0,
+            "sync": 0,
+            "flags": 0,
+            "volume": 1.0,
+            "balance": 0.5,
+            "enabled": true,
+            "muted": false,
+            "push-to-mute": false,
+            "push-to-mute-delay": 0,
+            "push-to-talk": false,
+            "push-to-talk-delay": 0,
+            "hotkeys": {},
+            "deinterlace_mode": 0,
+            "deinterlace_field_order": 0,
+            "monitoring_type": 0,
+            "private_settings": {},
+            "filters": [
+                {
+                    "prev_ver": 503447554,
+                    "name": "图像蒙版/混合",
+                    "uuid": "2c218f5d-70e7-4f68-b48e-547ff0ca12d0",
                     "id": "mask_filter",
                     "versioned_id": "mask_filter_v2",
                     "settings": {

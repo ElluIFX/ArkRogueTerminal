@@ -1,8 +1,9 @@
+import datetime
 import os
 import time
 from queue import Empty as QueueEmptyError
 from queue import Queue
-from typing import List, Literal
+from typing import List
 
 import obsws_python as obs
 from loguru import logger
@@ -37,7 +38,10 @@ class ReqClientEx(obs.ReqClient):
                     self.get_sources(scene_name),
                     time.time(),
                 )
-            return self.__find_source_cache[scene_name][0][item_name]
+            try:
+                return self.__find_source_cache[scene_name][0][item_name]
+            except KeyError:
+                return self.find_source(scene_name, item_name, cache=False)
         else:
             return self.get_sources(scene_name)[item_name]
 
@@ -58,88 +62,62 @@ class ReqClientEx(obs.ReqClient):
             "text_score_sum", {"text": f"总分：{total:>6.2f}"}, True
         )
 
+    def align_text(
+        self, source_name: str, text: str, mid_x: int, y: int, enable: bool = True
+    ):
+        self.set_source_enabled("main", source_name, False)
+        self.set_input_settings(source_name, {"text": text}, True)
+        time.sleep(0.15)
+        width = self.find_source("main", source_name, cache=False)[
+            "sceneItemTransform"
+        ]["width"]
+        x = mid_x - width / 2
+        self.set_scene_item_transform(
+            "main",
+            self.find_source("main", source_name)["sceneItemId"],
+            {"positionX": x, "positionY": y},
+        )
+        if enable:
+            self.set_source_enabled("main", source_name, True)
+
     def set_player(self, name: str, avatar_path: str):
-        MID_X = 145  # 文字的对齐中心X
-        X_MIN = 35  # 文字的左换行边界
-        Y1 = 440  # 第一行文字的Y
-        Y2 = 433  # 第二行文字的Y
-        Y3 = 463  # 第三行文字的Y
-        Y2_ONLY = 446  # 只有第二行文字的Y
-
         self.set_input_settings("icon_player", {"file": avatar_path}, True)
-        self.set_source_enabled("main", "text_player1", False)
-        self.set_source_enabled("main", "text_player2", False)
-        self.set_source_enabled("main", "text_player3", False)
-        self.set_input_settings("text_player1", {"text": name}, True)
-        time.sleep(0.15)
-        width = self.find_source("main", "text_player1", cache=False)[
-            "sceneItemTransform"
-        ]["width"]
-        x = MID_X - width / 2
-        if x >= X_MIN:
-            self.set_scene_item_transform(
-                "main",
-                self.find_source("main", "text_player1")["sceneItemId"],
-                {"positionX": x, "positionY": Y1},
-            )
-            self.set_source_enabled("main", "text_player1", True)
-            return
-        self.set_input_settings("text_player2", {"text": name}, True)
-        time.sleep(0.15)
-        width = self.find_source("main", "text_player2", cache=False)[
-            "sceneItemTransform"
-        ]["width"]
-        x = MID_X - width / 2
-        if x >= X_MIN:
-            self.set_scene_item_transform(
-                "main",
-                self.find_source("main", "text_player2")["sceneItemId"],
-                {"positionX": x, "positionY": Y2_ONLY},
-            )
-            self.set_source_enabled("main", "text_player2", True)
-            return
-        text1 = name[: len(name) // 2 + 1]
-        text2 = name[len(name) // 2 + 1 :]
-        self.set_input_settings("text_player2", {"text": text1}, True)
-        self.set_input_settings("text_player3", {"text": text2}, True)
-        time.sleep(0.15)
-        width1 = self.find_source("main", "text_player2", cache=False)[
-            "sceneItemTransform"
-        ]["width"]
-        width2 = self.find_source("main", "text_player3", cache=False)[
-            "sceneItemTransform"
-        ]["width"]
-        self.set_scene_item_transform(
-            "main",
-            self.find_source("main", "text_player2")["sceneItemId"],
-            {"positionX": MID_X - width1 / 2, "positionY": Y2},
-        )
-        self.set_scene_item_transform(
-            "main",
-            self.find_source("main", "text_player3")["sceneItemId"],
-            {"positionX": MID_X - width2 / 2, "positionY": Y3},
-        )
-        self.set_source_enabled("main", "text_player2", True)
-        self.set_source_enabled("main", "text_player3", True)
+        self.align_text("text_player", name, 121, 280)
+        return
 
-    def set_start(
+    def set_metadata(
         self,
         team_path: str,
-        operator_path1: str,
-        operator_path2: str,
-        operator_path3: str,
+        operator_path: str,
+        cup: str,
+        team: str,
+        select: str,
+        speaker: str,
     ):
         if team_path:
             self.set_input_settings("icon_team", {"file": team_path}, True)
+            self.align_text(
+                "text_team", os.path.basename(team_path).split(".")[0], 141, 672, False
+            )
             self.set_source_enabled("main", "icon_team", True)
+            self.set_source_enabled("main", "text_team", True)
         else:
             self.set_source_enabled("main", "icon_team", False)
-        for i, path in enumerate([operator_path1, operator_path2, operator_path3]):
-            if path:
-                self.set_input_settings(f"icon_operator{i + 1}", {"file": path}, True)
-                self.set_source_enabled("main", f"icon_operator{i + 1}", True)
-            else:
-                self.set_source_enabled("main", f"icon_operator{i + 1}", False)
+            self.set_source_enabled("main", "text_team", False)
+        if operator_path:
+            self.set_input_settings("icon_operator", {"file": operator_path}, True)
+            self.set_source_enabled("main", "icon_operator", True)
+        else:
+            self.set_source_enabled("main", "icon_operator", False)
+        today = datetime.datetime.now()
+        offset = (today - datetime.datetime(2025, 2, 3)).days
+        self.set_input_settings("text_day", {"text": f"{offset}"}, True)
+        self.align_text("text_cup", cup, 157, 324)
+        self.align_text("text_player_team", team, 122, 441)
+        self.align_text("text_select", select, 122, 558)
+        speaker = speaker.replace("，", ",")
+        speakers = [x.strip() for x in speaker.split(",")]
+        self.align_text("text_speaker", "  ".join(speakers), 1429, 983)
 
 
 class Worker(QObject):
@@ -181,6 +159,10 @@ class Worker(QObject):
 
 
 class ReqClientExQThread(QThread):
+    """
+    异步代理 (将操作发送到子线程队列执行)
+    """
+
     def __init__(self, host: str, port: int, password: str, timeout: float):
         self.inited = False
         super().__init__()
@@ -209,7 +191,10 @@ class ReqClientExQThread(QThread):
         self.worker.clear()
 
     @property
-    def fake(self) -> ReqClientEx:
+    def a(self) -> ReqClientEx:
+        """
+        提供类型提示
+        """
         return self
 
     def set_pause(self, pause: bool):
